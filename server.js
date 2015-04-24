@@ -6,13 +6,12 @@ var http = require('http');
 var bodyParser = require('body-parser'); // pull information from HTML POST 
 var methodOverride = require('method-override');// simulate DELETE and PUT
 var CronJob = require('cron').CronJob;
-var routes = require("./config/routes.js");
 var port = process.env.PORT || 8080;
 
 app.week = "UNKNOWN";
 
-require("./config/api.js")(express, http, port);
-require("./config/routes.js")(express);
+var route = require("./config/api.js");
+app.use("/", route);
 
 function setupWeek() {
     var schedulePageOptions = {
