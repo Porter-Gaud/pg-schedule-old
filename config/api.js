@@ -366,13 +366,13 @@ var express = require("express"),
         "/api/timeUntil": "The time until next class, based on the server time, which (should be) the same time as school",
         "/api/currentDay": "Gives the current day from 0-9 where day A1 is 0, A2 is 1..."
     },
-    router = express.Router();
+    router = express.Router(),
+    currentWeek = require("./currentWeek.js");
 
 router.get("/", function (req, res) {
     res.sendFile("index.html", {
         "root": __dirname + "./../views/"
     });
-    next();
 });
 
 router.get("/api/", function (req, res) {
@@ -437,7 +437,7 @@ router.get("/api/currentDay/", function (req, res) {
     }
 
     var index = date.getDay() - 1;
-    if (app.week === "B")
+    if (currentWeek() === "B")
         index += 5;
 
 
