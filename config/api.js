@@ -382,30 +382,17 @@ router.get("/api/schedule/", function (req, res) {
     res.json(API);
 });
 
-
 router.get("/api/timeUntil/", function (req, res) {
-    var today;
-    var todayReq = http.request({
-        host: "localhost",
-        port: 8080,
-        path: "/api/currentDay"
-    }, function (res) {
-        var td = "";
-        res.on("data", function (chunk) {
-            td = chunk;
-        });
-        res.on("end", function () {
-            today = td;
-        });
-    });
-    todayReq.end();
+    var today = "TESTING";
+    today = JSON.stringify(getCurrentDay());
+    console.log("This way -->" + today + "<-- to victory");
     if (today === "") {
         res.json("");
         return;
     }
     var now = new Date();
 
-    console.log(today);
+
     for (var key in today.day) {
         var startTime = key["start-time"];
         var endTime = key["end-time"];
@@ -430,6 +417,13 @@ router.get("/api/timeUntil/", function (req, res) {
 });
 
 router.get("/api/currentDay/", function (req, res) {
+    
+
+
+    res.json(getCurrentDay());
+});
+
+function getCurrentDay(){
     var date = new Date();
 
     if (date.getDay() == 0 || date.getDay() == 6) {
@@ -439,9 +433,7 @@ router.get("/api/currentDay/", function (req, res) {
     var index = date.getDay() - 1;
     if (currentWeek() === "B")
         index += 5;
-
-
-    res.json(API["days"][index]);
-});
+    return API["days"][index];
+}
 
 module.exports = router;

@@ -5,8 +5,6 @@ var bodyParser = require('body-parser'); // pull information from HTML POST
 var methodOverride = require('method-override');// simulate DELETE and PUT
 var port = process.env.PORT || 8080;
 
-app.week = "UNKNOWN";
-
 var route = require("./config/api.js");
 app.use("/", route);
 
