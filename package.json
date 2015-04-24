@@ -1,0 +1,22 @@
+{
+  "name": "PGSchedule",
+  "version": "0.0.1",
+  "description": "A schedule app for Porter-Gaud",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/t94j0/PGProgrammingCompetition"
+  },
+  "author": "Tillson Galloway, Max Harley",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.11.2",
+    "morgan"     : "~1.2.2",
+    "body-parser": "~1.5.2",
+    "method-override": "~2.1.2",
+    "cron": "~1.0.9"
+  },
+  "engines":{
+    "node":"0.10.x"
+  }
+}
