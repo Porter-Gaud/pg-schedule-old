@@ -1,8 +1,9 @@
 var pgSchedule = angular.module("pgSchedule", []);
 
-pgSchedule.controller("mainController", function($scope, $http){
+pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval", function($scope, $http, $log, $interval){
 	$scope.timeUntil = "";
 	$scope.currentDay = "";
+	$scope.counter = 0;
 	$scope.isDay = true;
 
 
@@ -21,10 +22,12 @@ pgSchedule.controller("mainController", function($scope, $http){
 			}
 		});
 	}
+
 	$scope.getTimeUntil = function(){
+		$scope.counter += 1;
 		$http.get("/api/timeUntil")
 		.success(function(data){
-			console.log(data);
+			$log.info(data);
 			if(data===-1){
 				$scope.timeUntil = "No school right now. Too bad.";
 			} else {
@@ -33,18 +36,14 @@ pgSchedule.controller("mainController", function($scope, $http){
 		});
 
 	}
+
 	$scope.getCurrentDay = function(){
 		$http.get("/api/currentDay/")
 		.success(function(data){
 			$scope.currentDay = data;
-			console.log(data);
+			$log.info(data);
 		});
 	}
-	//Looks to see if there is school day every hour
-	setInterval($scope.getIsDay(), 3600000);
-	//If there is a school day, get the API stuff
-	if($scope.isDay){
-		setInterval($scope.getCurrentDay(), 20000);
-		setInterval($scope.getTimeUntil(), 20000);
-	}
-});
+	$interval($scope.getCurrentDay, 3600000);
+	$interval($scope.getTimeUntil, 1000);
+}]);
