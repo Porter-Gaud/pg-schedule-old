@@ -6,21 +6,15 @@ pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval",
 	$scope.counter = 0;
 	$scope.isDay = true;
 
-
 	$scope.getIsDay = function(){
-		//Sets isDay to false if any one of the API's comes up null
-		$http.get("/api/timeUntil")
-		.success(function(data){
-			if(data===""){
-				$scope.isDay = false;
-			}
-		});
 		$http.get("/api/currentDay")
 		.success(function(data){
 			if(data===""){
-				$scope.isDay=false;
+				$scope.isDay = false;
+			} else {
+				$scope.isDay = true;
 			}
-		});
+		});			
 	}
 
 	$scope.getTimeUntil = function(){
@@ -44,6 +38,9 @@ pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval",
 			$log.info(data);
 		});
 	}
-	$interval($scope.getCurrentDay, 3600000);
-	$interval($scope.getTimeUntil, 1000);
+	$interval($scope.getIsDay, 1000);
+	if($scope.isDay){
+		$interval($scope.getCurrentDay, 3600000);
+		$interval($scope.getTimeUntil, 1000);
+	}
 }]);
