@@ -1,5 +1,5 @@
 var http = require("http");
-module.exports = function() {
+module.exports.currentWeek = function() {
 	var week = "";
     var schedulePageOptions = {
       host: "www.portergaud.edu",
@@ -28,3 +28,23 @@ module.exports = function() {
   return week;
 }
 
+module.exports.getFutureWeek = function(month, date, year){
+	var futureDate = new Date(),
+	data = "";
+	var options = {
+		host:"http://www.portergaud.edu",
+		port:80,
+		path:"/page.cfm?p=1346&start="+month+"/"+date+"/"+year+"&period=week",
+		method:"GET"
+	};
+    var request = http.request(options, function(response){
+    	response.on("end", function(d){
+    		data+=d;
+    	});
+    	response.on("end", function(){
+    		//Logic here
+    	});
+    });
+    request.end();
+    return somethingIDontKnowWhatYet;
+}
