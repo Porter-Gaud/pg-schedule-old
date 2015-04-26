@@ -1,11 +1,10 @@
-var express = require('express');
-var app = express();
+var express = require('express'),
+bodyParser = require('body-parser'),
+methodOverride = require('method-override'),
+port = process.env.PORT || 8080,
+route = require("./config/api.js"),
+app = express();
 
-var bodyParser = require('body-parser'); // pull information from HTML POST 
-var methodOverride = require('method-override');// simulate DELETE and PUT
-var port = process.env.PORT || 8080;
-
-var route = require("./config/api.js");
 app.use("/", route);
 
 app.use(express.static(__dirname + '/views'));
