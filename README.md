@@ -3,12 +3,13 @@ Also on http://pg-schedule.herokuapp.com/
 
 
 ###Looking to the future
-* Getting a specific date
+* Getting a specific date (in progress)
 
 ###Current Problems
 1. ~~The app.week doesn't go across to the routing file (api.js)~~
 2. ~~Bad JSON parsing makes the timeUntil stop working.~~
 3. ~~Angular.js not getting all classes from the currentDay http GET.~~
+4. Http request is asynch so it's not working atm. I'll get a move on though
 
 ###Fixes
 1. This is a little less efficent, but I made a function that will get the current week whenever it is called instead of having a CronJob do it.
