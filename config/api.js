@@ -20,8 +20,9 @@ router.get("/api/schedule/", function (req, res) {
 });
 
 router.get("/api/timeUntil/", function (req, res) {
-    var today = "TESTING";
-    today = JSON.stringify(getCurrentDay());
+    var today = "TESTING",
+    todayDate = new Date();
+    today = JSON.stringify(getDateObject(todayDate, getWeeks.currentWeek()));
     console.log("This way -->" + today + "<-- to victory");
     if (today === "") {
         res.json("");
@@ -53,22 +54,23 @@ router.get("/api/timeUntil/", function (req, res) {
 });
 
 router.get("/api/currentDay/", function (req, res) {
-    res.json(getCurrentDay());
+    var today = new Date();
+    res.json(getDayObject(today, getWeeks.currentWeek()));
 });
 
 router.get("/api/getFutureDate/:month/:date", function(req, res){
-    res.json(getWeeks.getFutureWeek(req.params.month, req.params.date, year));
+    var dateArr = getWeeks.getFutureWeek(req.params.month, req.params.date, year);
+    res.json(getDayObject(dateArr[0], dateArr[1]));
 });
 
-function getCurrentDay(){
-    var date = new Date();
-
+//This needs to be a seperate function because two of the routes get it.
+function getDayObject(date, week){
     if (date.getDay() == 0 || date.getDay() == 6) {
         return "";
     }
 
     var index = date.getDay() - 1;
-    if (getWeeks.currentWeek() === "B")
+    if (week === "B")
         index += 5;
     return API["days"][index];
 }

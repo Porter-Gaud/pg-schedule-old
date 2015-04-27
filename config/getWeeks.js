@@ -29,8 +29,9 @@ module.exports.currentWeek = function() {
 }
 
 module.exports.getFutureWeek = function(month, date, year){
-	var futureDate = new Date(),
-	data = "";
+	var futureDate = new Date(year, month-1, date),
+	data = "",
+	week = "";
 	var options = {
 		host:"http://www.portergaud.edu",
 		port:80,
@@ -42,9 +43,16 @@ module.exports.getFutureWeek = function(month, date, year){
     		data+=d;
     	});
     	response.on("end", function(){
-    		//Logic here
+    		if(data.indexOf("A Week" > -1)){
+    			week = "A";
+    		} else if(data.indexOf("B Week" > -1)){
+    			week = "B";
+    		} else {
+    			week = "WEEKEND";
+    		}
     	});
     });
     request.end();
-    return somethingIDontKnowWhatYet;
+    console.log(data);
+    return [futureDate, week];
 }
