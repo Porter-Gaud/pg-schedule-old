@@ -22,7 +22,7 @@ router.get("/api/schedule/", function (req, res) {
 router.get("/api/timeUntil/", function (req, res) {
     var today = "TESTING",
     todayDate = new Date();
-    today = JSON.stringify(getDateObject(todayDate, getWeeks.currentWeek()));
+    today = JSON.stringify(getDayObject(todayDate, getWeeks.currentWeek()));
     console.log("This way -->" + today + "<-- to victory");
     if (today === "") {
         res.json("");
@@ -59,12 +59,14 @@ router.get("/api/currentDay/", function (req, res) {
 });
 
 router.get("/api/getFutureDate/:month/:date", function(req, res){
-    var dateArr = getWeeks.getFutureWeek(req.params.month, req.params.date, year);
-    res.json(getDayObject(dateArr[0], dateArr[1]));
+    var theWeek = getWeeks.getFutureWeek(),
+    theDay = new Date(year, req.params.month, req.params.date);
+    res.json(getDayObject(theDay, theWeek));
 });
 
 //This needs to be a seperate function because two of the routes get it.
 function getDayObject(date, week){
+    console.log(date + " " + week);
     if (date.getDay() == 0 || date.getDay() == 6) {
         return "";
     }

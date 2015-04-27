@@ -24,15 +24,14 @@ module.exports.currentWeek = function() {
 	    })
   });
   req.end();
-
   return week;
 }
 
 module.exports.getFutureWeek = function(month, date, year){
-	var futureDate = new Date(year, month-1, date),
-	week = "";
-  var data = "";
+	var week = "";
+  
   var request = http.get("http://www.portergaud.edu/page.cfm?p=1346&start="+month+"/"+date+"/"+year+"&period=week", function(response){
+    var data = "";
   	response.on("end", function(d){
   		data+=d;
   	});
@@ -46,6 +45,5 @@ module.exports.getFutureWeek = function(month, date, year){
   		}
   	});
   });
-  console.log("-->"+week+"<--");
-  return [futureDate, week];
+  return week;
 }
