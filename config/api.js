@@ -20,22 +20,25 @@ router.get("/api/schedule/", function (req, res) {
 });
 
 router.get("/api/timeUntil/", function (req, res) {
-    var today = "TESTING",
-    todayDate = new Date();
-    today = JSON.stringify(getDayObject(todayDate, getWeeks.currentWeek()));
-    console.log("This way -->" + today + "<-- to victory");
+    var todayDate = new Date();
+    // var today = JSON.parse(getDayObject(todayDate, getWeeks.currentWeek()));
+    var today = getDayObject(todayDate, getWeeks.currentWeek());
+    // console.log(getDayObject(todayDate, getWeeks.currentWeek()));
     if (today === "") {
         res.json("");
         return;
     }
     var now = new Date();
-
+// console.log(today.day);
     for (var key in today.day) {
-        var startTime = key["start-time"];
-        var endTime = key["end-time"];
+        console.log(key);
+        var day = today.day[key];
 
+        var startTime = day["start-time"];
+        var endTime = day["end-time"];
+        // console.log(startTime + "  |  " + endTime);
         var startDate = new Date();
-        console.log(startTime);
+        // console.log(startTime);
         startDate.setHours(startTime.split(":")[0]);
         startDate.setMinutes(startTime.split(":")[1]);
         startDate.setSeconds(0);
@@ -44,7 +47,6 @@ router.get("/api/timeUntil/", function (req, res) {
         endDate.setHours(endTime.split(":")[0]);
         endDate.setMinutes(endTime.split(":")[1]);
         endDate.setSeconds(0);
-
         if ((now <= endDate && now >= startDate)) {
             res.json(Math.floor((((endDate.getTime() - now.getTime())) % 86400000) % 3600000 / 60000));
             return;
@@ -66,7 +68,7 @@ router.get("/api/getFutureDate/:month/:date", function(req, res){
 
 //This needs to be a seperate function because two of the routes get it.
 function getDayObject(date, week){
-    console.log(date + " " + week);
+    // console.log(date + " " + week);
     if (date.getDay() == 0 || date.getDay() == 6) {
         return "";
     }
