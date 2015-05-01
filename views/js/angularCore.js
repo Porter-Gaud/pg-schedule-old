@@ -3,7 +3,6 @@ var pgSchedule = angular.module("pgSchedule", []);
 pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval", function($scope, $http, $log, $interval){
 	$scope.timeUntil = "";
 	$scope.currentDay = "";
-	$scope.counter = 0;
 	$scope.isDay = true;
 
 	$scope.getIsDay = function(){
@@ -18,7 +17,6 @@ pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval",
 	}
 
 	$scope.getTimeUntil = function(){
-		$scope.counter += 1;
 		$http.get("/api/timeUntil")
 		.success(function(data){
 			$log.info(data);

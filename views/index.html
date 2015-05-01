@@ -11,8 +11,8 @@
 	<div class="jumbotron">
 		<h1>Porter-Gaud Schedule Web App</h1>
 	</div>
-	<h3 ng-if="isDay">{{timeUntil}}</h3>
-	<h2 ng-if="!isDay">It is not a schoolday today.</h2>
+	<h3 ng-if="isDay">{{timeUntil + " minutes 'till class"}}</h3>
+	<h2 ng-if="!isDay">No classes right now.</h2>
 	<table class="table table-striped table-bordered" ng-if="isDay">
 		<tr>
 			<td class="danger">Class Name</td>
@@ -21,12 +21,11 @@
 		</tr>
 		<tr ng-repeat="class in currentDay.day">
 			<td>The Class Name</td>
-			<td>{{class.name}}</td>
-			<td>{{class.start-time}}-{{class.end-time}}</td>
+			<td>{{class["name"]}}</td>
+			<td>{{class["start-time"]}}-{{class["end-time"]}}</td>
 		</tr>
 	</table>
 </div>
-{{currentDay.day[0]}}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
