@@ -31,7 +31,6 @@ router.get("/api/timeUntil/", function (req, res) {
     var now = new Date();
 // console.log(today.day);
     for (var key in today.day) {
-        console.log(key);
         var day = today.day[key];
 
         var startTime = day["start-time"];

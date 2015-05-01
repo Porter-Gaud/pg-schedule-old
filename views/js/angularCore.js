@@ -28,7 +28,6 @@ pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval",
 				$scope.timeUntil = data;
 			}
 		});
-
 	}
 
 	$scope.getCurrentDay = function(){
@@ -39,6 +38,7 @@ pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval",
 		});
 	}
 	$interval($scope.getIsDay, 1000);
+  $scope.getCurrentDay(); 
 	if($scope.isDay){
 		$interval($scope.getCurrentDay, 3600000);
 		$interval($scope.getTimeUntil, 1000);
