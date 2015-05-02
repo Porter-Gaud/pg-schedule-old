@@ -1,6 +1,6 @@
 {
   "name": "PGSchedule",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "A schedule app for Porter-Gaud",
   "main": "server.js",
   "repository": {
@@ -13,7 +13,6 @@
     "express": "^4.11.2",
     "body-parser": "~1.5.2",
     "method-override": "~2.1.2",
-    "cron": "~1.0.9"
   },
   "engines":{
     "node":"0.10.x"
