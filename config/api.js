@@ -29,15 +29,12 @@ router.get("/api/timeUntil/", function (req, res) {
         return;
     }
     var now = new Date();
-// console.log(today.day);
     for (var key in today.day) {
         var day = today.day[key];
 
         var startTime = day["start-time"];
         var endTime = day["end-time"];
-        // console.log(startTime + "  |  " + endTime);
         var startDate = new Date();
-        // console.log(startTime);
         startDate.setHours(startTime.split(":")[0]);
         startDate.setMinutes(startTime.split(":")[1]);
         startDate.setSeconds(0);
@@ -56,24 +53,20 @@ router.get("/api/timeUntil/", function (req, res) {
 
 router.get("/api/currentBlock/", function (req, res) {
     var todayDate = new Date();
-    // var today = JSON.parse(getDayObject(todayDate, getWeeks.currentWeek()));
     var today = getDayObject(todayDate, getWeeks.currentWeek());
-    // console.log(getDayObject(todayDate, getWeeks.currentWeek()));
     if (today === "") {
         res.json("");
         return;
     }
     var now = new Date();
-// console.log(today.day);
     for (var key in today.day) {
         console.log(key);
         var day = today.day[key];
 
         var startTime = day["start-time"];
         var endTime = day["end-time"];
-        // console.log(startTime + "  |  " + endTime);
+
         var startDate = new Date();
-        // console.log(startTime);
         startDate.setHours(startTime.split(":")[0]);
         startDate.setMinutes(startTime.split(":")[1]);
         startDate.setSeconds(0);
