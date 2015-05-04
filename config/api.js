@@ -60,7 +60,7 @@ router.get("/api/currentBlock/", function (req, res) {
     }
     var now = new Date();
     for (var key in today.day) {
-        console.log(key);
+        console.log(key.rainbow);
         var day = today.day[key];
 
         var startTime = day["start-time"];

@@ -3,6 +3,7 @@ bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
 port = process.env.PORT || 8080,
 route = require("./config/api.js"),
+colors = require("colors");
 app = express();
 
 app.use("/", route);
@@ -18,5 +19,5 @@ app.use(bodyParser.json({
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.listen(port, function(){
-	console.log("Listening on port " +  port);
+	console.log(colors.rainbow("Listening on port " +  port));
 });
