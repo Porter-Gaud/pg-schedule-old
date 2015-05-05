@@ -15,12 +15,10 @@
 	<h2 ng-if="!isDay">No classes right now.</h2>
 	<table class="table table-striped table-bordered" ng-if="isDay">
 		<tr>
-			<td class="danger">Class Name</td>
 			<td class="danger">Period</td>
 			<td class="danger">Time</td>
 		</tr>
 		<tr ng-repeat="class in currentDay.day">
-			<td>The Class Name</td>
 			<td>{{class["name"]}}</td>
 			<td>{{ beautifyTime(class["start-time"]) }}-{{beautifyTime(class["end-time"])}}</td>
 		</tr>

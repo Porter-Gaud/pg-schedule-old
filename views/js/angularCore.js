@@ -21,7 +21,7 @@ pgSchedule.controller("mainController", ["$scope", "$http", "$log", "$interval",
 		$http.get("/api/timeUntil")
 		.success(function(data){
 			if(data===-1){
-				$scope.timeUntil = "No school right now. Too bad.";
+				$scope.timeUntil = " ";
 			} else {
 				$scope.timeUntil = data;
 			}
