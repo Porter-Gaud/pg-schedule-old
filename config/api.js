@@ -10,6 +10,7 @@ router.get("/", function (req, res) {
     res.sendFile("index.html", {
         "root": __dirname + "./../views/"
     });
+    console.log("New Visitor".rainbow);
 });
 
 router.get("/api/", function (req, res) {
@@ -21,9 +22,7 @@ router.get("/api/schedule/", function (req, res) {
 
 router.get("/api/timeUntil/", function (req, res) {
     var todayDate = new Date();
-    // var today = JSON.parse(getDayObject(todayDate, getWeeks.currentWeek()));
     var today = getDayObject(todayDate, getWeeks.currentWeek());
-    // console.log(getDayObject(todayDate, getWeeks.currentWeek()));
     if (today === "") {
         res.json("");
         return;
@@ -60,7 +59,6 @@ router.get("/api/currentBlock/", function (req, res) {
     }
     var now = new Date();
     for (var key in today.day) {
-        console.log(key.rainbow);
         var day = today.day[key];
 
         var startTime = day["start-time"];
