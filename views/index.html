@@ -11,7 +11,7 @@
 	<div class="jumbotron">
 		<h1>Porter-Gaud Schedule Web App</h1>
 	</div>
-	<h3 ng-if="isDay">{{timeUntil+1 + " minutes 'till period " + currentBlock + " ends"}}</h3>
+	<h3 ng-if="isDay">{{dateString}}</h3>
 	<h2 ng-if="!isDay">No classes right now.</h2>
 	<table class="table table-striped table-bordered" ng-if="isDay">
 		<tr>
