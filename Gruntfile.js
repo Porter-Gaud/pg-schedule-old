@@ -4,16 +4,17 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
       allFiles: [
-        'server.js', 'config/*.js'
+        'server.js', 'config/*.js', 'views/*.js'
       ],
       options: {
         // *cricket*
       }
     },
     jscs: {
-      src: '*.js',
+      main: ['*.js', 'views/js/*.js', 'config/*.js'],
       options: {
         config: '.jscsrc',
+        excludeFiles: ['config/help.js', 'config/schedule.js'] // API data
       }
     }
   });
