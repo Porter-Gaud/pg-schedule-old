@@ -74,7 +74,7 @@ router.get("/api/currentBlock/", function (req, res) {
         endDate.setMinutes(endTime.split(":")[1]);
         endDate.setSeconds(0);
         if ((now <= endDate && now >= startDate)) {
-            res.json(day["name"]);
+            res.json(day.name);
             return;
         }
     }
@@ -95,14 +95,14 @@ router.get("/api/getFutureDate/:month/:date", function(req, res){
 //This needs to be a seperate function because two of the routes get it.
 function getDayObject(date, week){
     // console.log(date + " " + week);
-    if (date.getDay() == 0 || date.getDay() == 6) {
+    if (date.getDay() === 0 || date.getDay() == 6) {
         return "";
     }
 
     var index = date.getDay() - 1;
     if (week === "B")
         index += 5;
-    return API["days"][index];
+    return API.days[index];
 }
 
 module.exports = router;
