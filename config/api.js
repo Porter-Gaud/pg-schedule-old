@@ -40,7 +40,7 @@ router.get('/api/timeUntil/', function(req, res) {
     endDate.setMinutes(endTime.split(':')[1]);
     endDate.setSeconds(0);
     if ((now <= endDate && now >= startDate)) {
-        return Math.round((endDate.getTime() - now.getTime()) / 60000);
+      return Math.round((endDate.getTime() - now.getTime()) / 60000);
     }
   }
   res.json(-1);
