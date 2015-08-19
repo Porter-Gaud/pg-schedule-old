@@ -8,9 +8,10 @@ app = express();
 
 app.set('view engine', 'jade');
 app.use('/', route);
-
+app.locals.production = app.get('port') == 80;
 app.use('/', express.static(__dirname + '/public/'));
 app.use('/public/css', express.static(__dirname + '/bower_components/bootstrap/dist/css/'));
+// app.use('/public/js', express.static(__dirname + '/public/js'));
 
 app.use(bodyParser.urlencoded({
   extended: 'true'
