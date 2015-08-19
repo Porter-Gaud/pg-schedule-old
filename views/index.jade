@@ -18,6 +18,13 @@ body(ng-controller='mainController')
         tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
           td {{class['name']}}
           td {{ beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+    br
+    a(href='http://www.myschooldining.com/portergaud/?cmd=menus' target='_blank')
+      button(class='btn btn-danger')
+        h4 Lunch
+    a(href='http://www.portergaud.edu/page.cfm?p=1372')
+      button(class='btn btn-danger' style="margin-left: 10px;")
+        h4 Announcements
     hr
     footer(style="text-align: center;")
       p 
