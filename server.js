@@ -9,8 +9,9 @@ app = express();
 app.set('view engine', 'jade');
 app.use('/', route);
 
-app.use(express.static(__dirname + '/views'));
-app.use(express.static(__dirname + '/node_modules/'));
+app.use('/b', express.static(__dirname + '/bower_components/'));
+app.use('/', express.static(__dirname + '/public/'));
+
 app.use(bodyParser.urlencoded({
   extended: 'true'
 }));
