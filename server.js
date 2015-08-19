@@ -10,6 +10,7 @@ app.set('view engine', 'jade');
 app.use('/', route);
 
 app.use('/', express.static(__dirname + '/public/'));
+app.use('/public/css', express.static(__dirname + '/bower_components/bootstrap/dist/css/'));
 
 app.use(bodyParser.urlencoded({
   extended: 'true'

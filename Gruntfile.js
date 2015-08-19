@@ -30,7 +30,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['jshint', 'jscs']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'uglify']);
 
-  grunt.registerTask('build:travis', ['jshint', 'jscs']);
+  grunt.registerTask('build:travis', ['jshint', 'jscs', 'uglify']);
 };
