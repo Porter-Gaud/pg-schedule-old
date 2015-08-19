@@ -9,7 +9,6 @@ app = express();
 app.set('view engine', 'jade');
 app.use('/', route);
 
-app.use('/b', express.static(__dirname + '/bower_components/'));
 app.use('/', express.static(__dirname + '/public/'));
 
 app.use(bodyParser.urlencoded({
