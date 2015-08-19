@@ -1,6 +1,7 @@
 # Porter-Gaud Schedule App
-Also on http://pg-schedule.herokuapp.com/
-[![Build Status](https://travis-ci.org/ireallydontcare/pg-schedule.svg?branch=master)](https://travis-ci.org/ireallydontcare/pg-schedule)
+[![Build Status](https://travis-ci.org/ireallydontcare/pg-schedule.svg?branch=master)](https://travis-ci.org/ireallydontcare/pg-schedule)  
+Also on http://pg--schedule.herokuapp.com/  
+
 ##Contributing
 1. Clone the repo.
 2. run npm install and make your changes.
