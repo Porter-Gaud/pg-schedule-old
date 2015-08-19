@@ -18,6 +18,7 @@
     "body-parser": "~1.5.2",
     "colors": "1.1.0",
     "express": "^4.11.2",
+    "jade": "^1.11.0",
     "method-override": "~2.1.2"
   },
   "engines": {

@@ -8,7 +8,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.weekend = false;
 
   $scope.getTimeUntil = function() {
-    $http.get('/api/pg/timeUntil').success(function(data) {
+    $http.get('/api/timeUntil').success(function(data) {
       if (data === -1) {
         $scope.dateString = 'No Class';
       } else {
@@ -22,13 +22,13 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   $scope.getCurrentBlock = function() {
-    $http.get('/api/pg/currentBlock').success(function(data) {
+    $http.get('/api/currentBlock').success(function(data) {
       $scope.currentBlock = data;
     });
   };
 
   $scope.getCurrentDay = function() {
-    $http.get('/api/pg/currentDay/').success(function(data) {
+    $http.get('/api/currentDay/').success(function(data) {
       $scope.currentDay = data;
       $scope.weekend = (data === '');
     });

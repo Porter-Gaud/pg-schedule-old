@@ -1,4 +1,4 @@
-modules.export = {
+module.exports = {
   'Help for API':'This is the API for the Porter-Gaud schedule app located on http://www.example.com/api/',
   '/api/':'The help page.',
   '/api/schedule/':'Gives the full listings of times for each of the 10 different days.',

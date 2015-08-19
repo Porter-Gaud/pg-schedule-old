@@ -1,0 +1,23 @@
+doctype html
+html(ng-app='pgSchedule')
+head
+    title PG Schedule App
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+body(ng-controller='mainController')
+    div.container.text-center
+        h1(style="font-size: 500%;") Porter-Gaud Schedule
+        hr
+        h3(ng-if='!weekend') {{dateString}}
+        h2(ng-if='weekend') It's a weekend!
+        table.table.table-striped.table-bordered(style="width:60%; margin: 0 20% 0 20%;" ng-if='!weekend')
+            thead
+                tr
+                    td Period
+                    td Time
+            tbody
+                tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
+                    td {{class['name']}}
+                    td {{ beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
+    script(src='/js/angularCore.js')

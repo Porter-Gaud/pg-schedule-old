@@ -6,6 +6,7 @@ route = require('./config/api.js'),
 colors = require('colors'),
 app = express();
 
+app.set('view engine', 'jade');
 app.use('/', route);
 
 app.use(express.static(__dirname + '/views'));

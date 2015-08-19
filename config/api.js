@@ -7,10 +7,7 @@ var express = require('express'),
   getWeeks = require('./getWeeks.js');
 
 router.get('/', function(req, res) {
-  res.sendFile('index.html', {
-    'root': __dirname + './../views/'
-  });
-  console.log('New Visitor'.rainbow);
+  res.render('index.jade');
 });
 
 router.get('/api/', function(req, res) {
@@ -43,8 +40,7 @@ router.get('/api/timeUntil/', function(req, res) {
     endDate.setMinutes(endTime.split(':')[1]);
     endDate.setSeconds(0);
     if ((now <= endDate && now >= startDate)) {
-      res.json(Math.floor((((endDate.getTime() - now.getTime())) % 86400000) % 3600000 / 60000));
-      return;
+        return Math.round((endDate.getTime() - now.getTime()) / 60000);
     }
   }
   res.json(-1);
@@ -78,7 +74,7 @@ router.get('/api/currentBlock/', function(req, res) {
       return;
     }
   }
-  res.json(-1);
+  res.json('');
 });
 
 router.get('/api/currentDay/', function(req, res) {
@@ -92,7 +88,6 @@ router.get('/api/getFutureDate/:month/:date', function(req, res) {
   res.json(getDayObject(theDay, theWeek));
 });
 
-//This needs to be a seperate function because two of the routes get it.
 function getDayObject(date, week) {
   if (date.getDay() === 0 || date.getDay() == 6) {
     return '';
