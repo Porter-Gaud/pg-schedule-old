@@ -4,7 +4,8 @@ var express = require('express'),
   HELP_API = require('./help.js'),
   router = express.Router(),
   year = 2015,
-  getWeeks = require('./getWeeks.js');
+  getWeeks = require('./getWeeks.js'),
+  app = express();
 
 router.get('/', function(req, res) {
   res.render('index.jade');
