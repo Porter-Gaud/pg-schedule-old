@@ -21,7 +21,7 @@ module.exports = function(grunt) {
       main: ['*.js', 'views/js/*.js', 'config/*.js'],
       options: {
         config: '.jscsrc',
-        excludeFiles: ['config/help.js', 'config/schedule.js'] // API data
+        excludeFiles: ['config/help.js', 'config/schedule.js', 'config/middleSchedule.js'] // API data
       }
     }
   });
