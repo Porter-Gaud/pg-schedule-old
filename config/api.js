@@ -17,6 +17,9 @@ router.get('/api/', function(req, res) {
 router.get('/api/schedule/', function(req, res) {
   res.json(API);
 });
+router.get('/api/middleSchedule/', function(req, res) {
+  res.json(API);
+});
 
 router.get('/api/timeUntil/', function(req, res) {
   var todayDate = new Date();
