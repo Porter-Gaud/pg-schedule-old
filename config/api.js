@@ -1,29 +1,30 @@
 var express = require('express'),
   http = require('http'),
   API = require('./schedule.js'),
+  MS_API = require('./middleSchedule.js'),
   HELP_API = require('./help.js'),
   router = express.Router(),
   year = 2015,
-  getWeeks = require('./getWeeks.js'),
-  app = express();
+  getWeeks = require('./getWeeks.js');
 
 router.get('/', function(req, res) {
-  res.render('index.jade');
+  res.render('index.jade', { production: req.app.locals.production });
 });
 
 router.get('/api/', function(req, res) {
   res.json(HELP_API);
 });
 router.get('/api/schedule/', function(req, res) {
-  res.json(API);
-});
-router.get('/api/middleSchedule/', function(req, res) {
-  res.json(API);
+  if (req.query.middle === null) {
+    res.json(API);
+  } else {
+    req.json(MS_API);
+  }
 });
 
 router.get('/api/timeUntil/', function(req, res) {
   var todayDate = new Date();
-  var today = getDayObject(todayDate, getWeeks.currentWeek());
+  var today = getDayObject(todayDate, getWeeks.currentWeek(), (req.query.middle !== null));
   if (today === '') {
     res.json('');
     return;
@@ -52,7 +53,7 @@ router.get('/api/timeUntil/', function(req, res) {
 
 router.get('/api/currentBlock/', function(req, res) {
   var todayDate = new Date();
-  var today = getDayObject(todayDate, getWeeks.currentWeek());
+  var today = getDayObject(todayDate, getWeeks.currentWeek(), (req.query.middle !== null));
   if (today === '') {
     res.json('');
     return;
@@ -82,17 +83,18 @@ router.get('/api/currentBlock/', function(req, res) {
 });
 
 router.get('/api/currentDay/', function(req, res) {
+  console.log(req.query.middle);
   var today = new Date();
-  res.json(getDayObject(today, getWeeks.currentWeek()));
+  res.json(getDayObject(today, getWeeks.currentWeek(), (req.query.middle !== null)));
 });
 
-router.get('/api/getFutureDate/:month/:date', function(req, res) {
-  var theWeek = getWeeks.getFutureWeek(),
+router.get('/api/getFutureDate/:month/:date/', function(req, res) {
+  var theWeek = getWeeks.getFutureWeek(req.query.middle !== null);
   theDay = new Date(year, req.params.month, req.params.date);
-  res.json(getDayObject(theDay, theWeek));
+  res.json(getDayObject(theDay, theWeek, req.query.middle !== null));
 });
 
-function getDayObject(date, week) {
+function getDayObject(date, week, middle) {
   if (date.getDay() === 0 || date.getDay() == 6) {
     return '';
   }
@@ -101,7 +103,7 @@ function getDayObject(date, week) {
   if (week === 'B') {
     index += 5;
   }
-  return API.days[index];
+  return middle ? API.days[index] : MS_API.days[index];
 }
 
 module.exports = router;
