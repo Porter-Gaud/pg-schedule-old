@@ -27,18 +27,18 @@ body(ng-controller='mainController')
         h4 Announcements
     hr
     footer(style="text-align: center;")
-      p 
+      p
         a(href='/api/') API
-        |  | 
+        |  |
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  | 
+        |  |
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
-    if upper
+    if middle
       script.
-        var upper = true;
+        var middle = true;
     else
       script.
-        var upper = false;
+        var middle = true;
 
     if production
       script(src='/js/alljs.min.js')

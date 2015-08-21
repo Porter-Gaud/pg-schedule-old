@@ -103,7 +103,8 @@ function getDayObject(date, week, middle) {
   if (week === 'B') {
     index += 5;
   }
-  return middle ? API.days[index] : MS_API.days[index];
+  console.log(middle);
+  return middle ? MS_API.days[index] : API.days[index];
 }
 
 module.exports = router;
