@@ -8,7 +8,7 @@ var express = require('express'),
   getWeeks = require('./getWeeks.js');
 
 router.get('/', function(req, res) {
-  res.render('index.jade', { production: req.app.locals.production });
+  res.render('index.jade', {production: req.app.locals.production});
 });
 
 router.get('/api/', function(req, res) {
