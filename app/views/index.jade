@@ -2,7 +2,7 @@ doctype html
 html(ng-app='pgSchedule')
 head
   title PG Schedule App
-  link(rel='stylesheet', href='/public/css/bootstrap.min.css')
+  link(rel='stylesheet', href='/css/all.min.css')
 body(ng-controller='mainController')
   div.container.text-center
     h1(style="font-size: 350%;") Porter-Gaud Upper School Schedule
@@ -40,8 +40,4 @@ body(ng-controller='mainController')
       script.
         var upper = false;
 
-    if production
-      script(src='/js/alljs.min.js')
-    else
-      script(src='/dev/angular/angular.min.js')
-      script(src='/js/angularCore.js')
+    script(src='/js/alljs.min.js')
