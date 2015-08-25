@@ -65,7 +65,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   function getApi(endpoint) {
-    return '/api/' + endpoint + ((window.location.href.indexOf('middle') < -1) ? '' : '?middle');
+    return '/api/' + endpoint + ((window.location.href.indexOf('middle') == -1) ? '' : '?middle');
   }
 
   $scope.getCurrentDay();
