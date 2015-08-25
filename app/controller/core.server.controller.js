@@ -3,7 +3,11 @@ var getWeeks = require('./getWeeks.js');
 var year = 2015;
 
 module.exports.home = function(req, res){
-  res.render('index', { production: req.app.locals.production });
+  res.render('index', { production: req.app.locals.production, upper: true });
+};
+
+module.exports.middle = function(req, res){
+  res.render('index', { production: req.app.locals.production, upper: false });
 };
 
 module.exports.exposeAPI = function(req, res){
@@ -82,7 +86,6 @@ module.exports.currentBlock = function(req, res){
 
 module.exports.currentDay = function(req, res){
   var today = new Date();
-  console.log(getWeeks.currentWeek() + ' is the current week');
   res.json(getDayObject(today, getWeeks.currentWeek(), (req.query.middle !== null)));
 };
 

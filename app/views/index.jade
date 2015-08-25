@@ -5,7 +5,11 @@ head
   link(rel='stylesheet', href='/css/all.min.css')
 body(ng-controller='mainController')
   .container.text-center
-    h1(style="font-size: 350%;") Porter-Gaud Upper School Schedule
+    h1(style="font-size: 350%;") Porter-Gaud 
+      if upper
+        | Upper School Schedule
+      else 
+        | Middle School Schedule
     hr
     h3(ng-if='!weekend') {{dateString}}
     h2(ng-if='weekend') It's a weekend!
@@ -25,11 +29,18 @@ body(ng-controller='mainController')
     a(href='http://www.portergaud.edu/page.cfm?p=1372')
       button(class='btn btn-danger' style="margin-left: 10px;")
         h4 Announcements
-    button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
-      h4 Get Future Date
+    //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
+    //-   h4 Get Future Date
     hr
     footer(style="text-align: center;")
       p 
+        if upper
+          a(href='/middle')
+           b Switch to Middle School schedule
+        else
+          a(href='/')
+            b Switch to Upper School schedule
+        br
         a(href='/api/') API
         |  | 
         a(href='https://github.com/ireallydontcare/pg-schedule') Source

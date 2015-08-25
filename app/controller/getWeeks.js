@@ -20,9 +20,9 @@ module.exports.currentWeek = function() {
         data += d;
       });
       res.on('end', function() {
-        if (data.indexOf('A Week') > -1) {
+        if (data.indexOf('A Week') > -1 || data.indexOf('Week A') > -1) {
           week = 'A';
-        } else if (data.indexOf('B Week') > -1) {
+        } else if (data.indexOf('B Week') > -1 || data.indexOf('Week B') > -1) {
           week = 'B';
         } else {
           week = 'WEEKEND';
