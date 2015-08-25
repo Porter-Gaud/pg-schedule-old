@@ -17,6 +17,8 @@ app.use(bodyParser.json({
 }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 
+app.locals.production = (port == process.env.PORT);
+
 app.use('/', express.static(__dirname + '/public/'));
 app.use('/', route);
 
