@@ -17,7 +17,7 @@ module.exports = function(grunt) {
     cssmin: {
       all: {
         files: {
-          './public/css/all.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css']
+          './public/css/all.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', './public/css/style.css']
         }
       }
     },

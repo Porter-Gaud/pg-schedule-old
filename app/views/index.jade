@@ -3,6 +3,8 @@ html(ng-app='pgSchedule')
 head
   title PG Schedule App
   link(rel='stylesheet', href='/css/all.min.css')
+  unless production
+    link(rel='stylesheet', href='/css/style.css')
 body(ng-controller='mainController')
   .container.text-center
     h1(style="font-size: 350%;") Porter-Gaud 
@@ -24,10 +26,10 @@ body(ng-controller='mainController')
           td {{ beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
     br
     a(href='http://www.myschooldining.com/portergaud/?cmd=menus' target='_blank')
-      button(class='btn btn-danger')
+      button.btn.btn-danger
         h4 Lunch
     a(href='http://www.portergaud.edu/page.cfm?p=1372')
-      button(class='btn btn-danger' style="margin-left: 10px;")
+      button.btn.btn-danger(style="margin-left: 10px;")
         h4 Announcements
     //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
     //-   h4 Get Future Date

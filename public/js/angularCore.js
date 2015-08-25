@@ -15,7 +15,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
         $scope.timeUntil = (parseInt(data) + 1) + '';
         $scope.dateString = ($scope.timeUntil) + ' minutes until next class.';
         if ($scope.timeUntil === 1) {
-          $scope.dataString = ($scope.timeUntil) + ' minute until next class';
+          $scope.dateString = ($scope.timeUntil) + ' minute until next class';
         }
       }
     });
@@ -65,8 +65,6 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   function getApi(endpoint) {
-    console.log($location.absUrl().indexOf('middle'));
-    console.log('/api/' + endpoint + (($location.absUrl().indexOf('middle') > -1) ? '?middle=1' : ''));
     return '/api/' + endpoint + (($location.absUrl().indexOf('middle') > -1) ? '?middle=1' : '');
   }
 
