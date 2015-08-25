@@ -81,8 +81,8 @@ module.exports.currentBlock = function(req, res){
 };
 
 module.exports.currentDay = function(req, res){
-  console.log(req.query.middle);
   var today = new Date();
+  console.log(getWeeks.currentWeek() + ' is the current week');
   res.json(getDayObject(today, getWeeks.currentWeek(), (req.query.middle !== null)));
 };
 

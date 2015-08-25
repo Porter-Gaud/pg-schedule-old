@@ -1,4 +1,4 @@
-var pgSchedule = angular.module('pgSchedule', []);
+var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt']);
 
 pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', function($scope, $http, $log, $interval) {
   $scope.timeUntil = '';
@@ -33,6 +33,29 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       $scope.weekend = (data === '');
     });
   };
+
+  $scope.getFutureDate = function(){
+    day = null;
+    prompt({
+      "title": "Enter Date",
+      "message": "",
+      "input": true,
+      "label": "Month/Day mm/dd",
+      "value": "08/12"
+    }).then(function(result){
+      day = result;
+    });
+    $http.get(getApi('getFutureDate/' +
+          '/' +
+          day.substring(0, 2) +
+          '/' + 
+          day.substring(3, 5)
+          )
+        .success(function(data){
+          $scope.currentDay = data;
+          $scope.weekend = (data === '');
+        }));
+  }
 
   $scope.beautifyTime = function(time) {
     var hours = parseInt(time.substring(0,2)) % 12;

@@ -4,7 +4,7 @@ head
   title PG Schedule App
   link(rel='stylesheet', href='/css/all.min.css')
 body(ng-controller='mainController')
-  div.container.text-center
+  .container.text-center
     h1(style="font-size: 350%;") Porter-Gaud Upper School Schedule
     hr
     h3(ng-if='!weekend') {{dateString}}
@@ -25,6 +25,8 @@ body(ng-controller='mainController')
     a(href='http://www.portergaud.edu/page.cfm?p=1372')
       button(class='btn btn-danger' style="margin-left: 10px;")
         h4 Announcements
+    button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
+      h4 Get Future Date
     hr
     footer(style="text-align: center;")
       p 
@@ -39,5 +41,4 @@ body(ng-controller='mainController')
     else
       script.
         var upper = false;
-
-    script(src='/js/alljs.min.js')
+    script(src='/js/all.min.js')
