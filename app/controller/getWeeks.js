@@ -1,6 +1,7 @@
 var http = require('http');
 
 var currentWeek = 'UNKNOWN';
+var CronJob = require('cron').CronJob;
 
 module.exports.currentWeek = function() {
   if (currentWeek != 'UNKNOWN') {
@@ -34,6 +35,13 @@ module.exports.currentWeek = function() {
     req.end();
   }
 };
+
+module.exports.currentWeek();
+
+new CronJob('00 01 00 * * *', function(){
+    console.log('Automatically updating the week...');
+    module.exports.currentWeek();
+}, null, true, "America/New_York");
 
 module.exports.getFutureWeek = function(month, date, year) {
   var week = '';
