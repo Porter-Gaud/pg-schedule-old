@@ -92,7 +92,7 @@ module.exports.currentDay = function(req, res){
 module.exports.getFutureWeek = function(req, res){
   var theWeek = getWeeks.getFutureWeek(req.query.middle !== null);
   theDay = new Date(year, req.params.month, req.params.date);
-  res.json(getDayObject(theDay, theWeek, req.query.middle !== null));
+  res.json(getDayObject(theDay, theWeek, (req.query.middle !== null)));
 };
 
 function getDayObject(date, week, middle) {
@@ -103,5 +103,5 @@ function getDayObject(date, week, middle) {
   if (week === 'B') {
     index += 5;
   }
-  return middle ? SCHEDULE_API.MIDDLE.days[index]: SCHEDULE_API.UPPER.days[index];
+  return (middle === true) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }

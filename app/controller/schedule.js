@@ -26,7 +26,7 @@ module.exports.MIDDLE = {
     {'day':[{'name':'G','start-time':'08:10','end-time':'08:55'},{'name':'A','start-time':'09:00','end-time':'09:45'},{'name':'Break','start-time':'09:45','end-time':'10:00'},{'name':'B','start-time':'10:00','end-time':'10:45'},{'name':'Community','start-time':'10:45','end-time':'11:20'},{'name':'C','start-time':'11:25','end-time':'12:10'},{'name':'Lunch','start-time':'12:10','end-time':'12:45'},{'name':'D','start-time':'12:50','end-time':'13:35'},{'name':'E','start-time':'13:40','end-time':'14:25'},{'name':'F','start-time':'14:30','end-time':'15:15'}]}
   ]
 };
-module.exports.API = {
+module.exports.HELP = {
   'Help for API': 'This is the API for the Porter-Gaud schedule app located on http://www.example.com/api/',
   '/api/': 'The help page.',
   '/api/schedule/': 'Gives the full listings of times for each of the 10 different days.',
