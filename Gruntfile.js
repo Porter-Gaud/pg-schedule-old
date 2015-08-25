@@ -5,20 +5,23 @@ module.exports = function(grunt) {
     uglify: {
       portergaud: {
         files: {
-          'public/js/alljs.min.js': ['./bower_components/jquery/dist/jquery.min.js', './bower_components/bootstrap/dist/js/bootstrap.min.js','./bower_components/angular/angular.min.js','./public/js/angularCore.js']
+          'public/js/all.min.js': ['./bower_components/jquery/dist/jquery.min.js', './bower_components/angular/angular.min.js','./bower_components/bootstrap/dist/js/bootstrap.min.js', './bower_components/angular-bootstrap/ui-bootstrap.min.js', './bower_components/angular-prompt/dist/angular-prompt.min.js', './public/js/angularCore.js']
         }
       }
     },
     jshint: {
       allFiles: [
-        'server.js', 'config/*.js', 'views/*.js'
-      ],
-      options: {
-        // *cricket*
+        'server.js', './app/**/*.js'
+      ]
+    },
+    cssmin: {
+      all: {
+        files: {
+          './public/css/all.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', './public/css/style.css']
+        }
       }
     },
     jscs: {
-      main: ['*.js', 'views/js/*.js', 'config/*.js'],
       options: {
         config: '.jscsrc',
         excludeFiles: ['config/help.js', 'config/schedule.js', 'config/middleSchedule.js'] // API data
@@ -26,11 +29,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-jscs');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('default', ['jshint', 'jscs', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'uglify', 'cssmin']);
 
-  grunt.registerTask('build:travis', ['jshint', 'jscs', 'uglify']);
+  grunt.registerTask('build:travis', ['jshint', 'jscs', 'uglify', 'cssmin']);
 };

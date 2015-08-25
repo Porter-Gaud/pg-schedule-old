@@ -1,30 +1,32 @@
-var express = require('express'),
-  http = require('http'),
-  API = require('./schedule.js'),
-  MS_API = require('./middleSchedule.js'),
-  HELP_API = require('./help.js'),
-  router = express.Router(),
-  year = 2015,
-  getWeeks = require('./getWeeks.js');
+var SCHEDULE_API = require('./schedule.js');
+var getWeeks = require('./getWeeks.js');
+var year = 2015;
 
-router.get('/', function(req, res) {
-  res.render('index.jade', {production: req.app.locals.production});
-});
+module.exports.home = function(req, res){
+  res.render('index', { production: req.app.locals.production, upper: true });
+};
 
-router.get('/api/', function(req, res) {
-  res.json(HELP_API);
-});
-router.get('/api/schedule/', function(req, res) {
-  if (req.query.middle === null) {
-    res.json(API);
+module.exports.middle = function(req, res){
+  res.render('index', { production: req.app.locals.production, upper: false });
+};
+
+module.exports.exposeAPI = function(req, res){
+  res.json(SCHEDULE_API.HELP);
+};
+
+module.exports.api = function(req, res){
+  if(req.query.middle !== null){
+    res.json(SCHEDULE_API.MIDDLE);
+  } else if(req.query.upper !== null){
+    res.json(SCHEDULE_API.UPPER);
   } else {
-    req.json(MS_API);
+    res.json(SCHEDULE_API.HELP);
   }
-});
+};
 
-router.get('/api/timeUntil/', function(req, res) {
+module.exports.timeUntil = function(req, res){
   var todayDate = new Date();
-  var today = getDayObject(todayDate, getWeeks.currentWeek(), (req.query.middle !== null));
+  var today = getDayObject(todayDate, getWeeks.currentWeek(), req.query.middle);
   if (today === '') {
     res.json('');
     return;
@@ -45,15 +47,14 @@ router.get('/api/timeUntil/', function(req, res) {
     endDate.setMinutes(endTime.split(':')[1]);
     endDate.setSeconds(0);
     if ((now <= endDate && now >= startDate)) {
-      return Math.round((endDate.getTime() - now.getTime()) / 60000);
+      res.json(Math.round((endDate.getTime() - now.getTime()) / 60000));
     }
   }
-  res.json(-1);
-});
+};
 
-router.get('/api/currentBlock/', function(req, res) {
+module.exports.currentBlock = function(req, res){
   var todayDate = new Date();
-  var today = getDayObject(todayDate, getWeeks.currentWeek(), (req.query.middle !== null));
+  var today = getDayObject(todayDate, getWeeks.currentWeek(), req.query.middle);
   if (today === '') {
     res.json('');
     return;
@@ -80,31 +81,32 @@ router.get('/api/currentBlock/', function(req, res) {
     }
   }
   res.json('');
-});
+};
 
-router.get('/api/currentDay/', function(req, res) {
-  console.log(req.query.middle);
+module.exports.currentDay = function(req, res){
   var today = new Date();
-  res.json(getDayObject(today, getWeeks.currentWeek(), (req.query.middle !== null)));
-});
+  res.json(getDayObject(today, getWeeks.currentWeek(), req.query.middle));
+};
 
-router.get('/api/getFutureDate/:month/:date/', function(req, res) {
-  var theWeek = getWeeks.getFutureWeek(req.query.middle !== null);
+module.exports.getFutureWeek = function(req, res){
+  var theWeek = getWeeks.getFutureWeek(req.query.middle);
   theDay = new Date(year, req.params.month, req.params.date);
-  res.json(getDayObject(theDay, theWeek, req.query.middle !== null));
-});
+  res.json(getDayObject(theDay, theWeek, req.query.middle));
+};
 
 function getDayObject(date, week, middle) {
+  if (!middle) middle = false;
   if (date.getDay() === 0 || date.getDay() == 6) {
     return '';
   }
-
   var index = date.getDay() - 1;
   if (week === 'B') {
     index += 5;
   }
+<<<<<<< HEAD:config/api.js
   console.log(middle);
   return middle ? MS_API.days[index] : API.days[index];
+=======
+  return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
+>>>>>>> ireallydontcare/master:app/controller/core.server.controller.js
 }
-
-module.exports = router;

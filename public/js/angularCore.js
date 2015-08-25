@@ -1,6 +1,6 @@
-var pgSchedule = angular.module('pgSchedule', []);
+var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt']);
 
-pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', function($scope, $http, $log, $interval) {
+pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', function($scope, $http, $log, $interval, $location) {
   $scope.timeUntil = '';
   $scope.currentDay = '';
   $scope.currentBlock = '';
@@ -15,7 +15,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
         $scope.timeUntil = (parseInt(data) + 1) + '';
         $scope.dateString = ($scope.timeUntil) + ' minutes until next class.';
         if ($scope.timeUntil === 1) {
-          $scope.dataString = ($scope.timeUntil) + ' minute until next class';
+          $scope.dateString = ($scope.timeUntil) + ' minute until next class';
         }
       }
     });
@@ -30,8 +30,32 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentDay = function() {
     $http.get(getApi('currentDay')).success(function(data) {
       $scope.currentDay = data;
+      console.log(data);
       $scope.weekend = (data === '');
     });
+  };
+
+  $scope.getFutureDate = function(){
+    day = null;
+    prompt({
+      "title": "Enter Date",
+      "message": "",
+      "input": true,
+      "label": "Month/Day mm/dd",
+      "value": "08/12"
+    }).then(function(result){
+      day = result;
+    });
+    $http.get(getApi('getFutureDate/' +
+          '/' +
+          day.substring(0, 2) +
+          '/' +
+          day.substring(3, 5)
+          )
+        .success(function(data){
+          $scope.currentDay = data;
+          $scope.weekend = (data === '');
+        }));
   };
 
   $scope.beautifyTime = function(time) {
@@ -41,7 +65,11 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   function getApi(endpoint) {
+<<<<<<< HEAD
     return '/api/' + endpoint + (middle ? '?middle' : '');
+=======
+    return '/api/' + endpoint + (($location.absUrl().indexOf('middle') > -1) ? '?middle=1' : '');
+>>>>>>> ireallydontcare/master
   }
 
   $scope.getCurrentDay();
