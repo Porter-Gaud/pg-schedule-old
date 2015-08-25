@@ -26,7 +26,7 @@ module.exports.api = function(req, res){
 
 module.exports.timeUntil = function(req, res){
   var todayDate = new Date();
-  var today = getDayObject(todayDate, getWeeks.currentWeek(), (req.query.middle !== null));
+  var today = getDayObject(todayDate, getWeeks.currentWeek(), req.query.middle);
   if (today === '') {
     res.json('');
     return;
@@ -55,7 +55,7 @@ module.exports.timeUntil = function(req, res){
 
 module.exports.currentBlock = function(req, res){
   var todayDate = new Date();
-  var today = getDayObject(todayDate, getWeeks.currentWeek(), (req.query.middle !== null));
+  var today = getDayObject(todayDate, getWeeks.currentWeek(), req.query.middle);
   if (today === '') {
     res.json('');
     return;
@@ -86,13 +86,13 @@ module.exports.currentBlock = function(req, res){
 
 module.exports.currentDay = function(req, res){
   var today = new Date();
-  res.json(getDayObject(today, getWeeks.currentWeek(), (req.query.middle !== null)));
+  res.json(getDayObject(today, getWeeks.currentWeek(), req.query.middle));
 };
 
 module.exports.getFutureWeek = function(req, res){
-  var theWeek = getWeeks.getFutureWeek(req.query.middle !== null);
+  var theWeek = getWeeks.getFutureWeek(req.query.middle);
   theDay = new Date(year, req.params.month, req.params.date);
-  res.json(getDayObject(theDay, theWeek, (req.query.middle !== null)));
+  res.json(getDayObject(theDay, theWeek, req.query.middle));
 };
 
 function getDayObject(date, week, middle) {
@@ -103,5 +103,5 @@ function getDayObject(date, week, middle) {
   if (week === 'B') {
     index += 5;
   }
-  return (middle === true) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
+  return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }

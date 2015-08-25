@@ -6,7 +6,6 @@ module.exports = function(grunt) {
       portergaud: {
         files: {
           'public/js/all.min.js': ['./bower_components/jquery/dist/jquery.min.js', './bower_components/angular/angular.min.js','./bower_components/bootstrap/dist/js/bootstrap.min.js', './bower_components/angular-bootstrap/ui-bootstrap.min.js', './bower_components/angular-prompt/dist/angular-prompt.min.js', './public/js/angularCore.js']
-          
         }
       }
     },

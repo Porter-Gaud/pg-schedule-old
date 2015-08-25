@@ -46,12 +46,6 @@ body(ng-controller='mainController')
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
         |  | 
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
-    if upper
-      script.
-        var upper = true;
-    else
-      script.
-        var upper = false;
     script(src='/js/all.min.js')
     unless production
       script(src='/js/angularCore.js')
