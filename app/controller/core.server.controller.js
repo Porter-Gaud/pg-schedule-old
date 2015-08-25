@@ -103,5 +103,5 @@ function getDayObject(date, week, middle) {
   if (week === 'B') {
     index += 5;
   }
-  return middle ? SCHEDULE_API.UPPER.days[index] : SCHEDULE_API.MIDDLE.days[index];
+  return middle ? SCHEDULE_API.MIDDLE.days[index]: SCHEDULE_API.UPPER.days[index];
 }
