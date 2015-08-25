@@ -48,14 +48,14 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     $http.get(getApi('getFutureDate/' +
           '/' +
           day.substring(0, 2) +
-          '/' + 
+          '/' +
           day.substring(3, 5)
           )
         .success(function(data){
           $scope.currentDay = data;
           $scope.weekend = (data === '');
         }));
-  }
+  };
 
   $scope.beautifyTime = function(time) {
     var hours = parseInt(time.substring(0,2)) % 12;
@@ -64,7 +64,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   function getApi(endpoint) {
-    return '/api/' + endpoint + (upper ? '?middle' : '');
+    return '/api/' + endpoint + (upper ? '' : '?middle');
   }
 
   $scope.getCurrentDay();

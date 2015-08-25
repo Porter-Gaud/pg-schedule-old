@@ -53,3 +53,5 @@ body(ng-controller='mainController')
       script.
         var upper = false;
     script(src='/js/all.min.js')
+    unless production
+      script(src='/js/angularCore.js')
