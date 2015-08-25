@@ -96,6 +96,7 @@ module.exports.getFutureWeek = function(req, res){
 };
 
 function getDayObject(date, week, middle) {
+  if (!middle) middle = false;
   if (date.getDay() === 0 || date.getDay() == 6) {
     return '';
   }
