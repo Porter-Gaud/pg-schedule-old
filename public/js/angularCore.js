@@ -1,6 +1,6 @@
 var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt']);
 
-pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', function($scope, $http, $log, $interval) {
+pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', function($scope, $http, $log, $interval, $location) {
   $scope.timeUntil = '';
   $scope.currentDay = '';
   $scope.currentBlock = '';
