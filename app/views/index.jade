@@ -7,10 +7,10 @@ head
     link(rel='stylesheet', href='/css/style.css')
 body(ng-controller='mainController')
   .container.text-center
-    h1(style="font-size: 350%;") Porter-Gaud 
+    h1(style="font-size: 350%;") Porter-Gaud
       if upper
         | Upper School Schedule
-      else 
+      else
         | Middle School Schedule
     hr
     h3(ng-if='!weekend') {{dateString}}
@@ -28,17 +28,18 @@ body(ng-controller='mainController')
     a(href='http://www.myschooldining.com/portergaud/?cmd=menus' target='_blank')
       button.btn.btn-danger
         h4 Lunch
-    a(href='http://www.portergaud.edu/page.cfm?p=1372')
-      button.btn.btn-danger(style="margin-left: 10px;")
-        h4 Announcements
+    if upper
+      a(href='http://www.portergaud.edu/page.cfm?p=1372')
+        button.btn.btn-danger(style="margin-left: 10px;")
+          h4 Announcements
+    else
+        button.btn.btn-danger(style="margin-left: 10px;")
+          h4 Announcements (MS)
     //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
     //-   h4 Get Future Date
     hr
     footer(style="text-align: center;")
-<<<<<<< HEAD:views/index.jade
       p
-=======
-      p 
         if upper
           a(href='/middle')
            b Switch to Middle School schedule
@@ -46,13 +47,11 @@ body(ng-controller='mainController')
           a(href='/')
             b Switch to Upper School schedule
         br
->>>>>>> ireallydontcare/master:app/views/index.jade
         a(href='/api/') API
         |  |
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
         |  |
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
-<<<<<<< HEAD:views/index.jade
     if middle
       script.
         var middle = true;
@@ -64,8 +63,6 @@ body(ng-controller='mainController')
       script(src='/js/alljs.min.js')
     else
       script(src='/dev/angular/angular.min.js')
-=======
     script(src='/js/all.min.js')
     unless production
->>>>>>> ireallydontcare/master:app/views/index.jade
       script(src='/js/angularCore.js')

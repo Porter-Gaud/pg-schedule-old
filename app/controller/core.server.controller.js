@@ -103,10 +103,5 @@ function getDayObject(date, week, middle) {
   if (week === 'B') {
     index += 5;
   }
-<<<<<<< HEAD:config/api.js
-  console.log(middle);
-  return middle ? MS_API.days[index] : API.days[index];
-=======
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
->>>>>>> ireallydontcare/master:app/controller/core.server.controller.js
 }
