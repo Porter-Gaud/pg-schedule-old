@@ -33,6 +33,7 @@ body(ng-controller='mainController')
         button.btn.btn-danger(style="margin-left: 10px;")
           h4 Announcements
     else
+      a(href='http://www.portergaud.edu')
         button.btn.btn-danger(style="margin-left: 10px;")
           h4 Announcements (MS)
     //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
@@ -52,17 +53,6 @@ body(ng-controller='mainController')
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
         |  |
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
-    if middle
-      script.
-        var middle = true;
-    else
-      script.
-        var middle = true;
-
-    if production
-      script(src='/js/alljs.min.js')
-    else
-      script(src='/dev/angular/angular.min.js')
     script(src='/js/all.min.js')
     unless production
       script(src='/js/angularCore.js')
