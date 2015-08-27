@@ -26,10 +26,10 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     $http.get(getApi('currentBlock')).success(function(data) {
       $scope.currentBlock = data;
       $cookies.put('schedule', 'A=Test,B=Test1,G=blah');
-      if ($cookies.get("schedule")) {
-        var classCookie = $cookies.get("schedule").split(',');
+      if ($cookies.get('schedule')) {
+        var classCookie = $cookies.get('schedule').split(',');
         for (var i = 0; i < classCookie.length; i++) {
-          var theClass = classCookie[i].split("=");
+          var theClass = classCookie[i].split('=');
           $scope.cookies[theClass[0]] = theClass[1];
         }
       }
@@ -43,15 +43,15 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     });
   };
 
-  $scope.getFutureDate = function(){
+  $scope.getFutureDate = function() {
     day = null;
     prompt({
-      "title": "Enter Date",
-      "message": "",
-      "input": true,
-      "label": "Month/Day mm/dd",
-      "value": "08/12"
-    }).then(function(result){
+      'title': 'Enter Date',
+      'message': '',
+      'input': true,
+      'label': 'Month/Day mm/dd',
+      'value': '08/12'
+    }).then(function(result) {
       day = result;
     });
     $http.get(getApi('getFutureDate/' +
@@ -60,7 +60,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
           '/' +
           day.substring(3, 5)
           )
-        .success(function(data){
+        .success(function(data) {
           $scope.currentDay = data;
           $scope.weekend = (data === '');
         }));

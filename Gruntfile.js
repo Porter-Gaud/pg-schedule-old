@@ -1,7 +1,20 @@
+
 module.exports = function(grunt) {
   'use strict';
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    jshint: {
+      allFiles: [
+        'server.js', './app/**/*.js'
+      ]
+    },
+    jscs: {
+      main: ['./app/**/*.js', './public/js/angularCore.js', './server.js'],
+      options: {
+        config: '.jscsrc',
+        excludeFiles: ['./app/controller/schedule.js']
+      }
+    },
     uglify: {
       portergaud: {
         files: {
@@ -9,27 +22,17 @@ module.exports = function(grunt) {
         }
       }
     },
-    jshint: {
-      allFiles: [
-        'server.js', './app/**/*.js'
-      ]
-    },
     cssmin: {
       all: {
         files: {
           './public/css/all.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', './public/css/style.css']
         }
       }
-    },
-    jscs: {
-      options: {
-        config: '.jscsrc',
-        excludeFiles: ['config/help.js', 'config/schedule.js', 'config/middleSchedule.js'] // API data
-      }
     }
   });
 
   require('load-grunt-tasks')(grunt);
+  // grunt.loadNpmTasks('grunt-jscs');
 
   grunt.registerTask('default', ['jshint', 'jscs', 'uglify', 'cssmin']);
 
