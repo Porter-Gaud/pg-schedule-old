@@ -23,7 +23,7 @@ body(ng-controller='mainController')
       tbody
         tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
           td {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
-          td {{ beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+          td {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
     br
     a(href='http://myschooldining.com/portergaud/#homepage_menus' target='_blank')
       button.btn.btn-danger
