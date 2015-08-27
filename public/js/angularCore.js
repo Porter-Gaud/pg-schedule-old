@@ -1,10 +1,11 @@
-var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt']);
+var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt', 'ngCookies']);
 
-pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', function($scope, $http, $log, $interval, $location) {
+pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', function($scope, $http, $log, $interval, $location, $cookies) {
   $scope.timeUntil = '';
   $scope.currentDay = '';
   $scope.currentBlock = '';
   $scope.dateString = '';
+  $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
 
   $scope.getTimeUntil = function() {
@@ -24,13 +25,20 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentBlock = function() {
     $http.get(getApi('currentBlock')).success(function(data) {
       $scope.currentBlock = data;
+      $cookies.put('schedule', 'A=Test,B=Test1,G=blah');
+      if ($cookies.get("schedule")) {
+        var classCookie = $cookies.get("schedule").split(',');
+        for (var i = 0; i < classCookie.length; i++) {
+          var theClass = classCookie[i].split("=");
+          $scope.cookies[theClass[0]] = theClass[1];
+        }
+      }
     });
   };
 
   $scope.getCurrentDay = function() {
     $http.get(getApi('currentDay')).success(function(data) {
       $scope.currentDay = data;
-      console.log(data);
       $scope.weekend = (data === '');
     });
   };

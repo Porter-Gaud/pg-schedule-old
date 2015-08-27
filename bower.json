@@ -24,10 +24,11 @@
     "bootstrap": "~3.3.5",
     "jquery": "~2.1.4",
     "angular-prompt": "~1.1.1",
-    "angular-bootstrap": "~0.13.3"
+    "angular-bootstrap": "~0.13.3",
+    "bower-angular-cookies": "1.3.18"
   },
   "resolutions": {
     "angular-bootstrap": "~0.12.0",
-    "angular": ">=1.3.0"
+    "angular": "1.4.4"
   }
 }
