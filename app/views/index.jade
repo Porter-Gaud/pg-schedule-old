@@ -7,10 +7,10 @@ head
     link(rel='stylesheet', href='/css/style.css')
 body(ng-controller='mainController')
   .container.text-center
-    h1(style="font-size: 350%;") Porter-Gaud 
+    h1(style="font-size: 350%;") Porter-Gaud
       if upper
         | Upper School Schedule
-      else 
+      else
         | Middle School Schedule
     hr
     h3(ng-if='!weekend') {{dateString}}
@@ -28,14 +28,20 @@ body(ng-controller='mainController')
     a(href='http://myschooldining.com/portergaud/#homepage_menus' target='_blank')
       button.btn.btn-danger
         h4 Lunch
-    a(href='http://www.portergaud.edu/page.cfm?p=1372')
-      button.btn.btn-danger(style="margin-left: 10px;")
-        h4 Announcements
+    //- Waiting for le link for Middle School Announcements...
+    if upper
+      a(href='http://www.portergaud.edu/page.cfm?p=1372')
+        button.btn.btn-danger(style="margin-left: 10px;")
+          h4 Announcements
+    else
+      a(href='http://www.portergaud.edu')
+        button.btn.btn-danger(style="margin-left: 10px;" disabled="disabled")
+          h4 Announcements (Not Avalible)
     //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
     //-   h4 Get Future Date
     hr
     footer(style="text-align: center;")
-      p 
+      p
         if upper
           a(href='/middle')
            b Switch to Middle School schedule
@@ -44,9 +50,9 @@ body(ng-controller='mainController')
             b Switch to Upper School schedule
         br
         a(href='/api/') API
-        |  | 
+        |  |
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  | 
+        |  |
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
     script(src='/js/all.min.js')
     unless production
