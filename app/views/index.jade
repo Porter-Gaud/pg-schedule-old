@@ -7,7 +7,7 @@ head
     link(rel='stylesheet', href='/css/style.css')
 body(ng-controller='mainController')
   .container.text-center
-    h1(style="font-size: 350%;") Porter-Gaud
+    h1(style="font-size: 350%;") Porter-Gaud 
       if upper
         | Upper School Schedule
       else
@@ -25,9 +25,8 @@ body(ng-controller='mainController')
           td {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
           td {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
     br
-    a(href='http://myschooldining.com/portergaud/#homepage_menus' target='_blank')
-      button.btn.btn-danger
-        h4 Lunch
+    button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal')
+      h4 Lunch
     //- Waiting for le link for Middle School Announcements...
     if upper
       a(href='http://www.portergaud.edu/page.cfm?p=1372')
@@ -40,6 +39,17 @@ body(ng-controller='mainController')
     //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
     //-   h4 Get Future Date
     hr
+
+    div.modal.fade(id="lunchMenu" role="dialog")
+      div.modal-dialog
+        div.modal-content
+          div.modal-body
+            h1 Lunch Menu
+            hr
+            table.table.table-striped.table-bordered
+              tr(ng-repeat='item in lunch')
+                td {{item['name']}}
+                td {{item['menu items'][0]['name']}}
     footer(style="text-align: center;")
       p
         if upper
@@ -49,10 +59,10 @@ body(ng-controller='mainController')
           a(href='/')
             b Switch to Upper School schedule
         br
-        a(href='/api/') API
-        |  |
+        a(href='/api/') API 
+        |  | 
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  |
+        |  | 
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
     script(src='/js/all.min.js')
     unless production

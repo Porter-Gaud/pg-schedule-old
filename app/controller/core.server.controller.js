@@ -11,6 +11,10 @@ module.exports.middle = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: false});
 };
 
+module.exports.lunch = function(req, res) {
+  res.render('lunch', {production: req.app.locals.production});
+};
+
 module.exports.exposeAPI = function(req, res) {
   res.json(SCHEDULE_API.HELP);
 };

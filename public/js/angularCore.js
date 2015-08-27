@@ -7,6 +7,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.dateString = '';
   $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
+  $scope.lunch = [];
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -64,6 +65,13 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
           $scope.currentDay = data;
           $scope.weekend = (data === '');
         }));
+  };
+
+  $scope.getLunchMenu = function() {
+    $http.get('/api/getLunchMenu').success(function(data) {
+      $scope.lunch = data;
+      $scope.lunch.pop();
+    });
   };
 
   $scope.beautifyTime = function(time) {
