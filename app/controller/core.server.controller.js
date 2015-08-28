@@ -1,30 +1,35 @@
 var SCHEDULE_API = require('./schedule.js');
 var getWeeks = require('./getWeeks.js');
+var lunch = require('./lunch.js');
 var year = 2015;
 
-module.exports.home = function(req, res){
-  res.render('index', { production: req.app.locals.production, upper: true });
+module.exports.home = function(req, res) {
+  res.render('index', {production: req.app.locals.production, upper: true});
 };
 
-module.exports.middle = function(req, res){
-  res.render('index', { production: req.app.locals.production, upper: false });
+module.exports.middle = function(req, res) {
+  res.render('index', {production: req.app.locals.production, upper: false});
 };
 
-module.exports.exposeAPI = function(req, res){
+module.exports.lunch = function(req, res) {
+  res.render('lunch', {production: req.app.locals.production});
+};
+
+module.exports.exposeAPI = function(req, res) {
   res.json(SCHEDULE_API.HELP);
 };
 
-module.exports.api = function(req, res){
-  if(req.query.middle !== null){
+module.exports.api = function(req, res) {
+  if (req.query.middle !== null) {
     res.json(SCHEDULE_API.MIDDLE);
-  } else if(req.query.upper !== null){
+  } else if (req.query.upper !== null) {
     res.json(SCHEDULE_API.UPPER);
   } else {
     res.json(SCHEDULE_API.HELP);
   }
 };
 
-module.exports.timeUntil = function(req, res){
+module.exports.timeUntil = function(req, res) {
   var todayDate = new Date();
   var today = getDayObject(todayDate, getWeeks.currentWeek(), req.query.middle);
   if (today === '') {
@@ -52,7 +57,7 @@ module.exports.timeUntil = function(req, res){
   }
 };
 
-module.exports.currentBlock = function(req, res){
+module.exports.currentBlock = function(req, res) {
   var todayDate = new Date();
   var today = getDayObject(todayDate, getWeeks.currentWeek(), req.query.middle);
   if (today === '') {
@@ -83,19 +88,25 @@ module.exports.currentBlock = function(req, res){
   res.json('');
 };
 
-module.exports.currentDay = function(req, res){
+module.exports.currentDay = function(req, res) {
   var today = new Date();
   res.json(getDayObject(today, getWeeks.currentWeek(), req.query.middle));
 };
 
-module.exports.getFutureWeek = function(req, res){
+module.exports.getFutureWeek = function(req, res) {
   var theWeek = getWeeks.getFutureWeek(req.query.middle);
   theDay = new Date(year, req.params.month, req.params.date);
   res.json(getDayObject(theDay, theWeek, req.query.middle));
 };
 
+module.exports.getLunch = function(req, res) {
+  res.json(lunch.getMenu());
+};
+
 function getDayObject(date, week, middle) {
-  if (!middle) middle = false;
+  if (!middle) {
+    middle = false;
+  }
   if (date.getDay() === 0 || date.getDay() == 6) {
     return '';
   }

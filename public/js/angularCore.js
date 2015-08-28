@@ -1,11 +1,13 @@
-var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt']);
+var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt', 'ngCookies']);
 
-pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', function($scope, $http, $log, $interval, $location) {
+pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', function($scope, $http, $log, $interval, $location, $cookies) {
   $scope.timeUntil = '';
   $scope.currentDay = '';
   $scope.currentBlock = '';
   $scope.dateString = '';
+  $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
+  $scope.lunch = [];
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -24,26 +26,33 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentBlock = function() {
     $http.get(getApi('currentBlock')).success(function(data) {
       $scope.currentBlock = data;
+      $cookies.put('schedule', 'A=Test,B=Test1,G=blah');
+      if ($cookies.get('schedule')) {
+        var classCookie = $cookies.get('schedule').split(',');
+        for (var i = 0; i < classCookie.length; i++) {
+          var theClass = classCookie[i].split('=');
+          $scope.cookies[theClass[0]] = theClass[1];
+        }
+      }
     });
   };
 
   $scope.getCurrentDay = function() {
     $http.get(getApi('currentDay')).success(function(data) {
       $scope.currentDay = data;
-      console.log(data);
       $scope.weekend = (data === '');
     });
   };
 
-  $scope.getFutureDate = function(){
+  $scope.getFutureDate = function() {
     day = null;
     prompt({
-      "title": "Enter Date",
-      "message": "",
-      "input": true,
-      "label": "Month/Day mm/dd",
-      "value": "08/12"
-    }).then(function(result){
+      'title': 'Enter Date',
+      'message': '',
+      'input': true,
+      'label': 'Month/Day mm/dd',
+      'value': '08/12'
+    }).then(function(result) {
       day = result;
     });
     $http.get(getApi('getFutureDate/' +
@@ -52,10 +61,17 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
           '/' +
           day.substring(3, 5)
           )
-        .success(function(data){
+        .success(function(data) {
           $scope.currentDay = data;
           $scope.weekend = (data === '');
         }));
+  };
+
+  $scope.getLunchMenu = function() {
+    $http.get('/api/getLunchMenu').success(function(data) {
+      $scope.lunch = data;
+      $scope.lunch.pop();
+    });
   };
 
   $scope.beautifyTime = function(time) {
