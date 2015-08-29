@@ -1,4 +1,4 @@
-var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'cgPrompt', 'ngCookies']);
+var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'ngCookies']);
 
 pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', function($scope, $http, $log, $interval, $location, $cookies) {
   $scope.timeUntil = '';

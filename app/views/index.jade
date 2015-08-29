@@ -13,7 +13,7 @@ body(ng-controller='mainController')
       else
         | Middle School Schedule
     hr
-    h3(ng-if='!weekend') {{dateString}}
+    h3.ng-cloak(ng-if='!weekend') {{dateString}}
     h2(ng-if='weekend') It's a weekend!
     table.table.table-striped.table-bordered(style="width:60%; margin: 0 20% 0 20%;" ng-if='!weekend')
       thead
@@ -22,8 +22,8 @@ body(ng-controller='mainController')
           td Time
       tbody
         tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
-          td {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
-          td {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+          td.ng-cloak {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
+          td.ng-cloak {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
     br
     button.btn.btn-danger(data-target='#addClasses' data-toggle='modal')
       h4 Add Classes
