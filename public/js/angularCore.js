@@ -26,7 +26,6 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentBlock = function() {
     $http.get(getApi('currentBlock')).success(function(data) {
       $scope.currentBlock = data;
-      $cookies.put('schedule', 'A=Test,B=Test1,G=blah');
       if ($cookies.get('schedule')) {
         var classCookie = $cookies.get('schedule').split(',');
         for (var i = 0; i < classCookie.length; i++) {
@@ -42,6 +41,15 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       $scope.currentDay = data;
       $scope.weekend = (data === '');
     });
+  };
+
+  $scope.addClasses = function() {
+    var cookieString = '';
+    angular.forEach(angular.element.find('.classInput'), function(node) {
+      cookieString += (node.id.substring(0, 1)) + '=' + '' + node.value + ',';
+    });
+    $cookies.put('schedule', cookieString, {expires: new Date('5/29/2016')});
+    location.reload(); // Until we get angular-bootstrap working correctly.
   };
 
   $scope.getFutureDate = function() {

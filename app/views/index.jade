@@ -25,7 +25,9 @@ body(ng-controller='mainController')
           td {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
           td {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
     br
-    button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal')
+    button.btn.btn-danger(data-target='#addClasses' data-toggle='modal')
+      h4 Add Classes
+    button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal' style="margin-left: 10px;")
       h4 Lunch
     //- Waiting for le link for Middle School Announcements...
     if upper
@@ -50,10 +52,34 @@ body(ng-controller='mainController')
               tr(ng-repeat='item in lunch')
                 td {{item['name']}}
                 td {{item['menu items'][0]['name']}}
+                
+    div.modal.fade(id="addClasses" role="dialog")
+      div.modal-dialog
+        div.modal-content
+          div.modal-body
+            h1 Add your Classes
+            hr
+            form(id='addClassForm' ng-submit='addClasses()')
+              input.form-control.classInput(type="text" id='AClass' name="username" placeholder="A")
+              br
+              input.form-control.classInput(type="text" id='BClass' name="username" placeholder="B")
+              br
+              input.form-control.classInput(type="text" id='CClass' name="username" placeholder="C")
+              br
+              input.form-control.classInput(type="text" id='DClass' name="username" placeholder="D")
+              br
+              input.form-control.classInput(type="text" id='EClass' name="username" placeholder="E")
+              br
+              input.form-control.classInput(type="text" id='FClass' name="username" placeholder="F")
+              br
+              input.form-control.classInput(type="text" id='GClass' name="username" placeholder="G")
+              div.modal-footer
+                a.btn.btn-danger(type='button' data-dismiss='modal' form='addClassForm') Cancel
+                button.btn.btn-success(type="submit") Add
     footer(style="text-align: center;")
       p
         if upper
-          a(href='/middle')
+          a(ef='/middle')
            b Switch to Middle School schedule
         else
           a(href='/')
