@@ -44,22 +44,35 @@ new CronJob('00 01 00 * * *', function() {
   module.exports.currentWeek();
 }, null, true, 'America/New_York');
 
-module.exports.getFutureWeek = function(month, date, year) {
-  var week = '';
-  var request = http.get('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week', function(response) {
-    var data = '';
-    response.on('end', function(d) {
-      data += d;
-    });
-    response.on('end', function() {
-      if (data.indexOf('A Week' > -1)) {
-        week = 'A';
-      } else if (data.indexOf('B Week' > -1)) {
-        week = 'B';
-      } else {
-        week = 'WEEKEND';
-      }
-      return week;
-    });
-  });
+module.exports.getFutureWeek = function(day) {
+  if (day.getDay() === 0 || day.getDay() === 6 || day.getFullYear() == '2016') {
+    return ''; // will be implemented closer to 2016
+  }
+  return (day.getWeek() % 2 === 0) ? 'A' : 'B';
+  // var week = '';
+  // console.log('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week');
+  // var request = http.get('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week', function(response) {
+  //   var data = '';
+  //   response.on('end', function(d) {
+  //     data += d;
+  //   });
+  //   response.on('end', function() {
+  //     if (data.indexOf('A Week' > -1) || data.indexOf('Week A' > -1)) {
+  //       week = 'A';
+  //     } else if (data.indexOf('B Week' > -1) || data.indexOf('Week B' > -1)) {
+  //       week = 'B';
+  //     } else {
+  //       week = 'WEEKEND';
+  //     }
+  //     console.log(week);
+  //     return week;
+  //   });
+  // });
+};
+
+Date.prototype.getWeek = function() {
+  var d = new Date(+this);
+  d.setHours(0, 0, 0);
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+  return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
 };

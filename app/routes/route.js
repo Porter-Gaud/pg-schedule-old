@@ -10,7 +10,7 @@ r.get('/api/', core.exposeAPI);
 r.get('/api/timeUntil/', core.timeUntil);
 r.get('/api/currentBlock/', core.currentBlock);
 r.get('/api/currentDay/', core.currentDay);
-r.get('/api/getFutureDate/:month/:date/', core.getFutureWeek);
+r.get('/api/getFutureDate/:month/:date/:year', core.getFutureWeek);
 
 r.get('/api/getLunchMenu', core.getLunch);
 

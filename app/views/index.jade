@@ -37,7 +37,16 @@ body(ng-controller='mainController')
         h4 Announcements
     //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
     //-   h4 Get Future Date
+    br
+    br
+    div.btn-group(role="group")
+      button.btn.btn-default(type='button' ng-click='changeDay(-1)') <
+      //- button.btn.btn-warning(disabled data-target='#chooseDate' data-toggle='modal') Choose date
+      button.btn.btn-default(type='button' ng-click='changeDay(1)') >
+    br
+    small {{day.toString().substring(0, 15)}}
     hr
+    
 
     div.modal.fade(id="lunchMenu" role="dialog")
       div.modal-dialog
@@ -73,6 +82,18 @@ body(ng-controller='mainController')
               div.modal-footer
                 a.btn.btn-danger(type='button' data-dismiss='modal' form='addClassForm') Cancel
                 button.btn.btn-success(type="submit") Add
+    div.modal.fade(id="addClasses" role="dialog")
+      div.modal-dialog
+        div.modal-content
+          div.modal-body
+            h1 Change Date
+            hr
+            form(id='addClassForm' ng-submit='changeDate()')
+              input.form-control.classInput(type="text" id='AClass' name="username" placeholder="Date")
+              div.modal-footer
+                a.btn.btn-danger(type='button' data-dismiss='modal' form='addClassForm') Cancel
+                button.btn.btn-success(type="submit") Add
+
     footer(style="text-align: center;")
       p
         if upper

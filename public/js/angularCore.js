@@ -8,6 +8,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
   $scope.lunch = [];
+  $scope.day = new Date();
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -20,6 +21,20 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
           $scope.dateString = ($scope.timeUntil) + ' minute until next class';
         }
       }
+    });
+  };
+
+  $scope.changeDay = function(offset) {
+    var dateOffset = (24 * 60 * 60 * 1000) * offset;
+    $scope.day.setTime($scope.day.getTime() + dateOffset);
+    console.log($scope.day);
+    var apiString = 'getFutureDate' +
+    '/' + ($scope.day.getMonth()) +
+    '/' + ($scope.day.getDate()) +
+    '/' + ($scope.day.getFullYear());
+    $http.get(getApi(apiString)).success(function(data) {
+      $scope.currentDay = data;
+      $scope.weekend = (data === '');
     });
   };
 
@@ -37,6 +52,9 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   $scope.getCurrentDay = function() {
+    if ($scope.day.getDate() !== new Date().getDate()) {
+      return;
+    }
     $http.get(getApi('currentDay')).success(function(data) {
       $scope.currentDay = data;
       $scope.weekend = (data === '');
@@ -50,29 +68,6 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     });
     $cookies.put('schedule', cookieString, {expires: new Date('5/29/2016')});
     location.reload(); // Until we get angular-bootstrap working correctly.
-  };
-
-  $scope.getFutureDate = function() {
-    day = null;
-    prompt({
-      'title': 'Enter Date',
-      'message': '',
-      'input': true,
-      'label': 'Month/Day mm/dd',
-      'value': '08/12'
-    }).then(function(result) {
-      day = result;
-    });
-    $http.get(getApi('getFutureDate/' +
-          '/' +
-          day.substring(0, 2) +
-          '/' +
-          day.substring(3, 5)
-          )
-        .success(function(data) {
-          $scope.currentDay = data;
-          $scope.weekend = (data === '');
-        }));
   };
 
   $scope.getLunchMenu = function() {

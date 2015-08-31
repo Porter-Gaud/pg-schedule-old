@@ -1,7 +1,6 @@
 var SCHEDULE_API = require('./schedule.js');
 var getWeeks = require('./getWeeks.js');
 var lunch = require('./lunch.js');
-var year = 2015;
 
 module.exports.home = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: true});
@@ -94,8 +93,8 @@ module.exports.currentDay = function(req, res) {
 };
 
 module.exports.getFutureWeek = function(req, res) {
-  var theWeek = getWeeks.getFutureWeek(req.query.middle);
-  theDay = new Date(year, req.params.month, req.params.date);
+  theDay = new Date(req.params.year, req.params.month, req.params.date);
+  var theWeek = getWeeks.getFutureWeek(theDay);
   res.json(getDayObject(theDay, theWeek, req.query.middle));
 };
 
