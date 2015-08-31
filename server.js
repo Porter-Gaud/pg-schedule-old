@@ -20,6 +20,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.locals.production = (port == process.env.PORT);
 
 app.use('/', express.static(__dirname + '/public/'));
+app.use('/fonts', express.static(__dirname + '/bower_components/bootstrap/fonts/'));
 app.use('/', route);
 
 app.listen(port, function() {

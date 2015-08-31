@@ -5,109 +5,114 @@ head
   link(rel='stylesheet', href='/css/all.min.css')
   unless production
     link(rel='stylesheet', href='/css/style.css')
-body(ng-controller='mainController')
-  .container.text-center
-    h1(style="font-size: 350%;") Porter-Gaud 
-      if upper
-        | Upper School Schedule
-      else
-        | Middle School Schedule
-    hr
-    h3.ng-cloak(ng-if='!weekend') {{dateString}}
-    h2(ng-if='weekend') It's a weekend!
-    table.table.table-striped.table-bordered(style="width:60%; margin: 0 20% 0 20%;" ng-if='!weekend')
-      thead
-        tr
-          td Period
-          td Time
-      tbody
-        tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
-          td.ng-cloak {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
-          td.ng-cloak {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
-    br
-    button.btn.btn-danger(data-target='#addClasses' data-toggle='modal')
-      h4 Add Classes
-    button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal' style="margin-left: 10px;")
-      h4 Lunch
+body(ng-controller='mainController').container.text-center
+  h1(style="font-size: 350%;") Porter-Gaud 
     if upper
-      a.btn.btn-danger(href='http://www.portergaud.edu/page.cfm?p=1372' target='_blank' style='margin-left: 10px')
-        h4 Announcements
+      | Upper School Schedule
     else
-      a.btn.btn-danger(href='#' style='margin-left: 10px' disabled)
-        h4 Announcements
-    //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
-    //-   h4 Get Future Date
-    br
-    br
-    div.btn-group(role="group")
-      button.btn.btn-default(type='button' ng-click='changeDay(-1)') <
-      //- button.btn.btn-warning(disabled data-target='#chooseDate' data-toggle='modal') Choose date
-      button.btn.btn-default(type='button' ng-click='changeDay(1)') >
-    br
-    small {{day.toString().substring(0, 15)}}
-    hr
+      | Middle School Schedule
+  hr
+          
+  h3.ng-cloak(ng-if='!weekend') {{dateString}}
+  h2(ng-if='weekend') It's a weekend!
+  table.table.table-striped.table-bordered(style="width:60%; margin: 0 20% 0 20%;" ng-if='!weekend')
+    thead
+      tr
+        td Period
+        td Time
+    tbody
+      tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
+        td.ng-cloak {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
+        td.ng-cloak {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+  br
+  button.btn.btn-danger(data-target='#addClasses' data-toggle='modal')
+    h4 Add Classes
+  button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal' style="margin-left: 10px;")
+    h4 Lunch
+  if upper
+    a.btn.btn-danger(href='http://www.portergaud.edu/page.cfm?p=1372' target='_blank' style='margin-left: 10px')
+      h4 Announcements
+  else
+    a.btn.btn-danger(href='#' style='margin-left: 10px' disabled)
+      h4 Announcements
+  //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
+  //-   h4 Get Future Date
+  br
+  br
+  div.btn-group(role="group")
+    a.btn.btn-default(type='button' ng-click='changeDay(-1)') 
+      span.glyphicon.glyphicon-chevron-left
+    a.btn.btn-default(data-target='#chooseDate' data-toggle='modal') Choose date
+    a.btn.btn-default(type='button' ng-click='changeDay(1)')
+      span.glyphicon.glyphicon-chevron-right
+  br
+  small {{day.toString().substring(0, 15)}}
+  hr
+
+  div.modal.fade(id="lunchMenu" role="dialog")
+    div.modal-dialog
+      div.modal-content
+        div.modal-body
+          h1 Lunch Menu
+          hr
+          table.table.table-striped.table-bordered
+            tr(ng-repeat='item in lunch')
+              td {{item['name']}}
+              td {{item['menu items'][0]['name']}}
+              
+  div.modal.fade(id="addClasses" role="dialog")
+    div.modal-dialog
+      div.modal-content
+        div.modal-body
+          h1 Add your Classes
+          hr
+          form(id='addClassForm' ng-submit='addClasses()')
+            input.form-control.classInput(type="text" id='AClass' name="username" placeholder="A")
+            br
+            input.form-control.classInput(type="text" id='BClass' name="username" placeholder="B")
+            br
+            input.form-control.classInput(type="text" id='CClass' name="username" placeholder="C")
+            br
+            input.form-control.classInput(type="text" id='DClass' name="username" placeholder="D")
+            br
+            input.form-control.classInput(type="text" id='EClass' name="username" placeholder="E")
+            br
+            input.form-control.classInput(type="text" id='FClass' name="username" placeholder="F")
+            br
+            input.form-control.classInput(type="text" id='GClass' name="username" placeholder="G")
+            div.modal-footer
+              a.btn.btn-danger(type='button' data-dismiss='modal') Cancel
+              button.btn.btn-success(type="submit") Add
+              
+  div.modal.fade(id="chooseDate" role="dialog")
+    div.modal-dialog
+      div.modal-content
+        div.modal-body
+          h1 Change Date
+          hr
+          p.input-group(style="width: 50%")
+            input.form-control(type="date" id="date" datepicker-popup ng-model="dt" is-open="status.opened" max-date="'2015-12-31'"  date-disabled="disabled(date, mode)" close-text="Close")
+            span.input-group-btn
+              button.btn.btn-default(ng-click="open($event)") 
+                span.glyphicon.glyphicon-calendar
+          div.modal-footer
+            a.btn.btn-danger(type='button' data-dismiss='modal') Cancel
+            button.btn.btn-success(data-dismiss='modal' ng-click="updateDate()") Change date
     
-
-    div.modal.fade(id="lunchMenu" role="dialog")
-      div.modal-dialog
-        div.modal-content
-          div.modal-body
-            h1 Lunch Menu
-            hr
-            table.table.table-striped.table-bordered
-              tr(ng-repeat='item in lunch')
-                td {{item['name']}}
-                td {{item['menu items'][0]['name']}}
-                
-    div.modal.fade(id="addClasses" role="dialog")
-      div.modal-dialog
-        div.modal-content
-          div.modal-body
-            h1 Add your Classes
-            hr
-            form(id='addClassForm' ng-submit='addClasses()')
-              input.form-control.classInput(type="text" id='AClass' name="username" placeholder="A")
-              br
-              input.form-control.classInput(type="text" id='BClass' name="username" placeholder="B")
-              br
-              input.form-control.classInput(type="text" id='CClass' name="username" placeholder="C")
-              br
-              input.form-control.classInput(type="text" id='DClass' name="username" placeholder="D")
-              br
-              input.form-control.classInput(type="text" id='EClass' name="username" placeholder="E")
-              br
-              input.form-control.classInput(type="text" id='FClass' name="username" placeholder="F")
-              br
-              input.form-control.classInput(type="text" id='GClass' name="username" placeholder="G")
-              div.modal-footer
-                a.btn.btn-danger(type='button' data-dismiss='modal' form='addClassForm') Cancel
-                button.btn.btn-success(type="submit") Add
-    div.modal.fade(id="addClasses" role="dialog")
-      div.modal-dialog
-        div.modal-content
-          div.modal-body
-            h1 Change Date
-            hr
-            form(id='addClassForm' ng-submit='changeDate()')
-              input.form-control.classInput(type="text" id='AClass' name="username" placeholder="Date")
-              div.modal-footer
-                a.btn.btn-danger(type='button' data-dismiss='modal' form='addClassForm') Cancel
-                button.btn.btn-success(type="submit") Add
-
-    footer(style="text-align: center;")
-      p
-        if upper
-          a(href='/middle')
-           b Switch to Middle School schedule
-        else
-          a(href='/')
-            b Switch to Upper School schedule
-        br
-        a(href='/api/') API 
-        |  | 
-        a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  | 
-        a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
-    script(src='/js/all.min.js')
-    unless production
-      script(src='/js/angularCore.js')
+  footer(style="text-align: center;")
+    p
+      if upper
+        a(href='/middle')
+         b Switch to Middle School schedule
+      else
+        a(href='/')
+          b Switch to Upper School schedule
+      br
+      a(href='/api/') API 
+      |  | 
+      a(href='https://github.com/ireallydontcare/pg-schedule') Source
+      |  | 
+      a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
+  script(src='/js/all.min.js')
+  unless production
+    script(src='/js/angularCore.js')

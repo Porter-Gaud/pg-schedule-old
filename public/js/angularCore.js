@@ -1,6 +1,6 @@
 var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'ngCookies']);
 
-pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', function($scope, $http, $log, $interval, $location, $cookies) {
+pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', '$modal', function($scope, $http, $log, $interval, $location, $cookies, $modal) {
   $scope.timeUntil = '';
   $scope.currentDay = '';
   $scope.currentBlock = '';
@@ -24,14 +24,28 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     });
   };
 
+  $scope.updateDate = function() {
+    if ($scope.dt === null) {
+      return;
+    }
+    $scope.day = new Date($scope.dt);
+    var apiString = 'getFutureDate' +
+      '/' + ($scope.day.getMonth()) +
+      '/' + ($scope.day.getDate()) +
+      '/' + ($scope.day.getFullYear());
+    $http.get(getApi(apiString)).success(function(data) {
+      $scope.currentDay = data;
+      $scope.weekend = (data === '');
+    });
+  };
+
   $scope.changeDay = function(offset) {
     var dateOffset = (24 * 60 * 60 * 1000) * offset;
     $scope.day.setTime($scope.day.getTime() + dateOffset);
-    console.log($scope.day);
     var apiString = 'getFutureDate' +
-    '/' + ($scope.day.getMonth()) +
-    '/' + ($scope.day.getDate()) +
-    '/' + ($scope.day.getFullYear());
+      '/' + ($scope.day.getMonth()) +
+      '/' + ($scope.day.getDate()) +
+      '/' + ($scope.day.getFullYear());
     $http.get(getApi(apiString)).success(function(data) {
       $scope.currentDay = data;
       $scope.weekend = (data === '');
@@ -94,5 +108,31 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $interval($scope.getCurrentBlock, 1000 * 10);
   $interval($scope.getCurrentDay, 1000 * 60 * 60);
   $interval($scope.getTimeUntil, 1000 * 10);
+
+  $scope.clear = function() {
+    $scope.dt = null;
+  };
+
+  $scope.open = function($event) {
+    $scope.showWeeks = false;
+    $scope.status.opened = true;
+  };
+
+  $scope.status = {
+    opened: false,
+  };
+
+  $scope.getDayClass = function(date, mode) {
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+    return '';
+  };
 
 }]);
