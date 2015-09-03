@@ -9,6 +9,8 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.weekend = false;
   $scope.lunch = [];
   $scope.day = new Date();
+  $scope.monthNames = [' January ', ' February ', ' March ', ' April ', ' May ', ' June ',' July ', ' August ', ' September ', ' October ', ' November ', ' December '];
+  $scope.weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {

@@ -6,13 +6,13 @@ head
   unless production
     link(rel='stylesheet', href='/css/style.css')
 body(ng-controller='mainController').container.text-center
-  h1(style="font-size: 350%;") Porter-Gaud 
+  h1(style="font-size: 350%;") Porter-Gaud
     if upper
       | Upper School Schedule
     else
       | Middle School Schedule
   hr
-          
+  h3 Today is {{ weekNames[day.getDay()] + monthNames[day.getMonth()] + day.getDate() }}.
   h3.ng-cloak(ng-if='!weekend') {{dateString}}
   h2(ng-if='weekend') It's a weekend!
   table.table.table-striped.table-bordered(style="width:60%; margin: 0 20% 0 20%;" ng-if='!weekend')
@@ -40,7 +40,7 @@ body(ng-controller='mainController').container.text-center
   br
   br
   div.btn-group(role="group")
-    a.btn.btn-default(type='button' ng-click='changeDay(-1)') 
+    a.btn.btn-default(type='button' ng-click='changeDay(-1)')
       span.glyphicon.glyphicon-chevron-left
     a.btn.btn-default(data-target='#chooseDate' data-toggle='modal') Choose date
     a.btn.btn-default(type='button' ng-click='changeDay(1)')
@@ -59,7 +59,7 @@ body(ng-controller='mainController').container.text-center
             tr(ng-repeat='item in lunch')
               td {{item['name']}}
               td {{item['menu items'][0]['name']}}
-              
+
   div.modal.fade(id="addClasses" role="dialog")
     div.modal-dialog
       div.modal-content
@@ -83,7 +83,7 @@ body(ng-controller='mainController').container.text-center
             div.modal-footer
               a.btn.btn-danger(type='button' data-dismiss='modal') Cancel
               button.btn.btn-success(type="submit") Add
-              
+
   div.modal.fade(id="chooseDate" role="dialog")
     div.modal-dialog
       div.modal-content
@@ -93,12 +93,12 @@ body(ng-controller='mainController').container.text-center
           p.input-group(style="width: 50%")
             input.form-control(type="date" id="date" datepicker-popup ng-model="dt" is-open="status.opened" max-date="'2015-12-31'"  date-disabled="disabled(date, mode)" close-text="Close")
             span.input-group-btn
-              button.btn.btn-default(ng-click="open($event)") 
+              button.btn.btn-default(ng-click="open($event)")
                 span.glyphicon.glyphicon-calendar
           div.modal-footer
             a.btn.btn-danger(type='button' data-dismiss='modal') Cancel
             button.btn.btn-success(data-dismiss='modal' ng-click="updateDate()") Change date
-    
+
   footer(style="text-align: center;")
     p
       if upper
@@ -108,10 +108,10 @@ body(ng-controller='mainController').container.text-center
         a(href='/')
           b Switch to Upper School schedule
       br
-      a(href='/api/') API 
-      |  | 
+      a(href='/api/') API
+      |  |
       a(href='https://github.com/ireallydontcare/pg-schedule') Source
-      |  | 
+      |  |
       a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
   script(src='/js/all.min.js')
   unless production
