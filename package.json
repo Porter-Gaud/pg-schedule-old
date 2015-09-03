@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://www.github.com/t94j0/PGProgrammingCompetition"
   },
-  "author": "Tillson Galloway, Max Harley, Brian Rieder",
+  "author": "Tillson Galloway, Max Harley, Brian Rieder, Charles Truluck",
   "license": "MIT",
   "devDependencies": {
     "grunt": "latest",
