@@ -13,7 +13,7 @@ body(ng-controller='mainController').container.text-center
       | Middle School Schedule
   hr
   h3 Today is {{ weekNames[liveDate.getDay()] + monthNames[liveDate.getMonth()] + liveDate.getDate() }}.
-  h4 We're on a {{ currentScheduleWeek }}
+  //h4 We're on a {{ currentScheduleWeek }}
   h3.ng-cloak(ng-if='!weekend') {{dateString}}
   h2(ng-if='weekend') It's a weekend!
   table.table.table-striped.table-bordered(style="width:60%; margin: 0 20% 0 20%;" ng-if='!weekend')
