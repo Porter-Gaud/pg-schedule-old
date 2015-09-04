@@ -1,11 +1,9 @@
 var SCHEDULE_API = require('./schedule.js');
 var getWeeks = require('./getWeeks.js');
 var lunch = require('./lunch.js');
-
 module.exports.home = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: true});
 };
-
 module.exports.middle = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: false});
 };
@@ -13,6 +11,10 @@ module.exports.middle = function(req, res) {
 module.exports.lunch = function(req, res) {
   res.render('lunch', {production: req.app.locals.production});
 };
+
+//module.exports.currentScheduleWeek = function(req, res) {
+//  res.render('currentScheduleWeek')
+//};
 
 module.exports.exposeAPI = function(req, res) {
   res.json(SCHEDULE_API.HELP);
@@ -100,7 +102,7 @@ module.exports.getFutureWeek = function(req, res) {
 
 module.exports.getLunch = function(req, res) {
   res.json(lunch.getMenu());
-};
+}
 
 function getDayObject(date, week, middle) {
   if (!middle) {
@@ -114,4 +116,8 @@ function getDayObject(date, week, middle) {
     index += 5;
   }
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
-}
+};
+
+//module.exports.getCurrentScheduleWeek = function(req, res) {
+//  res.render(getWeeks.currentWeek());
+//}

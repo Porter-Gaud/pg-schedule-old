@@ -5,10 +5,14 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.currentDay = '';
   $scope.currentBlock = '';
   $scope.dateString = '';
+  $scope.currentScheduleWeek = '';
   $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
   $scope.lunch = [];
+  $scope.liveDate = new Date();
   $scope.day = new Date();
+  $scope.monthNames = [' January ', ' February ', ' March ', ' April ', ' May ', ' June ',' July ', ' August ', ' September ', ' October ', ' November ', ' December '];
+  $scope.weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -24,6 +28,12 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     });
   };
 
+  $scope.getCurrentScheduleWeek = function() {
+    $http.get(getApi('getCurrentScheduleWeek')).success(function(data) {
+      $scope.currentScheduleWeek = data;
+    });
+  };
+
   $scope.updateDate = function() {
     if ($scope.dt === null) {
       return;
@@ -34,6 +44,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       '/' + ($scope.day.getDate()) +
       '/' + ($scope.day.getFullYear());
     $http.get(getApi(apiString)).success(function(data) {
+      $scope.liveDate = new Date($scope.dt);
       $scope.currentDay = data;
       $scope.weekend = (data === '');
     });
@@ -42,6 +53,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.changeDay = function(offset) {
     var dateOffset = (24 * 60 * 60 * 1000) * offset;
     $scope.day.setTime($scope.day.getTime() + dateOffset);
+    $scope.liveDate.setTime($scope.liveDate.getTime() + dateOffset);
     var apiString = 'getFutureDate' +
       '/' + ($scope.day.getMonth()) +
       '/' + ($scope.day.getDate()) +
@@ -104,10 +116,12 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentDay();
   $scope.getCurrentBlock();
   $scope.getTimeUntil();
+  $scope.getCurrentScheduleWeek();
 
   $interval($scope.getCurrentBlock, 1000 * 10);
   $interval($scope.getCurrentDay, 1000 * 60 * 60);
   $interval($scope.getTimeUntil, 1000 * 10);
+  $interval($scope.getCurrentScheduleWeek, 1000 * 60 * 60);
 
   $scope.clear = function() {
     $scope.dt = null;
