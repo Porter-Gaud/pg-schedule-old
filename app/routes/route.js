@@ -13,6 +13,6 @@ r.get('/api/currentDay/', core.currentDay);
 r.get('/api/getFutureDate/:month/:date/:year', core.getFutureWeek);
 
 r.get('/api/getLunchMenu', core.getLunch);
-r.get('/api/getCurrentScheduleWeek', core.getCurrentScheduleWeek);
+//r.get('/api/getCurrentScheduleWeek', core.getCurrentScheduleWeek);
 
 module.exports = r;
