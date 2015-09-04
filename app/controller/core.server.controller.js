@@ -14,9 +14,9 @@ module.exports.lunch = function(req, res) {
   res.render('lunch', {production: req.app.locals.production});
 };
 
-module.exports.currentScheduleWeek = function(req, res) {
-  res.render('currentScheduleWeek')
-}
+//module.exports.currentScheduleWeek = function(req, res) {
+//  res.render('currentScheduleWeek')
+//}
 
 module.exports.exposeAPI = function(req, res) {
   res.json(SCHEDULE_API.HELP);
@@ -120,6 +120,6 @@ function getDayObject(date, week, middle) {
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 };
 
-module.exports.getCurrentScheduleWeek = function(req, res) {
-  res.render(getWeeks.currentWeek());
-}
+//module.exports.getCurrentScheduleWeek = function(req, res) {
+//  res.render(getWeeks.currentWeek());
+//}
