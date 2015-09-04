@@ -12,7 +12,7 @@ body(ng-controller='mainController').container.text-center
     else
       | Middle School Schedule
   hr
-  h3 Today is {{ weekNames[day.getDay()] + monthNames[day.getMonth()] + day.getDay() }}.
+  h3 Today is {{ weekNames[liveDate.getDay()] + monthNames[liveDate.getMonth()] + liveDate.getDate() }}.
   h4 We're on a {{ currentScheduleWeek }}
   h3.ng-cloak(ng-if='!weekend') {{dateString}}
   h2(ng-if='weekend') It's a weekend!

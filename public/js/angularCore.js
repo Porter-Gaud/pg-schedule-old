@@ -9,6 +9,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
   $scope.lunch = [];
+  $scope.liveDate = new Date();
   $scope.day = new Date();
   $scope.monthNames = [' January ', ' February ', ' March ', ' April ', ' May ', ' June ',' July ', ' August ', ' September ', ' October ', ' November ', ' December '];
   $scope.weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -43,6 +44,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       '/' + ($scope.day.getDate()) +
       '/' + ($scope.day.getFullYear());
     $http.get(getApi(apiString)).success(function(data) {
+      $scope.liveDate = new Date($scope.dt);
       $scope.currentDay = data;
       $scope.weekend = (data === '');
     });
@@ -51,6 +53,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.changeDay = function(offset) {
     var dateOffset = (24 * 60 * 60 * 1000) * offset;
     $scope.day.setTime($scope.day.getTime() + dateOffset);
+    $scope.liveDate.setTime($scope.liveDate.getTime() + dateOffset);
     var apiString = 'getFutureDate' +
       '/' + ($scope.day.getMonth()) +
       '/' + ($scope.day.getDate()) +
@@ -63,7 +66,6 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
 
   $scope.getCurrentBlock = function() {
     $http.get(getApi('currentBlock')).success(function(data) {
-      $scope.day = new Date();
       $scope.currentBlock = data;
       if ($cookies.get('schedule')) {
         var classCookie = $cookies.get('schedule').split(',');
