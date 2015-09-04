@@ -5,6 +5,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.currentDay = '';
   $scope.currentBlock = '';
   $scope.dateString = '';
+  $scope.currentScheduleWeek = '';
   $scope.cookies = []; // A=BLOCK,B=BLOCK
   $scope.weekend = false;
   $scope.lunch = [];
@@ -23,6 +24,12 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
           $scope.dateString = ($scope.timeUntil) + ' minute until next class';
         }
       }
+    });
+  };
+
+  $scope.getCurrentScheduleWeek = function() {
+    $http.get(getApi('getCurrentScheduleWeek')).success(function(data) {
+      $scope.currentScheduleWeek = data;
     });
   };
 
@@ -56,6 +63,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
 
   $scope.getCurrentBlock = function() {
     $http.get(getApi('currentBlock')).success(function(data) {
+      $scope.day = new Date();
       $scope.currentBlock = data;
       if ($cookies.get('schedule')) {
         var classCookie = $cookies.get('schedule').split(',');
@@ -106,10 +114,12 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentDay();
   $scope.getCurrentBlock();
   $scope.getTimeUntil();
+  $scope.getCurrentScheduleWeek();
 
   $interval($scope.getCurrentBlock, 1000 * 10);
   $interval($scope.getCurrentDay, 1000 * 60 * 60);
   $interval($scope.getTimeUntil, 1000 * 10);
+  $interval($scope.getCurrentScheduleWeek, 1000 * 60 * 60);
 
   $scope.clear = function() {
     $scope.dt = null;
