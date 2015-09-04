@@ -1,11 +1,9 @@
 var SCHEDULE_API = require('./schedule.js');
 var getWeeks = require('./getWeeks.js');
 var lunch = require('./lunch.js');
-
 module.exports.home = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: true});
 };
-
 module.exports.middle = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: false});
 };
@@ -16,7 +14,7 @@ module.exports.lunch = function(req, res) {
 
 //module.exports.currentScheduleWeek = function(req, res) {
 //  res.render('currentScheduleWeek')
-//}
+//};
 
 module.exports.exposeAPI = function(req, res) {
   res.json(SCHEDULE_API.HELP);
