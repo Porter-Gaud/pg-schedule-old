@@ -9,6 +9,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.weekend = false;
   $scope.lunch = [];
   $scope.day = new Date();
+  $scope.week = '';
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -47,7 +48,8 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       '/' + ($scope.day.getDate()) +
       '/' + ($scope.day.getFullYear());
     $http.get(getApi(apiString)).success(function(data) {
-      $scope.currentDay = data;
+      $scope.currentDay = data[Object.keys(data)[0]];
+      $scope.week = Object.keys(data)[0] + ' Week';
       $scope.weekend = (data === '');
     });
   };
@@ -70,7 +72,8 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       return;
     }
     $http.get(getApi('currentDay')).success(function(data) {
-      $scope.currentDay = data;
+      $scope.currentDay = data[Object.keys(data)[0]];
+      $scope.week = Object.keys(data)[0] + ' Week';
       $scope.weekend = (data === '');
     });
   };

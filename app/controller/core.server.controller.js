@@ -89,13 +89,17 @@ module.exports.currentBlock = function(req, res) {
 
 module.exports.currentDay = function(req, res) {
   var today = new Date();
-  res.json(getDayObject(today, getWeeks.currentWeek(), req.query.middle));
+  var response = {};
+  response[getWeeks.currentWeek()] = getDayObject(today, getWeeks.currentWeek(), req.query.middle);
+  res.json(response);
 };
 
 module.exports.getFutureWeek = function(req, res) {
   theDay = new Date(req.params.year, req.params.month, req.params.date);
   var theWeek = getWeeks.getFutureWeek(theDay);
-  res.json(getDayObject(theDay, theWeek, req.query.middle));
+  var response = {};
+  response[theWeek] = getDayObject(theDay, theWeek, req.query.middle);
+  res.json(response);
 };
 
 module.exports.getLunch = function(req, res) {

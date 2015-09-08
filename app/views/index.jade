@@ -1,5 +1,5 @@
 doctype html
-html(ng-app='pgSchedule')
+html(ng-app='pgSchedule' lang='en')
 head
   title Porter-Gaud Schedule
   link(rel='stylesheet', href='/css/all.min.css')
@@ -12,7 +12,7 @@ body(ng-controller='mainController').container.text-center
     else
       | Middle School Schedule
   hr
-          
+  h2 {{day.toString().substring(0, 15)}} | {{week}}
   h3.ng-cloak(ng-if='!weekend') {{dateString}}
   h2(ng-if='weekend') It's a weekend!
   table.table.table-striped.table-bordered(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend')
@@ -35,8 +35,6 @@ body(ng-controller='mainController').container.text-center
   else
     a.btn.btn-danger(href='#' style='margin-left: 10px' disabled)
       h4 Announcements
-  //- button.btn.btn-danger(ng-click='getFutureDate' style='margin-left: 10px;')
-  //-   h4 Get Future Date
   br
   br
   div.btn-group(role="group")
