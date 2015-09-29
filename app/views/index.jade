@@ -5,10 +5,12 @@ html(ng-app='pgSchedule' lang='en')
     meta(name='theme-color' content='red')
     meta(name='apple-mobile-web-app-capable' content='yes')
     link(rel="mask-icon" href="pg.svg" color="red")
-    link(rel='stylesheet', href='/css/all.min.css')
+
     unless production
       link(rel='stylesheet', href='/css/style.css')
   body(ng-controller='mainController').container.text-center
+    link(ng-if='!nightMode', rel='stylesheet', href='/css/all.min.css')
+    link(ng-if='nightMode', rel='stylesheet', href='/css/nm.min.css')
     h1(style="font-size: 350%;") Porter-Gaud 
       if upper
         | Upper School Schedule
@@ -112,6 +114,8 @@ html(ng-app='pgSchedule' lang='en')
           a(href='/')
             strong Switch to Upper School schedule
         br
+        a(href='#' ng-click='nightMode = !nightMode') Night Mode
+        |  | 
         a(href='/api/') API 
         |  | 
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
@@ -120,3 +124,4 @@ html(ng-app='pgSchedule' lang='en')
     script(src='/js/all.min.js')
     unless production
       script(src='/js/angularCore.js')
+
