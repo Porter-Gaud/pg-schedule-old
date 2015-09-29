@@ -10,6 +10,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.lunch = [];
   $scope.day = new Date();
   $scope.week = '';
+  $scope.nightMode = false;
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
