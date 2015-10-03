@@ -90,7 +90,7 @@ module.exports.currentBlock = function(req, res) {
 module.exports.currentDay = function(req, res) {
   var today = new Date();
   var response = {};
-  if (getWeeks.currentWeek() == null) {
+  if (getWeeks.currentWeek() === null) {
     res.json('');
   } else {
     response[getWeeks.currentWeek()] = getDayObject(today, getWeeks.currentWeek(), req.query.middle);
