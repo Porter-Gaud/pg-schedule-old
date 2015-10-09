@@ -34,11 +34,11 @@ html(ng-app='pgSchedule' lang='en')
     br
     button.btn.btn-danger(data-target='#addClasses' data-toggle='modal')
       h4 Add Classes
-    //- button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal' style="margin-left: 10px;")
-    //-   h4 Lunch
-    a(href='http://www.myschooldining.com/portergaud/?cmd=menus' style='margin-left: 10px' target='_blank')
-      button.btn.btn-danger
-        h4 Lunch
+    button.btn.btn-danger(ng-click='getLunchMenu()' data-target='#lunchMenu' data-toggle='modal' style="margin-left: 10px;")
+      h4 Lunch
+    //- a(href='http://www.myschooldining.com/portergaud/?cmd=menus' style='margin-left: 10px' target='_blank')
+    //-   button.btn.btn-danger
+    //-     h4 Lunch
     if upper
       a.btn.btn-danger(href='http://www.portergaud.edu/page.cfm?p=1372' target='_blank' style='margin-left: 10px')
         h4 Announcements
@@ -67,6 +67,7 @@ html(ng-app='pgSchedule' lang='en')
               tr(ng-repeat='item in lunch')
                 td {{item['name']}}
                 td {{item['menu items'][0]['name']}}
+            a(href='http://www.myschooldining.com/portergaud/?cmd=menus#homepage_menus' style='margin-left: 10px' target='_blank') Full menu
                 
     div.modal.fade(id="addClasses" role="dialog")
       div.modal-dialog
