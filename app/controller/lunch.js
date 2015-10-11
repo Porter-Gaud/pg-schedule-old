@@ -22,7 +22,7 @@ module.exports.getMenu = function() {
         try {
           data = JSON.parse(data)['meal periods'];
         } catch (e) {
-            return '{}';
+          return '{}';
         }
         if (data[0].name === 'No Meal Service') {
           data.shift();
