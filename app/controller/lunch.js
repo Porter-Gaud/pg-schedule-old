@@ -37,7 +37,7 @@ module.exports.getMenu = function() {
 
 module.exports.getMenu();
 
-new CronJob('00 03 00 * * *', function() {
+new CronJob('00 00 * * * 1-5', function() {
   console.log('Automatically updating the lunch menu...');
   menu = '';
   module.exports.getMenu();
