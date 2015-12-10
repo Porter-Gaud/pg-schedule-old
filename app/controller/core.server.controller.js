@@ -110,7 +110,9 @@ module.exports.getFutureWeek = function(req, res) {
 };
 
 module.exports.getAnnouncement = function(req, res) {
-  res.json(announcement.announcement);
+  if (+(new Date()) < +announcement.date) {
+    res.json(announcement.announcement);
+  }
 };
 
 module.exports.getLunch = function(req, res) {
