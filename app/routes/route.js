@@ -12,6 +12,8 @@ r.get('/api/currentBlock/', core.currentBlock);
 r.get('/api/currentDay/', core.currentDay);
 r.get('/api/getFutureDate/:month/:date/:year', core.getFutureWeek);
 
+r.get('/api/getAnnouncement/', core.getAnnouncement);
+
 r.get('/api/getLunchMenu', core.getLunch);
 
 module.exports = r;

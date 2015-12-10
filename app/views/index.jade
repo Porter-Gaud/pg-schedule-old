@@ -12,17 +12,20 @@ html(ng-app='pgSchedule' lang='en')
   
     link(ng-if='nightMode', rel='stylesheet', href='/css/nm.min.css')
     link(ng-if='!nightMode', rel='stylesheet', href='/css/all.min.css')
-
+    
     h1(style="font-size: 350%;") Porter-Gaud 
       if upper
         | Upper School Schedule
       else
         | Middle School Schedule
     hr
-    h2 {{day.toString().substring(0, 15)}} | {{week}}
+    .alert.alert-info.ng-cloak(ng-if='announcement')
+      | {{ announcement.text }}
+    
+    h2.ng-cloak {{day.toString().substring(0, 15)}} | {{week}}
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
-    h2(ng-if='weekend') It's a weekend!
-    table.table.table-striped.table-bordered(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend')
+    h2.ng-cloak(ng-if='weekend') Weekend
+    table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend')
       thead
         tr
           td Period
@@ -54,7 +57,7 @@ html(ng-app='pgSchedule' lang='en')
       a.btn.btn-default(type='button' ng-click='changeDay(1)')
         span.glyphicon.glyphicon-chevron-right
     br
-    small {{day.toString().substring(0, 15)}}
+    small.ng-cloak {{day.toString().substring(0, 15)}}
     hr
 
     div.modal.fade(id="lunchMenu" role="dialog")

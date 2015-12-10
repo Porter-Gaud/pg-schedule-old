@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       main: ['./app/**/*.js', './public/js/angularCore.js', './server.js'],
       options: {
         config: '.jscsrc',
-        excludeFiles: ['./app/controller/schedule.js']
+        excludeFiles: ['./app/controller/schedule.js', './app/controller/special.js']
       }
     },
     uglify: {

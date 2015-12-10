@@ -1,6 +1,9 @@
 var SCHEDULE_API = require('./schedule.js');
 var getWeeks = require('./getWeeks.js');
 var lunch = require('./lunch.js');
+var special = require('./special.js');
+var announcement = require('./announcement.js');
+var CronJob = require('cron').CronJob;
 
 module.exports.home = function(req, res) {
   res.render('index', {production: req.app.locals.production, upper: true});
@@ -106,11 +109,16 @@ module.exports.getFutureWeek = function(req, res) {
   res.json(response);
 };
 
+module.exports.getAnnouncement = function(req, res) {
+  res.json(announcement.announcement);
+};
+
 module.exports.getLunch = function(req, res) {
   res.json(lunch.getMenu());
 };
 
 function getDayObject(date, week, middle) {
+  date.setHours(0,0,0,0);
   if (!middle) {
     middle = false;
   }
@@ -120,6 +128,25 @@ function getDayObject(date, week, middle) {
   var index = date.getDay() - 1;
   if (week === 'B') {
     index += 5;
+  }
+  // TODO: Is this efficient?  We could probably load it at the day start with a cron job.
+  for (var i = 0; i < special.special.length; i++) {
+    if (+special.special[i].date == +date) {
+      return special.special[i];
+    }
+  }
+  if (middle) {
+    for (var x = 0; x < special.middleOnlySpecial.length; x++) {
+      if (+special.middleOnlySpecial[x].date == +date) {
+        return special.middleOnlySpecial[x];
+      }
+    }
+  } else {
+    for (var y = 0; y < special.upperOnlySpecial.length; y++) {
+      if (+special.upperOnlySpecial[y].date == +date) {
+        return special.upperOnlySpecial[y];
+      }
+    }
   }
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }

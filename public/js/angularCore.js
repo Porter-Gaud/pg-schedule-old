@@ -11,6 +11,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.day = new Date();
   $scope.week = '';
   $scope.nightMode = false;
+  $scope.announcement;
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -108,6 +109,21 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     });
   };
 
+  $scope.getAnnouncement = function() {
+    var views = 0;
+    if ($cookies.get('announcement')) {
+      var cookie = $cookies.get('announcement');
+      views = parseInt(cookie.split(':')[0]);
+      if (views > parseInt(cookie.split(':')[1])) {
+        return;
+      }
+    }
+    $http.get('/api/getAnnouncement').success(function(data) {
+      $scope.announcement = data;
+      $cookies.put('announcement', views + 1 + ':' + data.loads, {expires: new Date(data.expires)});
+    });
+  };
+
   $scope.beautifyTime = function(time) {
     var hours = parseInt(time.substring(0,2)) % 12;
     hours = (hours === 0 ? 12 : hours);
@@ -121,6 +137,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentDay();
   $scope.getCurrentBlock();
   $scope.getTimeUntil();
+  $scope.getAnnouncement();
 
   $interval($scope.getCurrentBlock, 1000 * 10);
   $interval($scope.getCurrentDay, 1000 * 60 * 60);
