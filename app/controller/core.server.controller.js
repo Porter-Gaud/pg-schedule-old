@@ -110,8 +110,8 @@ module.exports.getFutureWeek = function(req, res) {
 };
 
 module.exports.getAnnouncement = function(req, res) {
-  if (+(new Date()) < +announcement.date) {
-    res.json(announcement.announcement);
+  if (+(new Date()) < +(new Date(announcement.expires))) {
+    res.json(announcement);
   }
 };
 
