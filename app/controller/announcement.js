@@ -1,5 +1,5 @@
 module.exports = {
-  expires: '1/1/2015',
-  loads: 3,
-  text: 'Now updated for 2016'
+  expires: '1/14/2015',
+  loads: 1,
+  text: 'An incorrect time for Middle School B Week Mondays and Tuesday has been fixed.'
 };
