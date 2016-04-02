@@ -18,7 +18,12 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       if (data === -1) {
         $scope.dateString = 'No Class';
       } else {
-        $scope.timeUntil = (parseInt(data) + 1) + '';
+        if (data) {
+          $scope.timeUntil = (parseInt(data) + 1) + '';
+        } else {
+          $scope.dateString = '';
+          return;
+        }
         $scope.dateString = ($scope.timeUntil) + ' minutes until next class.';
         if ($scope.timeUntil === 1) {
           $scope.dateString = ($scope.timeUntil) + ' minute until next class';
