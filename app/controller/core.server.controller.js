@@ -155,26 +155,25 @@ function getDayObject(date, week, middle) {
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }
 
-
 function getWums() {
   var start = new Date();
-  var end = new Date("06/01/2016");
+  var end = new Date('06/01/2016');
   var days = 0;
-  while (start < end){
-   var newDate = start.setDate(start.getDate() + 1);
-   start = new Date(newDate);
-   if (start.getDay() == 0 || start.getDay() == 6) {
-     continue;
-   }
-   if (start.getMonth() == 3 && start.getDate() == 12) {
-     continue;
-   }
-   if (start.getMonth() == 4 && start.getDate() == 30) {
-     continue;
-   }
-   days++;
+  while (start < end) {
+    var newDate = start.setDate(start.getDate() + 1);
+    start = new Date(newDate);
+    if (start.getDay() === 0 || start.getDay() == 6) {
+      continue;
+    }
+    if (start.getMonth() == 3 && start.getDate() == 12) {
+      continue;
+    }
+    if (start.getMonth() == 4 && start.getDate() == 30) {
+      continue;
+    }
+    days++;
   }
-  return days
+  return days;
 }
 
 wums = getWums();
