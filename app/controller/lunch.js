@@ -6,10 +6,13 @@ module.exports.getMenu = function() {
   if (menu !== '') {
     return menu;
   } else {
+
+    var date = new Date();
+    var dateStr = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear().toString().substr(2);
     var schedulePageOptions = {
-      host: 'www.myschooldining.com',
+      host: '206.82.192.168',
       port: 80,
-      path: '/api?key=B6EEF83E-7E80-11E1-BAEF-DBA84824019B&siteID=605&locationId=washingtonhall&lib=menus', // uses the iOS app's api key
+      path: '/v2/menu/' + dateStr + '/app/washingtonhall?key=3D895734-2271-4563-8332-AB943B2E9CAF&siteID=538277458587fc0fd60007ac', // uses the iOS app's api key
       method: 'GET'
     };
 

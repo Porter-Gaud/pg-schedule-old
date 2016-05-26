@@ -7,13 +7,13 @@ html(ng-app='pgSchedule' lang='en')
     link(rel="mask-icon" href="pg.svg" color="red")
     unless production
       link(rel='stylesheet', href='/css/style.css')
-      
+
   body(ng-controller='mainController').container.text-center
-  
+
     link(ng-if='nightMode', rel='stylesheet', href='/css/nm.min.css')
     link(ng-if='!nightMode', rel='stylesheet', href='/css/all.min.css')
-    
-    h1(style="font-size: 350%;") Porter-Gaud 
+
+    h1(style="font-size: 350%;") Porter-Gaud
       if upper
         | Upper School Schedule
       else
@@ -21,7 +21,7 @@ html(ng-app='pgSchedule' lang='en')
     hr
     .alert.alert-info.ng-cloak(ng-if='announcement')
       | {{ announcement.text }}
-    
+
     h2.ng-cloak {{day.toString().substring(0, 15)}} | {{week}}
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
     h2.ng-cloak(ng-if='weekend') Weekend
@@ -50,11 +50,11 @@ html(ng-app='pgSchedule' lang='en')
         h4 Announcements
     br
     br
-    p 
-      strong #{ wums } WUMS 
+    p
+      strong #{ wums } WUMS
       | (wake up mornings)
     div.btn-group(role="group")
-      a.btn.btn-default(type='button' ng-click='changeDay(-1)') 
+      a.btn.btn-default(type='button' ng-click='changeDay(-1)')
         span.glyphicon.glyphicon-chevron-left
       a.btn.btn-default(data-target='#chooseDate' data-toggle='modal') Choose date
       a.btn.btn-default(type='button' ng-click='changeDay(1)')
@@ -73,8 +73,8 @@ html(ng-app='pgSchedule' lang='en')
               tr(ng-repeat='item in lunch')
                 td {{item['name']}}
                 td {{item['menu items'][0]['name']}}
-            a(href='http://www.myschooldining.com/portergaud/?cmd=menus#homepage_menus' style='margin-left: 10px' target='_blank') Full menu
-                
+            a(href='http://m.myschooldining.com/#/app/location/washingtonhall' style='margin-left: 10px' target='_blank') Full menu
+
     div.modal.fade(id="addClasses" role="dialog")
       div.modal-dialog
         div.modal-content
@@ -98,7 +98,7 @@ html(ng-app='pgSchedule' lang='en')
               div.modal-footer
                 a.btn.btn-danger(type='button' data-dismiss='modal') Cancel
                 button.btn.btn-success(type="submit") Add
-                
+
     div.modal.fade(id="chooseDate" role="dialog")
       div.modal-dialog
         div.modal-content
@@ -108,12 +108,12 @@ html(ng-app='pgSchedule' lang='en')
             p.input-group(style="width: 50%")
               input.form-control(type="date" id="date" datepicker-popup ng-model="dt" is-open="status.opened" max-date="'2016-06-05'"  date-disabled="disabled(date, mode)" close-text="Close")
               span.input-group-btn
-                button.btn.btn-default(ng-click="open($event)") 
+                button.btn.btn-default(ng-click="open($event)")
                   span.glyphicon.glyphicon-calendar
             div.modal-footer
               a.btn.btn-danger(type='button' data-dismiss='modal') Cancel
               button.btn.btn-success(data-dismiss='modal' ng-click="updateDate()") Change date
-      
+
     footer(style="text-align: center;")
       p
         if upper
@@ -124,11 +124,11 @@ html(ng-app='pgSchedule' lang='en')
             strong Switch to Upper School schedule
         br
         a(href='#' ng-click='nightMode = !nightMode') Night Mode
-        |  | 
-        a(href='/api/') API 
-        |  | 
+        |  |
+        a(href='/api/') API
+        |  |
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  | 
+        |  |
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
     script(src='/js/all.min.js')
     unless production
