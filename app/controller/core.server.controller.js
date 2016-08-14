@@ -8,11 +8,11 @@ var CronJob = require('cron').CronJob;
 // var wums = 0;
 
 module.exports.home = function(req, res) {
-  res.render('index', {production: req.app.locals.production, upper: true/*, wums: wums*/});
+  res.render('index', {production: req.app.locals.production, upper: true});
 };
 
 module.exports.middle = function(req, res) {
-  res.render('index', {production: req.app.locals.production, upper: false/*, wums: wums*/});
+  res.render('index', {production: req.app.locals.production, upper: false});
 };
 
 module.exports.lunch = function(req, res) {

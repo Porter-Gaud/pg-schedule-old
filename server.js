@@ -18,10 +18,10 @@ app.set('views', './app/views');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 // Cookie for session IDs. Cookie names are random
 var cookieSession = require('cookie-session');
-app.use(cookieSession({ keys: ['fjk421', 'fjk422'] }));
+app.use(cookieSession({keys: ['aja420', 'asldkjf234']}));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 
