@@ -21,10 +21,17 @@
     "body-parser": "~1.5.2",
     "bower": "^1.4.1",
     "colors": "1.1.0",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.1",
     "cron": "^1.0.9",
     "express": "^4.11.2",
+    "express-session": "^1.14.0",
     "jade": "^1.11.0",
-    "method-override": "~2.1.2"
+    "method-override": "~2.1.2",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "pg": "^6.1.0",
+    "sequelize": "^3.24.0"
   },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install"

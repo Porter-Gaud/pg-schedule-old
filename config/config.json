@@ -1,0 +1,10 @@
+{
+   "use_env_variable":"PG_POSTGRES_STRING",
+   "dialect":"postgres",
+   "ssl":true,
+   "dialectOptions":{
+      "ssl":{
+         "require":true
+      }
+   }
+}
