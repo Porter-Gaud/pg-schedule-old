@@ -13,7 +13,7 @@ html(ng-app='pgSchedule' lang='en')
     link(ng-if='nightMode', rel='stylesheet', href='/css/nm.min.css')
     link(ng-if='!nightMode', rel='stylesheet', href='/css/all.min.css')
 
-    h1(style="font-size: 350%;") Porter-Gaud
+    h1(style="font-size: 350%;") Porter-Gaud&nbsp;
       if upper
         | Upper School Schedule
       else
@@ -124,11 +124,11 @@ html(ng-app='pgSchedule' lang='en')
             strong Switch to Upper School schedule
         br
         a(href='#' ng-click='nightMode = !nightMode') Night Mode
-        |  |
+        |  |&nbsp;
         a(href='/api/') API
-        |  |
+        |  |&nbsp;
         a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  |
+        |  |&nbsp;
         a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
     script(src='/js/all.min.js')
     unless production

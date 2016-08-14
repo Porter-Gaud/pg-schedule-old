@@ -18,14 +18,16 @@ module.exports = function(grunt) {
     uglify: {
       portergaud: {
         files: {
-          'public/js/all.min.js': ['./bower_components/jquery/dist/jquery.min.js', './bower_components/angular/angular.min.js','./bower_components/bootstrap/dist/js/bootstrap.min.js', './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js', './bower_components/angular-prompt/dist/angular-prompt.min.js', './bower_components/angular-cookies/angular-cookies.min.js', './public/js/angularCore.js']
+          'public/js/all.min.js': ['./bower_components/jquery/dist/jquery.min.js', './bower_components/angular/angular.min.js','./bower_components/bootstrap/dist/js/bootstrap.min.js', './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js', './bower_components/angular-prompt/dist/angular-prompt.min.js', './bower_components/angular-cookies/angular-cookies.min.js', './public/js/angularCore.js'],
+          'public/js/manage.min.js': ['./bower_components/jquery/dist/jquery.min.js', './bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js']
         }
       }
     },
     cssmin: {
       all: {
         files: {
-          './public/css/all.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', './public/css/style.css']
+          './public/css/all.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', './public/css/style.css'],
+          './public/css/manage.min.css': ['./bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css']
         }
       }
     }

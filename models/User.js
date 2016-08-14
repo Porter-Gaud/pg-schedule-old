@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes){
     },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    dnsenseLevel: {
+    level: {
       type: DataTypes.INTEGER,
       field: 'access_level'
     }

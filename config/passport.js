@@ -1,10 +1,14 @@
-var logger = require('../logging.js');
+var isProd = (process.env.PORT == 80)
 
-module.exports = function(passport, GoogleStrategy, User, config){
-  passport.use(new GoogleStrategy({process.env.GoogleStrategyConfig},
+module.exports = function(passport, GoogleStrategy, User){
+  passport.use(new GoogleStrategy({
+    clientID: process.env.PG_GOOGLE_CLIENT,
+    clientSecret: process.env.PG_CLIENT_SECRET,
+    callbackURL: isProd ? 'http://schedule.portergaud.edu/auth' : 'http://schedule.test.portergaud.edu:8080/auth'
+  },
     function(request, accessToken, refreshToken, profile, done){
       User.findOrCreate({ where: { id: profile.id }, defaults: {
-        userType: -1,
+        level: -1,
         name: profile.name.givenName + " " + profile.name.familyName,
         email: profile.emails[0].value,
       }})

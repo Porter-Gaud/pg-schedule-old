@@ -13,8 +13,12 @@ Sequelize = require('sequelize');
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
-// var sequelize = new Sequelize(process.env.PG_POSTGRES_STRING, { logging: false, ssl: true, native: true });
-// var User = sequelize.import(__dirname + '/models/User.js');
+var sequelize = new Sequelize(process.env.PG_POSTGRES_STRING,
+  {logging: false, ssl: true, dialectOptions: {ssl: true}});
+var User = sequelize.import(__dirname + '/models/User.js');
+var Schedule = sequelize.import(__dirname + '/models/Schedule.js');
+
+var passportConfig = require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -30,6 +34,7 @@ app.locals.production = (port == process.env.PORT);
 app.use('/', express.static(__dirname + '/public/'));
 app.use('/fonts', express.static(__dirname + '/bower_components/bootstrap/fonts/'));
 app.use('/', route);
+app.use('/', require('./app/routes/googleauth.js'));
 
 app.listen(port, function() {
   console.log(colors.rainbow('Listening on port ' +  port));

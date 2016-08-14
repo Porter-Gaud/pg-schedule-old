@@ -6,5 +6,9 @@ var announcement = require('./announcement.js');
 var CronJob = require('cron').CronJob;
 
 module.exports.home = function(req, res) {
-  res.render('index', {production: req.app.locals.production, upper: true, wums: wums});
+  // if (req.user) {
+  res.render('manage', {production: req.app.locals.production, upper: true});
+  // } else {
+  // res.redirect('/manage/authenticate')
+  // }
 };
