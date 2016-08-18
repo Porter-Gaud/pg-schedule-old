@@ -20,10 +20,10 @@ module.exports.special = [
     day: [
       {'name':'D','start-time':'08:10','end-time':'08:55'},
       {'name':'E','start-time':'09:00','end-time':'09:45'},
-      {'name':'F','start-time':'10:00','end-time':'10:45'},
-      {'name':'Community','start-time':'10:45','end-time':'11:20'},
-      {'name':'G','start-time':'11:25','end-time':'12:10'},
-      {'name':'Lunch','start-time':'12:10','end-time':'12:45'},
+      {'name':'F','start-time':'09:55','end-time':'10:35'},
+      {'name':'Community','start-time':'10:35','end-time':'11:10'},
+      {'name':'G','start-time':'11:15','end-time':'12:00'},
+      {'name':'Lunch','start-time':'12:00','end-time':'12:45'},
       {'name':'A','start-time':'12:50','end-time':'13:35'},
       {'name':'B','start-time':'13:40','end-time':'14:25'},
       {'name':'C','start-time':'14:30','end-time':'15:15'}
