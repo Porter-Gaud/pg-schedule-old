@@ -104,7 +104,7 @@ module.exports.currentDay = function(req, res) {
 };
 
 module.exports.getFutureWeek = function(req, res) {
-  theDay = new Date(req.params.year, req.params.month, req.params.date);
+  theDay = new Date(req.params.year, req.params.month - 1, req.params.date);
   var theWeek = getWeeks.getFutureWeek(theDay);
   var response = {};
   response[theWeek] = getDayObject(theDay, theWeek, req.query.middle);

@@ -32,6 +32,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.locals.production = (port == process.env.PORT);
 
 app.use('/', express.static(__dirname + '/public/'));
+app.use('/public', express.static(__dirname + '/bower_components/'));
 app.use('/fonts', express.static(__dirname + '/bower_components/bootstrap/fonts/'));
 app.use('/', route);
 app.use('/', require('./app/routes/googleauth.js'));

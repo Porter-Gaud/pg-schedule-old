@@ -10,29 +10,69 @@ html(ng-app='pgSchedule' lang='en')
     link(rel='stylesheet', href='/css/all.min.css')
     link(rel='stylesheet', href='/css/manage.min.css')
     link(rel='stylesheet', href='/css/manage.css')
-  body.container-fluid
-    .row
-      .col-sm-3.col-md-2.sidebar
-        ul.nav.nav-sidebar
-          li: a(href="#" style="color: black"): b: h4 Manage
-          li.active: a(href="#") Alternate Schedules
-          li.disabled: a.disabled(href="#" disabled) Alerts (coming soon)
-      .col-sm9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-        h1(style="font-size: 150%;") Alternate Schedules
-        hr
-        .form-group(style="width:25%;")
-          .input-group.date#datepicker
-            input.form-control(type="text")
-            span.input-group-addon
-              span.glyphicon.glyphicon-calendar
+  body
+    .container-fluid
+      .row
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li: a(href="#" style="color: black"): b: h4 Manage
+            li.active: a(href="#") Alternate Schedules
+            li.disabled: a.disabled(href="#" disabled) Alerts (coming soon)
+        .col-sm9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+          h1(style="font-size: 150%;") Alternate Schedules
+          hr
+          .form-group(style="width:25%;")
+            label: b Select a date:
+            .input-group.date#datepicker
+              input.form-control(type="text")
+              span.input-group-addon
+                span.glyphicon.glyphicon-calendar
+          #schedule(style="display:none")
+            h3#date DATE
+            table.table-bordered.table#table(style="width:75%")
+            label: b Upload CSV&nbsp;
+              a(href="#" data-toggle="modal" data-target="#modal"): small: span.glyphicon.glyphicon-question-sign
+              input#input(type="file")
+      .modal.fade#modal(role="dialog" tabindex="-1" aria-labelledby="myModalLabel")
+        .modal-dialog(role="documents")
+          .modal-content
+            .modal-header
+              h4 Uploading a CSV
+            .modal-body
+                p Uploading info!
+
+    script(src='/public/moment/min/moment.min.js')
     script(src='/js/manage.min.js')
     script.
       $(function () {
         $('#datepicker').datetimepicker({
-          minView: 2,
-          format: 'yyyy-MM-dd'
+          format: 'MM/DD/YYYY'
         });
       });
+      $("#datepicker").on("dp.change", function(e) {
+        var date = e.date;
+        $.get('/api/getFutureDate/' + date.format('MM/DD/YYYY'), function(data) {
+          $('#table').html('');
+          $('#schedule').show();
+          if (Object.keys(data) == "") {
+            $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>Weekend</small>');
+            return;
+          }
+          $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>' + Object.keys(data) + ' Week</small>');
+          $('#table').append('<thead><tr><td>Class</td><td>Start Time</td><td>End Time</td></tr></thead>');
+          var day = data[Object.keys(data)[0]].day;
+          for (var i = 0; i < day.length; i++) {
+            var theClass = day[i];
+            $('#table').append('<tr>' +
+              '<td>' + theClass.name + '</td>' +
+              '<td>' + theClass['start-time'] + '</td>' +
+              '<td>' + theClass['end-time'] + '</td>' +
+              '</tr>');
+          }
+          $('#input').after('<br><br><button class="btn btn-success">Save</button>');
+        });y o
+      });
+      $('#modal').modal()
     if production
       script.
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

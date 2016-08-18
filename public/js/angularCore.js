@@ -38,7 +38,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     }
     $scope.day = new Date($scope.dt);
     var apiString = 'getFutureDate' +
-      '/' + ($scope.day.getMonth()) +
+      '/' + ($scope.day.getMonth() + 1) +
       '/' + ($scope.day.getDate()) +
       '/' + ($scope.day.getFullYear());
     $http.get(getApi(apiString)).success(function(data) {
@@ -56,7 +56,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     var dateOffset = (24 * 60 * 60 * 1000) * offset;
     $scope.day.setTime($scope.day.getTime() + dateOffset);
     var apiString = 'getFutureDate' +
-      '/' + ($scope.day.getMonth()) +
+      '/' + ($scope.day.getMonth() + 1) +
       '/' + ($scope.day.getDate()) +
       '/' + ($scope.day.getFullYear());
     $http.get(getApi(apiString)).success(function(data) {
