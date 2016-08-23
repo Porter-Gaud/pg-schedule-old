@@ -103,7 +103,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     angular.forEach(angular.element.find('.classInput'), function(node) {
       cookieString += (node.id.substring(0, 1)) + '=' + '' + node.value + ',';
     });
-    $cookies.put('schedule', cookieString, {expires: new Date('5/29/2016')});
+    $cookies.put('schedule', cookieString, {expires: new Date('5/29/2018')});
     location.reload(); // Until we get angular-bootstrap working correctly.
   };
 
