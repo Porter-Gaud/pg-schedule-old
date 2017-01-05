@@ -13,17 +13,16 @@ Sequelize = require('sequelize');
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
-var sequelize = new Sequelize(process.env.PG_POSTGRES_STRING,
-  {logging: false, ssl: true, dialectOptions: {ssl: true}});
-var User = sequelize.import(__dirname + '/models/User.js');
-var Schedule = sequelize.import(__dirname + '/models/Schedule.js');
+// var sequelize = new Sequelize(process.env.PG_POSTGRES_STRING,
+//   {logging: false, ssl: true, dialectOptions: {ssl: true}});
+// var User = sequelize.import(__dirname + '/models/User.js');
+// var Schedule = sequelize.import(__dirname + '/models/Schedule.js');
 
-var passportConfig = require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
+// var passportConfig = require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
-// Cookie for session IDs. Cookie names are random
 var cookieSession = require('cookie-session');
 app.use(cookieSession({keys: ['aja420', 'asldkjf234']}));
 
