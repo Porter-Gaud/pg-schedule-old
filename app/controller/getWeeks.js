@@ -48,7 +48,7 @@ module.exports.getFutureWeek = function(day) {
   if (day.getDay() === 0 || day.getDay() === 6) {
     return ''; // will be implemented closer to 2017
   }
-  return (day.getWeek() % 2 === 1) ? 'A' : 'B';
+  return (day.getWeek() % 2 === 0) ? 'A' : 'B';
   // var week = '';
   // console.log('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week');
   // var request = http.get('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week', function(response) {
