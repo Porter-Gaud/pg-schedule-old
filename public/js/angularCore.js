@@ -130,7 +130,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   $scope.beautifyTime = function(time) {
-    var hours = parseInt(time.substring(0,2)) % 12;
+    var hours = parseInt(time.substring(0, 2)) % 12;
     hours = (hours === 0 ? 12 : hours);
     return hours + time.substring(2, 5);
   };

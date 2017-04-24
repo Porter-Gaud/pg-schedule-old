@@ -122,7 +122,7 @@ module.exports.getLunch = function(req, res) {
 };
 
 function getDayObject(date, week, middle) {
-  date.setHours(0,0,0,0);
+  date.setHours(0, 0, 0, 0);
   if (!middle) {
     middle = false;
   }
