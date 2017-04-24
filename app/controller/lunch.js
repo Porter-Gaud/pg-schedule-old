@@ -27,6 +27,9 @@ module.exports.getMenu = function() {
         } catch (e) {
           return '{}';
         }
+        if (!data[0]) {
+          return '{}';
+        }
         if (data[0].name === 'No Meal Service') {
           data.shift();
         }
