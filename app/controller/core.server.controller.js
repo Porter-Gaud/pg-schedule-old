@@ -5,14 +5,14 @@ var special = require('./special.js');
 var announcement = require('./announcement.js');
 var CronJob = require('cron').CronJob;
 
-// var wums = 0;
+var wums = 0;
 
 module.exports.home = function(req, res) {
-  res.render('index', {production: req.app.locals.production, upper: true});
+  res.render('index', {production: req.app.locals.production, upper: true, wums: wums});
 };
 
 module.exports.middle = function(req, res) {
-  res.render('index', {production: req.app.locals.production, upper: false});
+  res.render('index', {production: req.app.locals.production, upper: false, wums: wums});
 };
 
 module.exports.lunch = function(req, res) {
@@ -155,28 +155,28 @@ function getDayObject(date, week, middle) {
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }
 
-// function getWums() {
-//   var start = new Date();
-//   var end = new Date('06/01/2016');
-//   var days = 0;
-//   while (start < end) {
-//     var newDate = start.setDate(start.getDate() + 1);
-//     start = new Date(newDate);
-//     if (start.getDay() === 0 || start.getDay() == 6) {
-//       continue;
-//     }
-//     if (start.getMonth() == 3 && start.getDate() == 12) {
-//       continue;
-//     }
-//     if (start.getMonth() == 4 && start.getDate() == 30) {
-//       continue;
-//     }
-//     days++;
-//   }
-//   return days;
-// }
-//
-// wums = getWums();
-// new CronJob('00 01 00 * * *', function() {
-//   wums = getWums();
-// }, null, true, 'America/New_York');
+function getWums() {
+  var start = new Date();
+  var end = new Date('05/31/2017');
+  var days = 0;
+  while (start < end) {
+    var newDate = start.setDate(start.getDate() + 1);
+    start = new Date(newDate);
+    if (start.getDay() === 0 || start.getDay() == 6) {
+      continue;
+    }
+    if (start.getMonth() == 3 && start.getDate() == 12) {
+      continue;
+    }
+    if (start.getMonth() == 4 && start.getDate() == 30) {
+      continue;
+    }
+    days++;
+  }
+  return days;
+}
+
+wums = getWums();
+new CronJob('00 01 00 * * *', function() {
+  wums = getWums();
+}, null, true, 'America/New_York');
