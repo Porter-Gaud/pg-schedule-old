@@ -1,8 +1,8 @@
-#<div align="center">Porter-Gaud Schedule App</div>
+# Porter-Gaud Schedule App
 [![Build Status](https://travis-ci.org/ireallydontcare/pg-schedule.svg?branch=master)](https://travis-ci.org/ireallydontcare/pg-schedule)
 Also on http://schedule.portergaud.edu/
 
-##Contributing
+## Contributing
 1. Clone the repo.
 2. run npm install and make your changes.
 3. run grunt before pushing
