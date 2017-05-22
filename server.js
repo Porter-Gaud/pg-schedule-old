@@ -9,7 +9,7 @@ passport = require('passport'),
 cookieParser = require('cookie-parser'),
 GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
 session = require('express-session'),
-Sequelize = require('sequelize'),
+Sequelize = require('sequelize');
 // bb = require('express-busboy');
 
 app.set('view engine', 'jade');
