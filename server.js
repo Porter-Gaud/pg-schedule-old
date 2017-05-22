@@ -19,7 +19,7 @@ app.set('views', './app/views');
 // var User = sequelize.import(__dirname + '/models/User.js');
 // var Schedule = sequelize.import(__dirname + '/models/Schedule.js');
 
-var passportConfig = require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
+// var passportConfig = require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
