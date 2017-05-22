@@ -10,7 +10,7 @@ cookieParser = require('cookie-parser'),
 GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
 session = require('express-session'),
 Sequelize = require('sequelize'),
-bb = require('express-busboy');
+// bb = require('express-busboy');
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
@@ -24,11 +24,11 @@ app.set('views', './app/views');
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
-bb.extend(app, {
-  upload: true,
-  allowedPath: '/manage/upload',
-  mimeTypeLimit: ['application/pdf']
-});
+// bb.extend(app, {
+//   upload: true,
+//   allowedPath: '/manage/upload',
+//   mimeTypeLimit: ['application/pdf']
+// });
 
 var cookieSession = require('cookie-session');
 app.use(cookieSession({keys: ['aja420', 'asldkjf234']}));
