@@ -25,9 +25,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 bb.extend(app, {
-    upload: true,
-    allowedPath: '/manage/upload',
-    mimeTypeLimit: [ 'application/pdf' ]
+  upload: true,
+  allowedPath: '/manage/upload',
+  mimeTypeLimit: ['application/pdf']
 });
 
 var cookieSession = require('cookie-session');

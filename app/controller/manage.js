@@ -5,7 +5,6 @@ var special = require('./special.js');
 var announcement = require('./announcement.js');
 var CronJob = require('cron').CronJob;
 
-
 module.exports.home = function(req, res) {
   // if (req.user) {
   res.render('manage', {production: req.app.locals.production, upper: true});
