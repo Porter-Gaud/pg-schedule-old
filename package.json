@@ -25,6 +25,7 @@
     "cookie-session": "^2.0.0-alpha.1",
     "cron": "^1.0.9",
     "express": "^4.11.2",
+    "express-busboy": "^6.0.1",
     "express-session": "^1.14.0",
     "jade": "^1.11.0",
     "method-override": "~2.1.2",

@@ -8,6 +8,7 @@ r.get('/upper/', core.home);
 r.get('/middle/', core.middle);
 
 r.get('/manage/', manage.home);
+r.post('/manage/upload', manage.upload);
 
 r.get('/api/', core.exposeAPI);
 r.get('/api/timeUntil/', core.timeUntil);

@@ -11,7 +11,7 @@ module.exports.currentWeek = function() {
     var schedulePageOptions = {
       host: 'www.portergaud.edu',
       port: 80,
-      path: '/page.cfm?p=1346&period=week',
+      path: '/page.cfm?p=1346&period=day',
       method: 'GET'
     };
 
