@@ -29,7 +29,7 @@ module.exports.upload = function(req, res) {
   fs.writeFile(__dirname + '/../../uploads/' + dayBeginning.getTime() + '.pdf', file.altSchedule.data, function(err) {
     if (err) {
       console.log(err);
-      return res.redirect('/manage?status=internal');;
+      return res.redirect('/manage?status=internal');
     }
     special.special.push(dayBeginning.getTime());
     return res.redirect('/manage?status=success');
@@ -46,7 +46,7 @@ module.exports.remove = function(req, res) {
   fs.unlink(__dirname + '/../../uploads/' + dayBeginning.getTime() + '.pdf', function(err) {
     if (err) {
       console.log(err);
-      return res.redirect('/manage?status=internal');;
+      return res.redirect('/manage?status=internal');
     }
     special.special.splice(special.special.indexOf(dayBeginning.getTime()));
     return res.redirect('/manage?status=rsuccess');

@@ -14,7 +14,7 @@ fileUpload = require('express-fileupload'),
 special = require('./app/model/special'),
 fs = require('fs');
 
-module.exports.DEVELOPMENT_USE_DATABASE = true;
+module.exports.DEVELOPMENT_USE_DATABASE = false;
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
@@ -60,11 +60,11 @@ app.use('/', route);
 app.use('/', require('./app/routes/googleauth.js'));
 
 app.use('/special', express.static(__dirname + '/uploads/'));
-fs.readdir('./uploads', (err, files) => {
-  files.forEach(file => {
+fs.readdir('./uploads', function(err, files) {
+  files.forEach(function(file) {
     special.special.push(parseInt(file.split('.')[0]))
   });
-})
+});
 
 
 app.listen(port, function() {

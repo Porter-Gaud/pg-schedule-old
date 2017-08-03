@@ -145,7 +145,7 @@ function getDayObject(date, week, middle) {
 
   // Special schedule
   if (special.special.indexOf(date.getTime()) > -1) {
-    return {'special': true, date: date.getTime()}
+    return {'special': true, date: date.getTime()};
   }
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }
