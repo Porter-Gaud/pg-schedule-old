@@ -61,9 +61,11 @@ app.use('/', require('./app/routes/googleauth.js'));
 
 app.use('/special', express.static(__dirname + '/uploads/'));
 fs.readdir('./uploads', function(err, files) {
-  files.forEach(function(file) {
-    special.special.push(parseInt(file.split('.')[0]));
-  });
+  if (files) {
+    files.forEach(function(file) {
+      special.special.push(parseInt(file.split('.')[0]));
+    });
+  }
 });
 
 app.listen(port, function() {
