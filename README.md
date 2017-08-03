@@ -212,5 +212,5 @@ Those on the project team have direct access to the PG-Schedule GitHub project, 
 
 ### Former Members
 | Name             | Role          | Graduating Class | Twitter |
-| ---------------  |:-------------:| ----------------:|
+| ---------------  |:-------------:| ---------------- |-------: |
 | Max Harley       | Co-founder    | 2016             | [@Max_68](https://twitter.com/Max_68)
