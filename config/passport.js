@@ -16,8 +16,6 @@ module.exports = function(passport, GoogleStrategy, User){
         if(!created && !user){
           return done("Could not create user", null);
         }
-
-        logger.login(request, profile.emails[0].value, 'login');
         return done(null, profile);
       });
 

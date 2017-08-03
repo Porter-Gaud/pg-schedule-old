@@ -1,8 +1,8 @@
-var SCHEDULE_API = require('./schedule.js');
+var SCHEDULE_API = require('../model/schedule.js');
 var getWeeks = require('./getWeeks.js');
 var lunch = require('./lunch.js');
-var special = require('./special.js');
-var announcement = require('./announcement.js');
+var special = require('../model/special.js');
+var announcement = require('../model/announcement.js');
 var CronJob = require('cron').CronJob;
 
 var wums = 0;
@@ -40,6 +40,10 @@ module.exports.timeUntil = function(req, res) {
     res.json('');
     return;
   }
+  if (today.special) {
+    res.json('');
+    return;
+  }
   var now = new Date();
   for (var key in today.day) {
     var day = today.day[key];
@@ -68,6 +72,11 @@ module.exports.currentBlock = function(req, res) {
     res.json('');
     return;
   }
+  if (today.special) {
+    res.json('');
+    return;
+  }
+
   var now = new Date();
   for (var key in today.day) {
     var day = today.day[key];
@@ -133,31 +142,17 @@ function getDayObject(date, week, middle) {
   if (week === 'B') {
     index += 5;
   }
-  // TODO: Is this efficient?  We could probably load it at the day start with a cron job.
-  for (var i = 0; i < special.special.length; i++) {
-    if (+special.special[i].date == +date) {
-      return special.special[i];
-    }
-  }
-  if (middle) {
-    for (var x = 0; x < special.middleOnlySpecial.length; x++) {
-      if (+special.middleOnlySpecial[x].date == +date) {
-        return special.middleOnlySpecial[x];
-      }
-    }
-  } else {
-    for (var y = 0; y < special.upperOnlySpecial.length; y++) {
-      if (+special.upperOnlySpecial[y].date == +date) {
-        return special.upperOnlySpecial[y];
-      }
-    }
+
+  // Special schedule
+  if (special.special.indexOf(date.getTime()) > -1) {
+    return {'special': true, date: date.getTime()}
   }
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }
 
 function getWums() {
   var start = new Date();
-  var end = new Date('05/31/2017');
+  var end = new Date('05/31/2018');
   var days = 0;
   while (start < end) {
     var newDate = start.setDate(start.getDate() + 1);
@@ -177,6 +172,6 @@ function getWums() {
 }
 
 wums = getWums();
-new CronJob('00 01 00 * * *', function() {
-  wums = getWums();
-}, null, true, 'America/New_York');
+// new CronJob('00 01 00 * * *', function() {
+//   wums = getWums();
+// }, null, true, 'America/New_York');

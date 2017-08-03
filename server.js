@@ -9,29 +9,45 @@ passport = require('passport'),
 cookieParser = require('cookie-parser'),
 GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
 session = require('express-session'),
-Sequelize = require('sequelize');
-// bb = require('express-busboy');
+Sequelize = require('sequelize'),
+fileUpload = require('express-fileupload'),
+special = require('./app/model/special'),
+fs = require('fs');
+
+module.exports.DEVELOPMENT_USE_DATABASE = true;
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
-// var sequelize = new Sequelize(process.env.PG_POSTGRES_STRING,
-//   {logging: false, ssl: true, dialectOptions: {ssl: true}});
-// var User = sequelize.import(__dirname + '/models/User.js');
-// var Schedule = sequelize.import(__dirname + '/models/Schedule.js');
-
-// var passportConfig = require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
-// bb.extend(app, {
-//   upload: true,
-//   allowedPath: '/manage/upload',
-//   mimeTypeLimit: ['application/pdf']
-// });
+app.use(fileUpload());
 
-var cookieSession = require('cookie-session');
-app.use(cookieSession({keys: ['aja420', 'asldkjf234']}));
+if (port == 80 || module.exports.DEVELOPMENT_USE_DATABASE) {
+  var sequelize = new Sequelize(process.env.DATABASE_URL,
+    {logging: false, ssl: true, dialectOptions: {ssl: true}});
+  var User = sequelize.import(__dirname + '/app/model/User.js');
+
+  var SequelizeStore = require('connect-session-sequelize')(session.Store);
+  var sessionStore = new SequelizeStore({
+     db: sequelize,
+     checkExpirationInterval: 15 * 60 * 1000,
+     expiration: 7 * 24 * 60 * 60 * 1000
+  });
+
+  require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
+
+  app.use(session({
+    store: sessionStore,
+    secret: process.env.SESSION_KEY || 'this is a development secret key',
+    resave: false,
+    saveUninitialized: true,
+  }));
+  sessionStore.sync();
+  app.use(passport.initialize());
+  app.use(passport.session());
+}
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 
@@ -42,6 +58,14 @@ app.use('/public', express.static(__dirname + '/bower_components/'));
 app.use('/fonts', express.static(__dirname + '/bower_components/bootstrap/fonts/'));
 app.use('/', route);
 app.use('/', require('./app/routes/googleauth.js'));
+
+app.use('/special', express.static(__dirname + '/uploads/'));
+fs.readdir('./uploads', (err, files) => {
+  files.forEach(file => {
+    special.special.push(parseInt(file.split('.')[0]))
+  });
+})
+
 
 app.listen(port, function() {
   console.log(colors.rainbow('Listening on port ' +  port));

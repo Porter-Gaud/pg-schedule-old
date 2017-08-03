@@ -25,7 +25,9 @@ html(ng-app='pgSchedule' lang='en')
     h2.ng-cloak {{day.toString().substring(0, 15)}} | {{week}}
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
     h2.ng-cloak(ng-if='weekend') Weekend
-    table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend')
+    #specialView.ng-cloak(ng-if="special")
+      iframe#specialFrame(ng-src="{{specialUrl}}" width="600" height="775")
+    table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend && !special')
       thead
         tr
           td Period
@@ -50,9 +52,9 @@ html(ng-app='pgSchedule' lang='en')
         h4 Announcements
     br
     br
-    p
-      strong #{ wums } WUMS&nbsp;
-      | (wake up mornings)
+    //- p
+    //-   strong #{ wums } WUMS&nbsp;
+    //-   | (wake up mornings)
     div.btn-group(role="group")
       a.btn.btn-default(type='button' ng-click='changeDay(-1)')
         span.glyphicon.glyphicon-chevron-left
@@ -127,9 +129,7 @@ html(ng-app='pgSchedule' lang='en')
         |  |&nbsp;
         a(href='/api/') API
         |  |&nbsp;
-        a(href='https://github.com/ireallydontcare/pg-schedule') Source
-        |  |&nbsp;
-        a(href='https://github.com/ireallydontcare/pg-schedule/graphs/contributors') Contributors
+        a(href='https://github.com/porter-gaud/pg-schedule') Project
     script(src='/js/all.min.js')
     unless production
       script(src='/js/angularCore.js')

@@ -20,12 +20,46 @@ html(ng-app='pgSchedule' lang='en')
         .col-sm9.col-sm-offset-3.col-md-10.col-md-offset-2.main
           h1(style='font-size: 150%;') Alternate Schedules
           hr
+          if status
+            .div.alert(class=(status.indexOf('success') > -1 ? 'alert-success' : 'alert-danger'))
+              if status.indexOf("success") > -1
+                b Success! 
+                if status == "rsuccess"
+                  | The alternate schedule has been removed.
+                else
+                  | The alternate schedule has been uploaded.
+              else
+                b Error: 
+                if status == "nofile"
+                  | No file was specified.
+                if status == "internal"
+                  | An internal error occurred.  Please email 
+                  a(href="mailto:tgalloway18@portergaud.edu") tgalloway18@portergaud.edu
+                  |  with details.
+                if status == "type"
+                  | The schedule must be in PDF format.
+
           .form-group(style='width:25%;')
             label: b Select a date:
             .input-group.date#datepicker
               input.form-control(type='text')
               span.input-group-addon
                 span.glyphicon.glyphicon-calendar
+          #specialView(style='display:none')
+            h3#date DATE
+            iframe#specialFrame(width="600" height="775")
+            br
+            br
+            label: b Upload new PDF for this day&nbsp;
+            form(id='uploadOverwrite' action="/manage/upload" method="POST" enctype="multipart/form-data")
+              input#input(type='file' name="altSchedule")
+              input#hiddenDate(value='dateInput' name="date" class='hidden')
+            form(id='remove' action="/manage/remove" method="POST")
+              input#hiddenDate(value='dateInput' name="date" class='hidden')
+              br
+            .btn-group
+              input#overwriteSubmit.btn.btn-warning.btn-sm(type="submit" form="uploadOverwrite" value="Overwrite schedule")
+              input#removeSubmit.btn.btn-danger.btn-sm(type="submit" form="remove" value="Remove alternate schedule")
           #schedule(style='display:none')
             h3#date DATE
             table.table-bordered.table#table(style='width:75%')
@@ -33,10 +67,13 @@ html(ng-app='pgSchedule' lang='en')
             form(id='upload' action="/manage/upload" method="POST" enctype="multipart/form-data")
               input#input(type='file' name="altSchedule")
               input#hiddenDate(value='dateInput' name="date" class='hidden')
+            br
+            input(type="submit" id="save" form="upload" class="btn btn-success" value="Save")
 
     script(src='/public/moment/min/moment.min.js')
     script(src='/js/manage.min.js')
-    script.
+    script(type="text/javascript").
+      // Why this is not in Angular, I do not know.
       $(function () {
         $('#datepicker').datetimepicker({
           format: 'MM/DD/YYYY'
@@ -46,16 +83,28 @@ html(ng-app='pgSchedule' lang='en')
         var date = e.date;
         $.get('/api/getFutureDate/' + date.format('MM/DD/YYYY'), function(data) {
           $('#table').html('');
-          $('#save').remove();
-          $('#schedule').show();
+          $('#save').hide();
           if (Object.keys(data) == '') {
             $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>Weekend</small>');
             return;
           }
           $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>' + Object.keys(data) + ' Week</small>');
           $('input#hiddenDate').attr('value', date.format('MM-DD-YYYY'));
+          var dayObj = data[Object.keys(data)[0]];
+          console.log(dayObj);
+          if (dayObj.special) {
+            if (parseInt(dayObj.date)) {
+              $('#schedule').hide();
+              var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+              $('#specialFrame').attr('src', 'special/' + dayObj.date + '.pdf');
+              $('#specialView').show();  
+            }
+            return;
+          }
+          $('#schedule').show();
+          $('#save').show();
           $('#table').append('<thead><tr><td>Class</td><td>Start Time</td><td>End Time</td></tr></thead>');
-          var day = data[Object.keys(data)[0]].day;
+          var day = dayObj.day;
           for (var i = 0; i < day.length; i++) {
             var theClass = day[i];
             $('#table').append('<tr>' +
@@ -64,7 +113,6 @@ html(ng-app='pgSchedule' lang='en')
               '<td>' + theClass['end-time'] + '</td>' +
               '</tr>');
           }
-          $('#input').after('<br><br><input type="submit" id="save" form="upload" class="btn btn-success" value="Save" />');
         });
       });
     if production

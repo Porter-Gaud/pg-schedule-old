@@ -1,6 +1,6 @@
 var pgSchedule = angular.module('pgSchedule', ['ui.bootstrap', 'ngCookies']);
 
-pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', '$modal', function($scope, $http, $log, $interval, $location, $cookies, $modal) {
+pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval', '$location', '$cookies', '$modal', '$sce', function($scope, $http, $log, $interval, $location, $cookies, $modal, $sce) {
   $scope.timeUntil = '';
   $scope.currentDay = '';
   $scope.currentBlock = '';
@@ -12,6 +12,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.week = '';
   $scope.nightMode = false;
   $scope.announcement;
+  $scope.special = false;
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -53,6 +54,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   $scope.changeDay = function(offset) {
+    $scope.special = false;
     var dateOffset = (24 * 60 * 60 * 1000) * offset;
     $scope.day.setTime($scope.day.getTime() + dateOffset);
     var apiString = 'getFutureDate' +
@@ -65,6 +67,10 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
         $scope.week = 'Weekend';
       } else {
         $scope.week = Object.keys(data)[0] + ' Week';
+      }
+      if (data[Object.keys(data)[0]].special && !$scope.special) {
+        $scope.special = true;
+        loadSpecial(data[Object.keys(data)[0]].date)
       }
       $scope.weekend = (Object.keys(data)[0] === '');
     });
@@ -89,6 +95,10 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     }
     $http.get(getApi('currentDay')).success(function(data) {
       $scope.currentDay = data[Object.keys(data)[0]];
+      if (data[Object.keys(data)[0]].special && !$scope.special) {
+        $scope.special = true;
+        loadSpecial(data[Object.keys(data)[0]].date)
+      }
       if (Object.keys(data)[0] === 'WEEKEND') {
         $scope.week = 'Weekend';
       } else {
@@ -97,6 +107,15 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       $scope.weekend = (Object.keys(data)[0] === 'WEEKEND');
     });
   };
+
+  function loadSpecial(day) {
+    $scope.special = true;
+    $scope.week = "Special Schedule"
+    if (parseInt(day)) {
+      var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+      $scope.specialUrl = $sce.trustAsResourceUrl('/special/' + day + extra);
+    }
+  }
 
   $scope.addClasses = function() {
     var cookieString = '';
