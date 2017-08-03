@@ -7,8 +7,8 @@ router.get('/manage/authenticate', passport.authenticate('google', {scope: [
 ]}));
 
 router.get('/auth', passport.authenticate('google', {
-  failureRedirect: '/',
-  successRedirect: '/'
+  failureRedirect: '/?failedLogin',
+  successRedirect: '/manage'
 }));
 
 router.get('/logout', function(req, res) {

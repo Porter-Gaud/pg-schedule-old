@@ -74,9 +74,9 @@ Ideally, in the future, Pug should not be sending any information to be rendered
 *Frontend Note: Any files that contain "all" or ".min." in their file names should not be directly edited, as they are just minified versions of the actual raw JavaScript/CSS files.  Any changes made in these files will be overwriten by the grunt command.*
 
 ## The Database
-As of Summer 2017, the app now uses a Postgres database to authenticate Manage users with their @portergaud.edu G-Suite accounts and Redis to make login sessions persistent.
+As of Summer 2017, the app now uses a Postgres database to authenticate Manage users with their @portergaud.edu G-Suite accounts and to make login sessions persistent.
 
-If you are in development mode (the default if running locally), this is turned off by default as to not force contributors to know how to set up a PostgreSQL/Redis database.
+If you are in development mode (the default if running locally), this is turned off by default as to not force contributors to know how to set up a PostgreSQL database.
 
 Code directly pertaining to databaset setup is in the `/config` folder.
 
@@ -85,7 +85,6 @@ If you change something Passport/Postgres/Google Auth related, please ensure tha
 You can set your environment variables to database credentials as specified in server.js in order to connect (if you don't know how to set this up, you may not want to be messing with the database features of the project).
 ~~~~
 DATABASE_URL # A full Postgres connection string.
-REDIS_URL # A full Redis connection string
 PG_GOOGLE_CLIENT # Google client string.
 PG_CLIENT_SECRET # Google secret string
 ~~~~
@@ -99,7 +98,7 @@ If using the official Google credentials, this will work immidiately.  Otherwise
 Reminder: Setting up the database is *not a requirement* for contributing to this app.
 
 ## Where is this hosted?
-The PG-Schedule core application, PostgreSQL, and Redis are hosted on a (free) Heroku server.  This application is live at [schedule.portergaud.edu](http://schedule.portergaud.edu).
+The PG-Schedule core application and PostgreSQL instance are hosted on a (free) Heroku server.  This application is live at [schedule.portergaud.edu](http://schedule.portergaud.edu).
 The Google Authentication application is hosted on an internal (@portergaud.edu) project on Google Cloud Platform.
 This repo is under control of the [Porter-Gaud GitHub organization](https://github.com/porter-gaud), which is open to all Porter-Gaud students.
 

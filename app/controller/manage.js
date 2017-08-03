@@ -4,7 +4,6 @@ var CronJob = require('cron').CronJob;
 var fs = require('fs');
 
 module.exports.home = function(req, res) {
-  console.log(req.user);
   if (!req.user) {
     return res.redirect('/manage/authenticate');
   }
