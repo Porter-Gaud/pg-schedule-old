@@ -14,7 +14,7 @@ fileUpload = require('express-fileupload'),
 special = require('./app/model/special'),
 fs = require('fs');
 
-module.exports.DEVELOPMENT_USE_DATABASE = false;
+module.exports.DEVELOPMENT_USE_DATABASE = true;
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
-if (port == 80 || module.exports.DEVELOPMENT_USE_DATABASE) {
+// if (port == 80 || module.exports.DEVELOPMENT_USE_DATABASE) {
   var sequelize = new Sequelize(process.env.DATABASE_URL,
     {logging: false, ssl: true, dialectOptions: {ssl: true}});
   var User = sequelize.import(__dirname + '/app/model/User.js');
@@ -47,7 +47,7 @@ if (port == 80 || module.exports.DEVELOPMENT_USE_DATABASE) {
   sessionStore.sync();
   app.use(passport.initialize());
   app.use(passport.session());
-}
+// }
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 
