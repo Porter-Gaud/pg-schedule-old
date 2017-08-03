@@ -31,9 +31,9 @@ if (port == 80 || module.exports.DEVELOPMENT_USE_DATABASE) {
 
   var SequelizeStore = require('connect-session-sequelize')(session.Store);
   var sessionStore = new SequelizeStore({
-     db: sequelize,
-     checkExpirationInterval: 15 * 60 * 1000,
-     expiration: 7 * 24 * 60 * 60 * 1000
+    db: sequelize,
+    checkExpirationInterval: 15 * 60 * 1000,
+    expiration: 7 * 24 * 60 * 60 * 1000
   });
 
   require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
@@ -62,10 +62,9 @@ app.use('/', require('./app/routes/googleauth.js'));
 app.use('/special', express.static(__dirname + '/uploads/'));
 fs.readdir('./uploads', function(err, files) {
   files.forEach(function(file) {
-    special.special.push(parseInt(file.split('.')[0]))
+    special.special.push(parseInt(file.split('.')[0]));
   });
 });
-
 
 app.listen(port, function() {
   console.log(colors.rainbow('Listening on port ' +  port));

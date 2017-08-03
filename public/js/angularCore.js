@@ -70,7 +70,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       }
       if (data[Object.keys(data)[0]].special && !$scope.special) {
         $scope.special = true;
-        loadSpecial(data[Object.keys(data)[0]].date)
+        loadSpecial(data[Object.keys(data)[0]].date);
       }
       $scope.weekend = (Object.keys(data)[0] === '');
     });
@@ -97,7 +97,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       $scope.currentDay = data[Object.keys(data)[0]];
       if (data[Object.keys(data)[0]].special && !$scope.special) {
         $scope.special = true;
-        loadSpecial(data[Object.keys(data)[0]].date)
+        loadSpecial(data[Object.keys(data)[0]].date);
       }
       if (Object.keys(data)[0] === 'WEEKEND') {
         $scope.week = 'Weekend';
@@ -110,7 +110,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
 
   function loadSpecial(day) {
     $scope.special = true;
-    $scope.week = "Special Schedule"
+    $scope.week = 'Special Schedule';
     if (parseInt(day)) {
       var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
       $scope.specialUrl = $sce.trustAsResourceUrl('/special/' + day + extra);
