@@ -16,7 +16,7 @@ module.exports.upload = function(req, res) {
   }
   var date = new Date(req.body.date);
   var dayBeginning = date;
-  dayBeginning.setHours(0,0,0,0);
+  dayBeginning.setHours(0, 0, 0, 0);
   var file = req.files;
   if (!file.altSchedule) {
     return res.redirect('/manage?status=nofile');
@@ -42,7 +42,7 @@ module.exports.remove = function(req, res) {
   }
   var date = new Date(req.body.date);
   var dayBeginning = date;
-  dayBeginning.setHours(0,0,0,0);
+  dayBeginning.setHours(0, 0, 0, 0);
   fs.unlink(__dirname + '/../../uploads/' + dayBeginning.getTime() + '.pdf', function(err) {
     if (err) {
       console.log(err);
