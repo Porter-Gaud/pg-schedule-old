@@ -139,7 +139,7 @@ function getDayObject(date, week, middle) {
     return '';
   }
   var index = date.getDay() - 1;
-  if (week === 'B') {
+  if (week === 'B' && !middle) {
     index += 5;
   }
 

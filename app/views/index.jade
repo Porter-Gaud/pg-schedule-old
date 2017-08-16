@@ -22,7 +22,9 @@ html(ng-app='pgSchedule' lang='en')
     .alert.alert-info.ng-cloak(ng-if='announcement')
       | {{ announcement.text }}
 
-    h2.ng-cloak {{day.toString().substring(0, 15)}} | {{week}}
+    h2.ng-cloak {{day.toString().substring(0, 15)}}
+      if upper
+        |&nbsp;| {{week}}
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
     h2.ng-cloak(ng-if='weekend') Weekend
     #specialView.ng-cloak(ng-if="special")

@@ -1,3 +1,8 @@
+/*
+User Schema
+This is the schema that users in the PostgreSQL database conform to.
+*/
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('users', {
     id: {

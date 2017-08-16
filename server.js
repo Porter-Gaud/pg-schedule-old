@@ -1,7 +1,7 @@
 var express = require('express'),
 bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
-port = process.env.PORT || 8080,
+port = process.env.PG_PORT || 8080,
 route = require('./app/routes/route.js'),
 colors = require('colors'),
 app = express(),
@@ -14,7 +14,7 @@ fileUpload = require('express-fileupload'),
 special = require('./app/model/special'),
 fs = require('fs');
 
-module.exports.DEVELOPMENT_USE_DATABASE = true;
+module.exports.DEVELOPMENT_USE_DATABASE = process.env.PG_USE_DATABASE_DEV;
 
 app.set('view engine', 'jade');
 app.set('views', './app/views');
@@ -24,8 +24,8 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
-// if (port == 80 || module.exports.DEVELOPMENT_USE_DATABASE) {
-  var sequelize = new Sequelize(process.env.DATABASE_URL,
+if (port == 80 || process.env.PG_USE_DATABASE_DEV) {
+  var sequelize = new Sequelize(process.env.PG_DATABASE_URL,
     {logging: false, ssl: true, dialectOptions: {ssl: true}});
   var User = sequelize.import(__dirname + '/app/model/User.js');
 
@@ -40,18 +40,18 @@ app.use(fileUpload());
 
   app.use(session({
     store: sessionStore,
-    secret: process.env.SESSION_KEY || 'this is a development secret key',
+    secret: process.env.PG_SESSION_KEY || 'this is a development secret key',
     resave: false,
     saveUninitialized: true,
   }));
   sessionStore.sync();
   app.use(passport.initialize());
   app.use(passport.session());
-// }
+}
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-app.locals.production = (port == process.env.PORT);
+app.locals.production = (port == process.env.PG_PORT);
 
 app.use('/', express.static(__dirname + '/public/'));
 app.use('/public', express.static(__dirname + '/bower_components/'));
