@@ -1,7 +1,7 @@
 var express = require('express'),
 bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
-port = process.env.PG_PORT || 8080,
+port = process.env.PORT || 8080,
 route = require('./app/routes/route.js'),
 colors = require('colors'),
 app = express(),
@@ -51,7 +51,7 @@ if (port == 80 || process.env.PG_USE_DATABASE_DEV) {
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-app.locals.production = (port == process.env.PG_PORT);
+app.locals.production = (port == process.env.PORT);
 
 app.use('/', express.static(__dirname + '/public/'));
 app.use('/public', express.static(__dirname + '/bower_components/'));

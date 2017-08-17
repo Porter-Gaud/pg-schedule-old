@@ -111,7 +111,7 @@ PG_DATABASE_URL # A full Postgres connection string.
 PG_GOOGLE_CLIENT # Google client string.
 PG_CLIENT_SECRET # Google secret string
 ~~~~
-Additionally, it is worth noting that the server will decide that is is production if the `PG_PORT` env variable is set to 80.
+Additionally, it is worth noting that the server will decide that is is production if the `PORT` env variable is set to 80.
 All environment variables are prefixed with 'PG_' in order to
 
 In order for Google to recognize your local machine as an approved domain for authentication, add the following to the bottom of your computer's `/etc/hosts` file (assuming you are on a *nix system):
