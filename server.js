@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
-if (port == 80 || process.env.PG_USE_DATABASE_DEV) {
+if (process.env.PRODUCTION || process.env.PG_USE_DATABASE_DEV) {
   var sequelize = new Sequelize(process.env.PG_DATABASE_URL,
     {logging: false, ssl: true, dialectOptions: {ssl: true}});
   var User = sequelize.import(__dirname + '/app/model/User.js');

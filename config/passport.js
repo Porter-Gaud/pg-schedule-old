@@ -1,4 +1,4 @@
-var isProd = (process.env.PORT == 80)
+var isProd = procesc.env.PRODUCTION
 
 module.exports = function(passport, GoogleStrategy, User){
   passport.use(new GoogleStrategy({
