@@ -1,4 +1,4 @@
-var isProd = procesc.env.PRODUCTION
+var isProd = process.env.PRODUCTION
 
 module.exports = function(passport, GoogleStrategy, User){
   passport.use(new GoogleStrategy({
