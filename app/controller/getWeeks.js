@@ -11,7 +11,7 @@ module.exports.currentWeek = function() {
     var schedulePageOptions = {
       host: 'www.portergaud.edu',
       port: 80,
-      path: '/page.cfm?p=1346&period=day',
+      path: '/page.cfm?p=1346&period=week',
       method: 'GET'
     };
 
@@ -21,9 +21,11 @@ module.exports.currentWeek = function() {
         data += d;
       });
       res.on('end', function() {
-        if (data.indexOf('A Week') > -1 || data.indexOf('Week A') > -1) {
+        data = data.toLowerCase();
+        console.log(data);
+        if (data.indexOf('a week') > -1 || data.indexOf('week a') > -1) {
           week = 'A';
-        } else if (data.indexOf('B Week') > -1 || data.indexOf('Week B') > -1) {
+        } else if (data.indexOf('b week') > -1 || data.indexOf('week b') > -1) {
           week = 'B';
         } else {
           week = 'WEEKEND';
