@@ -9,6 +9,10 @@ Fun fact: JavaScript doesn't support 64 bit integers, so in 2038 this may break 
 
 */
 
-module.exports.special = [
+module.exports.specialUpper = [
+
+];
+
+module.exports.specialMiddle = [
 
 ];

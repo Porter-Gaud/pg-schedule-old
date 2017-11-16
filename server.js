@@ -60,10 +60,17 @@ app.use('/', route);
 app.use('/', require('./app/routes/googleauth.js'));
 
 app.use('/special', express.static(__dirname + '/uploads/'));
-fs.readdir('./uploads', function(err, files) {
+fs.readdir('./uploads/upper', function(err, files) {
   if (files) {
     files.forEach(function(file) {
-      special.special.push(parseInt(file.split('.')[0]));
+      special.specialUpper.push(parseInt(file.split('.')[0]));
+    });
+  }
+});
+fs.readdir('./uploads/middle', function(err, files) {
+  if (files) {
+    files.forEach(function(file) {
+      special.specialMiddle.push(parseInt(file.split('.')[0]));
     });
   }
 });

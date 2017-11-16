@@ -47,26 +47,59 @@ html(ng-app='pgSchedule' lang='en')
                 span.glyphicon.glyphicon-calendar
           #specialView(style='display:none')
             h3#date DATE
-            iframe#specialFrame(width="600" height="775")
+            #specialUpperDiv
+              h2#upper UPPER
+              iframe#specialFrameUpper(width="600" height="775")
+            #specialMiddleDiv
+              h2#middle MIDDLE
+              iframe#specialFrameMiddle(width="600" height="775")
             br
             br
-            label: b Upload new PDF for this day&nbsp;
+            h2 Overwrite/upload schedule:&nbsp;
+            label To upload a schedule for the other division, just choose it.
             form(id='uploadOverwrite' action="/manage/upload" method="POST" enctype="multipart/form-data")
               input#input(type='file' name="altSchedule")
               input#hiddenDate(value='dateInput' name="date" class='hidden')
+              br
+              .btn-group(data-toggle='upper')
+                label.btn.btn-secondary.btn.btn-primary.btn-sm
+                  input#option1(type='radio', name='upper', autocomplete='off', value='upper', checked='')
+                  |  Upper School
+                label.btn.btn-secondary.btn.btn-primary.btn-sm
+                  input#option2(type='radio', name='upper', autocomplete='off', value='middle')
+                  |  Middle School
+              br
+              br
+              input#overwriteSubmit.btn.btn-warning.btn-sm(type="submit" form="uploadOverwrite" value="Upload schedule")
+            h2 Remove schedule:&nbsp;
             form(id='remove' action="/manage/remove" method="POST")
               input#hiddenDate(value='dateInput' name="date" class='hidden')
               br
-            .btn-group
-              input#overwriteSubmit.btn.btn-warning.btn-sm(type="submit" form="uploadOverwrite" value="Overwrite schedule")
+              .btn-group(data-toggle='upper')
+                label.btn.btn-secondary.btn.btn-primary.btn-sm
+                  input#option1(type='radio', name='upper', autocomplete='off', value='upper', checked='')
+                  |  Upper School
+                label.btn.btn-secondary.btn.btn-primary.btn-sm
+                  input#option2(type='radio', name='upper', autocomplete='off', value='middle')
+                  |  Middle School
+              br
+              br
               input#removeSubmit.btn.btn-danger.btn-sm(type="submit" form="remove" value="Remove alternate schedule")
           #schedule(style='display:none')
             h3#date DATE
             table.table-bordered.table#table(style='width:75%')
-            label: b Upload PDF for this day&nbsp;
+            h2 Upload PDF for this day:&nbsp;
             form(id='upload' action="/manage/upload" method="POST" enctype="multipart/form-data")
               input#input(type='file' name="altSchedule")
               input#hiddenDate(value='dateInput' name="date" class='hidden')
+              br
+              .btn-group(data-toggle='upper')
+                label.btn.btn-secondary.btn.btn-primary.btn-sm
+                  input#option1(type='radio', name='upper', autocomplete='off', value='upper', checked='')
+                  |  Upper School
+                label.btn.btn-secondary.btn.btn-primary.btn-sm
+                  input#option2(type='radio', name='upper', autocomplete='off', value='middle')
+                  |  Middle School
             br
             input(type="submit" id="save" form="upload" class="btn btn-success" value="Save")
 
@@ -84,6 +117,9 @@ html(ng-app='pgSchedule' lang='en')
         $.get('/api/getFutureDate/' + date.format('MM/DD/YYYY'), function(data) {
           $('#table').html('');
           $('#save').hide();
+          $('#specialView').hide();
+          $('#specialUpperDiv').hide();
+          $('#specialMiddleDiv').hide();
           if (Object.keys(data) == '') {
             $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>Weekend</small>');
             return;
@@ -91,12 +127,21 @@ html(ng-app='pgSchedule' lang='en')
           $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>' + Object.keys(data) + ' Week</small>');
           $('input#hiddenDate').attr('value', date.format('MM-DD-YYYY'));
           var dayObj = data[Object.keys(data)[0]];
-          console.log(dayObj);
-          if (dayObj.special) {
+          //console.log(dayObj);
+          if (dayObj.specialUpper || dayObj.specialMiddle) {
             if (parseInt(dayObj.date)) {
               $('#schedule').hide();
               var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
-              $('#specialFrame').attr('src', 'special/' + dayObj.date + '.pdf');
+              if (dayObj.specialUpper) {
+                $('#upper').html('Upper School Alternate Schedule');
+                $('#specialUpperDiv').show();
+                $('#specialFrameUpper').attr('src', 'special/upper/' + dayObj.date + '.pdf');
+              } 
+              if (dayObj.specialMiddle) {
+                $('#middle').html('Middle School Alternate Schedule');
+                $('#specialMiddleDiv').show();
+                $('#specialFrameMiddle').attr('src', 'special/middle/' + dayObj.date + '.pdf');
+              }
               $('#specialView').show();  
             }
             return;
