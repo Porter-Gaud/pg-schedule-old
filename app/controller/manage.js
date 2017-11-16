@@ -31,7 +31,7 @@ module.exports.upload = function(req, res) {
       console.log(err);
       return res.redirect('/manage?status=internal');
     }
-    if (upper == "upper") {
+    if (upper == 'upper') {
       special.specialUpper.push(dayBeginning.getTime());
     } else {
       special.specialMiddle.push(dayBeginning.getTime());
@@ -53,7 +53,7 @@ module.exports.remove = function(req, res) {
       console.log(err);
       return res.redirect('/manage?status=internal');
     }
-    if (upper == "upper") {
+    if (upper == 'upper') {
       special.specialUpper.splice(special.specialUpper.indexOf(dayBeginning.getTime()));
     } else {
       special.specialMiddle.splice(special.specialMiddle.indexOf(dayBeginning.getTime()));
