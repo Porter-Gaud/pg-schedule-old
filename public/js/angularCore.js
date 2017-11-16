@@ -12,7 +12,8 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.week = '';
   $scope.nightMode = false;
   $scope.announcement;
-  $scope.special = false;
+  $scope.specialMiddle = false;
+  $scope.specialUpper = false;
 
   $scope.getTimeUntil = function() {
     $http.get(getApi('timeUntil')).success(function(data) {
@@ -54,7 +55,8 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   };
 
   $scope.changeDay = function(offset) {
-    $scope.special = false;
+    $scope.specialUpper = false;
+    $scope.specialMiddle = false;
     var dateOffset = (24 * 60 * 60 * 1000) * offset;
     $scope.day.setTime($scope.day.getTime() + dateOffset);
     var apiString = 'getFutureDate' +
@@ -68,9 +70,13 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
       } else {
         $scope.week = Object.keys(data)[0] + ' Week';
       }
-      if (data[Object.keys(data)[0]].special && !$scope.special) {
-        $scope.special = true;
-        loadSpecial(data[Object.keys(data)[0]].date);
+      if (data[Object.keys(data)[0]].specialUpper && !$scope.specialUpper) {
+        $scope.specialUpper = true;
+        loadSpecialUpper(data[Object.keys(data)[0]].date);
+      }
+      if (data[Object.keys(data)[0]].specialMiddle && !$scope.specialMiddle) {
+        $scope.specialMiddle = true;
+        loadSpecialMiddle(data[Object.keys(data)[0]].date);
       }
       $scope.weekend = (Object.keys(data)[0] === '');
     });
@@ -95,9 +101,15 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     }
     $http.get(getApi('currentDay')).success(function(data) {
       $scope.currentDay = data[Object.keys(data)[0]];
-      if (data[Object.keys(data)[0]].special && !$scope.special) {
-        $scope.special = true;
-        loadSpecial(data[Object.keys(data)[0]].date);
+      if (data[Object.keys(data)[0]].specialUpper && !$scope.specialUpper) {
+        console.log(data[Object.keys(data)[0]].specialUpper);
+        $scope.specialUpper = true;
+        loadSpecialUpper(data[Object.keys(data)[0]].date);
+      }
+      if (data[Object.keys(data)[0]].specialMiddle && !$scope.specialMiddle) {
+        console.log(data[Object.keys(data)[0]].specialMiddle);
+        $scope.specialMiddle = true;
+        loadSpecialMiddle(data[Object.keys(data)[0]].date);
       }
       if (Object.keys(data)[0] === 'WEEKEND') {
         $scope.week = 'Weekend';
@@ -108,12 +120,21 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     });
   };
 
-  function loadSpecial(day) {
-    $scope.special = true;
-    $scope.week = 'Special Schedule';
+  function loadSpecialUpper(day) {
     if (parseInt(day)) {
       var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
-      $scope.specialUrl = $sce.trustAsResourceUrl('/special/' + day + extra);
+      $scope.specialUpper = true;
+      $scope.week = 'Special Schedule';
+      $scope.specialUpperUrl = $sce.trustAsResourceUrl('/special/upper/' + day + extra);
+    }
+  }
+
+  function loadSpecialMiddle(day) {
+    if (parseInt(day)) {
+      var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+      $scope.specialMiddle = true;
+      $scope.week = 'Special Schedule';
+      $scope.specialMiddleUrl = $sce.trustAsResourceUrl('/special/middle/' + day + extra);
     }
   }
 

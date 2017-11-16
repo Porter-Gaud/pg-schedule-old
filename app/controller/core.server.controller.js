@@ -40,10 +40,12 @@ module.exports.timeUntil = function(req, res) {
     res.json('');
     return;
   }
-  if (today.special) {
+
+  if (today.specialUpper || today.specialMiddle) {
     res.json('');
     return;
   }
+
   var now = new Date();
   for (var key in today.day) {
     var day = today.day[key];
@@ -72,11 +74,10 @@ module.exports.currentBlock = function(req, res) {
     res.json('');
     return;
   }
-  if (today.special) {
+  if (today.specialUpper || today.specialMiddle) {
     res.json('');
     return;
   }
-
   var now = new Date();
   for (var key in today.day) {
     var day = today.day[key];
@@ -144,8 +145,12 @@ function getDayObject(date, week, middle) {
   }
 
   // Special schedule
-  if (special.special.indexOf(date.getTime()) > -1) {
-    return {'special': true, date: date.getTime()};
+  if (special[(middle ? 'specialMiddle' : 'specialUpper')].indexOf(date.getTime()) > -1) {
+    if (middle) {
+      return {'specialMiddle': true, date: date.getTime()};
+    } else {
+      return {'specialUpper': true, date: date.getTime()};
+    }
   }
   return (middle) ? SCHEDULE_API.MIDDLE.days[index] : SCHEDULE_API.UPPER.days[index];
 }
