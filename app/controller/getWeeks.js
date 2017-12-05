@@ -22,7 +22,7 @@ module.exports.currentWeek = function() {
       });
       res.on('end', function() {
         data = data.toLowerCase();
-        console.log(data);
+        //console.log(data);
         if (data.indexOf('a week') > -1 || data.indexOf('week a') > -1) {
           week = 'A';
         } else if (data.indexOf('b week') > -1 || data.indexOf('week b') > -1) {

@@ -27,17 +27,30 @@ html(ng-app='pgSchedule' lang='en')
         |&nbsp;| {{week}}
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
     h2.ng-cloak(ng-if='weekend') Weekend
-    #specialView.ng-cloak(ng-if="special")
-      iframe#specialFrame(ng-src="{{specialUrl}}" width="600" height="775")
-    table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend && !special')
-      thead
-        tr
-          td Period
-          td Time
-      tbody
-        tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
-          td.ng-cloak {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
-          td.ng-cloak {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+    if upper
+      #specialView.ng-cloak(ng-if="specialUpper")
+        iframe#specialFrame(ng-src="{{specialUpperUrl}}" width="600" height="775")
+      table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend && !specialUpper')
+        thead
+          tr
+            td Period
+            td Time
+        tbody
+          tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
+            td.ng-cloak {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
+            td.ng-cloak {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
+    else
+      #specialView.ng-cloak(ng-if="specialMiddle")
+        iframe#specialFrame(ng-src="{{specialMiddleUrl}}" width="600" height="775")
+      table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend && !specialMiddle')
+        thead
+          tr
+            td Period
+            td Time
+        tbody
+          tr(ng-repeat='class in currentDay.day' ng-class='{danger: class.name == currentBlock}')
+            td.ng-cloak {{cookies[class['name']] ? cookies[class['name']] : class['name']}}
+            td.ng-cloak {{beautifyTime(class['start-time']) }}-{{beautifyTime(class['end-time'])}}
     br
     button.btn.btn-danger(data-target='#addClasses' data-toggle='modal')
       h4 Add Classes
@@ -132,6 +145,8 @@ html(ng-app='pgSchedule' lang='en')
         a(href='/api/') API
         |  |&nbsp;
         a(href='https://github.com/porter-gaud/pg-schedule') Project
+        |  |&nbsp;
+        a(href='/manage/') Manage
     script(src='/js/all.min.js')
     unless production
       script(src='/js/angularCore.js')
