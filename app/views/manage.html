@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html ng-app="pgSchedule" lang="en">
+  <head>
+    <title>Porter-Gaud Schedule | Manage</title>
+    <meta name="theme-color" content="red">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="mask-icon" href="pg.svg" color="red">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/manage.min.css">
+    <link rel="stylesheet" href="/css/manage.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="#" style="color: black"><b>
+                  <h4>Manage</h4></b></a></li>
+            <li class="active"><a href="#">Alternate Schedules</a></li>
+          </ul>
+        </div>
+        <div class="col-sm9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 style="font-size: 150%">Alternate Schedules</h1>
+          <hr>
+          <div class="form-group" style="width:25%">
+            <label><b>Select a date:</b></label>
+            <div class="input-group date" id="datepicker">
+              <input class="form-control" type="text"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+          </div>
+          <div id="specialView" style="display:none">
+            <h3 id="date">DATE</h3>
+            <div id="specialUpperDiv">
+              <h2 id="upper">UPPER</h2>
+              <iframe id="specialFrameUpper" width="600" height="775"></iframe>
+            </div>
+            <div id="specialMiddleDiv">
+              <h2 id="middle">MIDDLE</h2>
+              <iframe id="specialFrameMiddle" width="600" height="775"></iframe>
+            </div><br><br>
+            <h2>Overwrite/upload schedule:&nbsp;</h2>
+            <label>To upload a schedule for the other division, just choose it.</label>
+            <form id="uploadOverwrite" action="/manage/upload" method="POST" enctype="multipart/form-data">
+              <input id="input" type="file" name="altSchedule">
+              <input class="hidden" id="hiddenDate" value="dateInput" name="date"><br>
+              <div class="btn-group" data-toggle="upper">
+                <label class="btn btn-secondary btn btn-primary btn-sm">
+                  <input id="option1" type="radio" name="upper" autocomplete="off" value="upper" checked=""> Upper School
+                </label>
+                <label class="btn btn-secondary btn btn-primary btn-sm">
+                  <input id="option2" type="radio" name="upper" autocomplete="off" value="middle"> Middle School
+                </label>
+              </div><br><br>
+              <input class="btn btn-warning btn-sm" id="overwriteSubmit" type="submit" form="uploadOverwrite" value="Upload schedule">
+            </form>
+            <h2>Remove schedule:&nbsp;</h2>
+            <form id="remove" action="/manage/remove" method="POST">
+              <input class="hidden" id="hiddenDate" value="dateInput" name="date"><br>
+              <div class="btn-group" data-toggle="upper">
+                <label class="btn btn-secondary btn btn-primary btn-sm">
+                  <input id="option1" type="radio" name="upper" autocomplete="off" value="upper" checked=""> Upper School
+                </label>
+                <label class="btn btn-secondary btn btn-primary btn-sm">
+                  <input id="option2" type="radio" name="upper" autocomplete="off" value="middle"> Middle School
+                </label>
+              </div><br><br>
+              <input class="btn btn-danger btn-sm" id="removeSubmit" type="submit" form="remove" value="Remove alternate schedule">
+            </form>
+          </div>
+          <div id="schedule" style="display:none">
+            <h3 id="date">DATE</h3>
+            <table class="table-bordered table" id="table" style="width:75%"></table>
+            <h2>Upload PDF for this day:&nbsp;</h2>
+            <form id="upload" action="/manage/upload" method="POST" enctype="multipart/form-data">
+              <input id="input" type="file" name="altSchedule">
+              <input class="hidden" id="hiddenDate" value="dateInput" name="date"><br>
+              <div class="btn-group" data-toggle="upper">
+                <label class="btn btn-secondary btn btn-primary btn-sm">
+                  <input id="option1" type="radio" name="upper" autocomplete="off" value="upper" checked=""> Upper School
+                </label>
+                <label class="btn btn-secondary btn btn-primary btn-sm">
+                  <input id="option2" type="radio" name="upper" autocomplete="off" value="middle"> Middle School
+                </label>
+              </div>
+            </form><br>
+            <input class="btn btn-success" type="submit" id="save" form="upload" value="Save">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/moment/min/moment.min.js"></script>
+    <script src="/js/manage.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        $('#datepicker').datetimepicker({
+          format: 'MM/DD/YYYY'
+        });
+      });
+      $('#datepicker').on('dp.change', function(e) {
+        var date = e.date;
+        $.get('/api/getFutureDate/' + date.format('MM/DD/YYYY'), function(data) {
+          $('#table').html('');
+          $('#save').hide();
+          $('#specialView').hide();
+          $('#specialUpperDiv').hide();
+          $('#specialMiddleDiv').hide();
+          if (Object.keys(data) == '') {
+            $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>Weekend</small>');
+            return;
+          }
+          $('#date').html(date.format('dddd, D MMMM YYYY') + ' <small>' + Object.keys(data) + ' Week</small>');
+          $('input#hiddenDate').attr('value', date.format('MM-DD-YYYY'));
+          var dayObj = data[Object.keys(data)[0]];
+          //console.log(dayObj);
+          if (dayObj.specialUpper || dayObj.specialMiddle) {
+            if (parseInt(dayObj.date)) {
+              $('#schedule').hide();
+              var extra = '.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+              if (dayObj.specialUpper) {
+                $('#upper').html('Upper School Alternate Schedule');
+                $('#specialUpperDiv').show();
+                $('#specialFrameUpper').attr('src', 'special/upper/' + dayObj.date + '.pdf');
+              }
+              if (dayObj.specialMiddle) {
+                $('#middle').html('Middle School Alternate Schedule');
+                $('#specialMiddleDiv').show();
+                $('#specialFrameMiddle').attr('src', 'special/middle/' + dayObj.date + '.pdf');
+              }
+              $('#specialView').show();
+            }
+            return;
+          }
+          $('#schedule').show();
+          $('#save').show();
+          $('#table').append('<thead><tr><td>Class</td><td>Start Time</td><td>End Time</td></tr></thead>');
+          var day = dayObj.day;
+          for (var i = 0; i < day.length; i++) {
+            var theClass = day[i];
+            $('#table').append('<tr>' +
+              '<td>' + theClass.name + '</td>' +
+              '<td>' + theClass['start-time'] + '</td>' +
+              '<td>' + theClass['end-time'] + '</td>' +
+              '</tr>');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
