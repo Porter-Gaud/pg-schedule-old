@@ -20,7 +20,6 @@ app.set('view engine', 'jade');
 app.set('views', './app/views');
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
