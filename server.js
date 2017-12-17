@@ -20,6 +20,7 @@ app.set('view engine', 'jade');
 app.set('views', './app/views');
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
@@ -32,7 +33,7 @@ if (process.env.PRODUCTION || process.env.PG_USE_DATABASE_DEV) {
   var sessionStore = new SequelizeStore({
     db: sequelize,
     checkExpirationInterval: 15 * 60 * 1000,
-    expiration: 7 * 24 * 60 * 60 * 1000
+    expiration: 60 * 24 * 1000
   });
 
   require(__dirname + '/config/passport.js')(passport, GoogleStrategy, User);
@@ -59,6 +60,7 @@ app.use('/', route);
 app.use('/', require('./app/routes/googleauth.js'));
 
 app.use('/special', express.static(__dirname + '/uploads/'));
+
 fs.readdir('./uploads/upper', function(err, files) {
   if (files) {
     files.forEach(function(file) {
