@@ -1,4 +1,4 @@
-var http = require('http');
+var https = require('https');
 var CronJob = require('cron').CronJob;
 
 var currentWeek = 'UNKNOWN';
@@ -7,22 +7,22 @@ module.exports.currentWeek = function() {
   if (currentWeek != 'UNKNOWN') {
     return currentWeek;
   } else {
+    console.log('currentWeek ' + currentWeek);
     var week = '';
     var schedulePageOptions = {
       host: 'www.portergaud.edu',
-      port: 80,
+      port: 443,
       path: '/page.cfm?p=1346&period=week',
       method: 'GET'
     };
 
-    var req = http.request(schedulePageOptions, function(res) {
+    var req = https.request(schedulePageOptions, function(res) {
       var data = '';
       res.on('data', function(d) {
         data += d;
       });
       res.on('end', function() {
         data = data.toLowerCase();
-        //console.log(data);
         if (data.indexOf('a week') > -1 || data.indexOf('week a') > -1) {
           week = 'A';
         } else if (data.indexOf('b week') > -1 || data.indexOf('week b') > -1) {
