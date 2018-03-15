@@ -7,7 +7,7 @@ module.exports.getMenu = function() {
   if (menu !== '') {
     return menu;
   } else {
-    return '{}';
+    // return '{}';
     var date = new Date();
     var dateStr = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear().toString().substr(2);
     var schedulePageOptions = {
