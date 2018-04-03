@@ -157,7 +157,7 @@ function getDayObject(date, week, middle) {
 
 function getWums() {
   var start = new Date();
-  var end = new Date('05/31/2018');
+  var end = new Date('05/30/2018');
   var days = 0;
   while (start < end) {
     var newDate = start.setDate(start.getDate() + 1);
@@ -165,10 +165,10 @@ function getWums() {
     if (start.getDay() === 0 || start.getDay() == 6) {
       continue;
     }
-    if (start.getMonth() == 3 && start.getDate() == 12) {
+    if (start.getMonth() == 3 && start.getDate() == 10) {
       continue;
     }
-    if (start.getMonth() == 4 && start.getDate() == 30) {
+    if (start.getMonth() == 4 && start.getDate() == 27) {
       continue;
     }
     days++;
@@ -177,6 +177,6 @@ function getWums() {
 }
 
 wums = getWums();
-// new CronJob('00 01 00 * * *', function() {
-//   wums = getWums();
-// }, null, true, 'America/New_York');
+new CronJob('00 01 00 * * *', function() {
+  wums = getWums();
+}, null, true, 'America/New_York');
