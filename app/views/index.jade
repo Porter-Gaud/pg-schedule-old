@@ -26,7 +26,7 @@ html(ng-app='pgSchedule' lang='en')
       if upper
         |&nbsp;| {{week}}
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
-    h2.ng-cloak(ng-if='weekend') Weekend
+    h2.ng-cloak(ng-if='weekend') Weekend or Alternate Schedule
     if upper
       #specialView.ng-cloak(ng-if="specialUpper")
         iframe#specialFrame(ng-src="{{specialUpperUrl}}" width="600" height="775")
