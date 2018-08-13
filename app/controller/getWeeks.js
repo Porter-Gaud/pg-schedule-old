@@ -23,6 +23,7 @@ module.exports.currentWeek = function() {
       res.on('data', function(d) {
         data += d;
       });
+ 
       res.on('end', function() {
         data = data.toLowerCase();
         if (data.indexOf('a week') > -1 || data.indexOf('week a') > -1) {
@@ -52,7 +53,7 @@ module.exports.getFutureWeek = function(day) {
   if (day.getDay() === 0 || day.getDay() === 6) {
     return ''; // will be implemented closer to 2017
   }
-  return (day.getWeek() % 2 === 0) ? 'A' : 'B';
+  return (1+day.getWeek() % 2 === 0) ? 'A' : 'B';  //added +1 to handle offset. probably remove
   // var week = '';
   // console.log('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week');
   // var request = http.get('http://www.portergaud.edu/page.cfm?p=1346&start=' + month + '/' + date + '/' + year + '&period=week', function(response) {
@@ -61,6 +62,7 @@ module.exports.getFutureWeek = function(day) {
   //     data += d;
   //   });
   //   response.on('end', function() {
+  // data = data.toLowerCase();
   //     if (data.indexOf('A Week' > -1) || data.indexOf('Week A' > -1)) {
   //       week = 'A';
   //     } else if (data.indexOf('B Week' > -1) || data.indexOf('Week B' > -1)) {
