@@ -85,7 +85,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   $scope.getCurrentBlock = function() {
     $http.get(getApi('currentBlock')).success(function(data) {
       $scope.currentBlock = data;
-      if ($cookies.get('schedule')) {
+      if ($cookies.get('cschedule')) {
         var classCookie = $cookies.get('schedule').split(',');
         for (var i = 0; i < classCookie.length; i++) {
           var theClass = classCookie[i].split('=');
@@ -143,7 +143,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
     angular.forEach(angular.element.find('.classInput'), function(node) {
       cookieString += (node.id.substring(0, 1)) + '=' + '' + node.value + ',';
     });
-    $cookies.put('schedule', cookieString);
+    $cookies.put('cschedule', cookieString);
     location.reload(); // Until we get angular-bootstrap working correctly.
   };
 
