@@ -139,6 +139,7 @@ pgSchedule.controller('mainController', ['$scope', '$http', '$log', '$interval',
   }
 
   $scope.addClasses = function() {
+    console.log(I am here in add Class");
     var cookieString = '';
     angular.forEach(angular.element.find('.classInput'), function(node) {
       cookieString += (node.id.substring(0, 1)) + '=' + '' + node.value + ',';
