@@ -28,7 +28,7 @@ html(ng-app='pgSchedule' lang='en')
     h3.ng-cloak(ng-if='!weekend') {{dateString}}
     h2.ng-cloak(ng-if='weekend') Weekend or Alternate Schedule
     if upper
-      h2.ng-cloak(ng-if='weekend') {{ <script>alert('Alternate Schedule Today UPPER SCHOOL')</script> }}
+      h2.ng-cloak(ng-if='weekend') {{ <script>alert('No Upper School Block Schedule Today(Alternate Schedule)')</script> }}
       #specialView.ng-cloak(ng-if="specialUpper")
         iframe#specialFrame(ng-src="{{specialUpperUrl}}" width="600" height="775")
       table.table.table-striped.table-bordered.ng-cloak(style="width:40%; margin: 0 30% 0 30%;" ng-if='!weekend && !specialUpper')
