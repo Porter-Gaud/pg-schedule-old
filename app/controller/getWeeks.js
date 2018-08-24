@@ -25,10 +25,7 @@ module.exports.currentWeek = function() {
       });
       res.on('end', function() {
         data = data.toLowerCase();
-        if (data.indexOf('special schedule') > -1 || data.indexOf('special day') > -1) {
-          week = 'A';
-          alert("Today is a special schedule");
-        } else if (data.indexOf('a week') > -1 || data.indexOf('week a') > -1) {
+        if (data.indexOf('a week') > -1 || data.indexOf('week a') > -1) {
           week = 'A';
         } else if (data.indexOf('b week') > -1 || data.indexOf('week b') > -1) {
           week = 'B';
