@@ -50,7 +50,7 @@ new CronJob('00 01 00 * * *', function() {
 }, null, true, 'America/New_York');
 
 module.exports.getFutureWeek = function(day) {
-  if (day.getDay() === 0 || day.getDay() === 6) {
+  if (day.getDay() === 1 || day.getDay() === 6) {
     return ''; // will be implemented closer to 2017
   }
   return (day.getWeek() % 2 === 0) ? 'B' : 'A';  //flipped B and A, seemed to have no effect
