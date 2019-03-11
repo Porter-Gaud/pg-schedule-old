@@ -157,7 +157,7 @@ function getDayObject(date, week, middle) {
 
 function getWums() {
   var start = new Date();
-  var end = new Date('05/30/2018');
+  var end = new Date('05/30/2019');
   var days = 0;
   while (start < end) {
     var newDate = start.setDate(start.getDate() + 1);
