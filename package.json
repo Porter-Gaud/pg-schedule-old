@@ -33,7 +33,7 @@
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.4.2",
-    "sequelize": "^3.35.1"
+    "sequelize": "^5.3.0"
   },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install"
