@@ -128,7 +128,9 @@ module.exports.getAnnouncement = function(req, res) {
 };
 
 module.exports.getLunch = function(req, res) {
-  res.json(lunch.getMenu());
+  var menu = lunch.getMenu();
+  //console.log(menu[3]);
+  res.json(menu);
 };
 
 function getDayObject(date, week, middle) {

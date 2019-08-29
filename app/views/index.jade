@@ -68,9 +68,9 @@ html(ng-app='pgSchedule' lang='en')
         h4 Announcements
     br
     br
-    p
-      strong #{ wums } WUMS&nbsp;
-      | (wake up mornings)
+    //- p
+    //-   strong #{ wums } WUMS&nbsp;
+    //-   | (wake up mornings)
     div.btn-group(role="group")
       a.btn.btn-default(type='button' ng-click='changeDay(-1)')
         span.glyphicon.glyphicon-chevron-left
@@ -89,8 +89,7 @@ html(ng-app='pgSchedule' lang='en')
             hr
             table.table.table-striped.table-bordered
               tr(ng-repeat='item in lunch')
-                td {{item['name']}}
-                td {{item['menu items'][0]['name']}}
+                td {{item['food']['name']}}
             a(href='http://myschooldining.com/portergaud#homepage_menus' style='margin-left: 10px' target='_blank') Full menu
 
     div.modal.fade(id="addClasses" role="dialog")
