@@ -18,7 +18,7 @@ To show an announcement, assign module.exports to an object that conforms to the
 */
 
 module.exports = {
-  expires: '8/22/2017',
-  loads: 1,
-  text: 'The PG-Schedule project has undergone a major overhaul (see details at the "Project" link in the footer). Support for alternate schedules has also been added.'
+  expires: '8/30/2019',
+  loads: 20,
+  text: 'Fixed many issues: lunch menu now works. Changing the day now shows the correct week. Announcements works again (kinda). -Charles'
 };
