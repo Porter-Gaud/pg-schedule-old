@@ -14,9 +14,9 @@ module.exports.currentWeek = function() {
 
     var week = ''
     if (weekNum % 2 == 0) {
-      week = 'A';
-    } else {
       week = 'B';
+    } else {
+      week = 'A';
     }
     return week;
 
