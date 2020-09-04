@@ -32,7 +32,7 @@
     "method-override": "~2.1.2",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
-    "pg": "^6.4.2",
+    "pg": "^7.12.1",
     "sequelize": "^3.35.1"
   },
   "scripts": {
