@@ -29,7 +29,7 @@
     "express-fileupload": "^0.1.4",
     "express-session": "^1.16.2",
     "jade": "^1.11.0",
-    "method-override": "~2.1.2",
+    "method-override": "~2.3.10",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.4.2",
